@@ -123,5 +123,4 @@
 	  xclip-output )))
     (setq interprogram-cut-function 'xclip-cut-function)
     (setq interprogram-paste-function 'xclip-paste-function)
-    ))
-aaa
+        ))
