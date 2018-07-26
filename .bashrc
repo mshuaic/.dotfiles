@@ -124,3 +124,5 @@ eval "$(pyenv virtualenv-init -)"
 stty -ixon
 
 alias emacs="emacs -nw"
+alias octave="octave-cli"
+

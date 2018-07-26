@@ -103,12 +103,6 @@
 (global-set-key (kbd "<f6>") 'find-file); find file
 (global-set-key (kbd "<f12>") 'keyboard-escape-quit) ;; all platforms?
 
-;; system copy work with Emacs paste and Emacs copy work with system paste
-;; (setq x-select-enable-clipboard t)
-;;(setq x-select-enable-primary t)
-;; (setq x-select-enable-clipboard t
-      ;; x-select-enable-primary t)
-;; (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
 ;; use xclip to copy/paste in emacs-nox
 (unless window-system
@@ -124,3 +118,6 @@
     (setq interprogram-cut-function 'xclip-cut-function)
     (setq interprogram-paste-function 'xclip-paste-function)
         ))
+
+;; auto pair
+(electric-pair-mode 1)
