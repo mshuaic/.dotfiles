@@ -51,19 +51,19 @@
 ;; PYTHON CONFIGURATION
 ;; --------------------------------------
 
-(elpy-enable)
-;;(elpy-use-ipython)
-;;(setq python-shell-interpreter "ipython"
-;;      python-shell-interpreter-args "-i --simple-prompt")
-(setq python-shell-interpreter "python"
-      python-shell-interpreter-args "-i")
+;; (elpy-enable)
+;; ;;(elpy-use-ipython)
+;; ;;(setq python-shell-interpreter "ipython"
+;; ;;      python-shell-interpreter-args "-i --simple-prompt")
+;; (setq python-shell-interpreter "python"
+;;       python-shell-interpreter-args "-i")
 
 
 
 ;; use flycheck not flymake with elpy
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
+;; (when (require 'flycheck nil t)
+;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 ;; enable autopep8 formatting on save
 (require 'py-autopep8)
@@ -121,3 +121,13 @@
 
 ;; auto pair
 (electric-pair-mode 1)
+
+;; unset key
+(global-unset-key (kbd "C-x f"))
+(global-set-key (kbd "C-x f") 'find-file)
+
+;; (global-unset-key (kbd "<C-right>"))
+;; (global-unset-key (kbd "<C-left>"))
+(windmove-default-keybindings 'ctrl)
+
+(menu-bar-mode -1)
