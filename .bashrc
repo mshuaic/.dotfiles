@@ -126,3 +126,8 @@ stty -ixon
 alias emacs="emacs -nw"
 alias octave="octave-cli"
 
+export DISPLAY=localhost:0.0
+export HOSTALIASES=~/.hosts
+export work=/mnt/c/Users/mshua/Desktop/work/
+
+set -o emacs
