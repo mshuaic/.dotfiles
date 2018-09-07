@@ -8,8 +8,6 @@ sudo apt install -y xclip libevent-dev texinfo build-essential texinfo libx11-de
 	libncurses-dev libxpm-dev automake autoconf libgnutls-dev mailutils
 
 
-# sudo apt install -y emacs25
-# sudo apt install -y xclip
 
 # pyenv
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
@@ -21,12 +19,15 @@ pip install autopep8
 pip install virtualenv
 
 # docker 
-curl -fsSL get.docker.com -o get-docker.sh
-sh get-docker.sh
+# curl -fsSL get.docker.com -o get-docker.sh
+# sh get-docker.sh
 
-sudo groupadd docker
-sudo usermod -aG docker $USER
+# sudo groupadd docker
+# sudo usermod -aG docker $USER
 
 
-# install python 3.6.5
-pyenv install 3.6.5
+# install python
+pyenv install 3.7.0
+
+git config --global user.email "mshuaic@hotmail.com" 
+git config --global user.name "Mark"
