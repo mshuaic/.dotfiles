@@ -2,7 +2,9 @@
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right. 
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(jedi py-autopep8 material-theme flycheck elpy ein better-defaults))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -23,7 +25,7 @@
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
 (unless package--initialized (package-initialize t))
-
+;;(package-initialize t)
 
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -79,6 +81,7 @@
 (setq visible-cursor nil)
 
 (global-unset-key (kbd "C-_"))
+(global-unset-key (kbd "C-h"))
 (global-set-key (kbd "C-_") 'comment-line) 
 (global-set-key (kbd "C-z") 'undo)
 
@@ -141,3 +144,12 @@
       kept-new-versions 6
       kept-old-versions 2
       version-control t)       ; use versioned backups
+
+(normal-erase-is-backspace-mode 0)
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+(global-set-key (kbd "M-[ 1 ; 6 k") 'hs-show-all) ;; ctrl + 
+(global-set-key (kbd "M-[ 1 ; 5 k") 'hs-hide-level) ;; ctrl =
+(global-set-key (kbd "M-[ 1 ; 5 m") 'hs-toggle-hiding) ;; ctrl -
+
+
+(add-to-list 'ac-modes 'latex-mode)   ; make auto-complete aware of `latex-mode`
