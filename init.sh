@@ -36,3 +36,5 @@ bash install_tmux.sh
 bash install_emacs.sh
 
 cp .bashrc .emacs .tmux.conf .inputrc ~
+
+emacs --fg-daemon -f jedi:install-server -f save-buffers-kill-emacs
