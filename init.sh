@@ -13,6 +13,8 @@ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer 
 # echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 # echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 
+cp .bashrc .emacs .tmux.conf .inputrc ~
+source ~/.bashrc
 
 # docker 
 # curl -fsSL get.docker.com -o get-docker.sh
@@ -35,7 +37,5 @@ git config --global user.name "Mark"
 bash install_tmux.sh
 bash install_emacs.sh
 
-cp .bashrc .emacs .tmux.conf .inputrc ~
-source ~/.bashrc
 
 emacs --fg-daemon -f jedi:install-server -f save-buffers-kill-emacs
