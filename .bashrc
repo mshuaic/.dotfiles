@@ -127,3 +127,17 @@ alias emacs="emacs -nw"
 alias octave="octave-cli"
 
 set -o emacs
+
+# disable CTRL-D window close in terminator (terminal emulator)
+export IGNOREEOF=2
+# set -o ignoreeof
+ 
+alias rm='mv -b -t /tmp'
+
+# only for WSL 
+if [[ "$(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/p')" == "Microsoft" ]]; then
+    export DISPLAY=localhost:0.0
+    alias matlab="matlab.exe -nodesktop -nosplash -r"
+    export work="/mnt/e/work"
+    umask 022
+fi    

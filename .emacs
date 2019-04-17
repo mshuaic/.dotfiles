@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(jedi py-autopep8 material-theme flycheck elpy ein better-defaults))
+   '(matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -24,14 +24,16 @@
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
-(unless package--initialized (package-initialize t))
-;;(package-initialize t)
+(unless package--initialized (package-initialize))
+;; (package-initialize)
+
 
 (when (not package-archive-contents)
   (package-refresh-contents))
 
 (defvar myPackages
   '(better-defaults
+    jedi
     ein
     elpy
     flycheck
@@ -81,7 +83,6 @@
 (setq visible-cursor nil)
 
 (global-unset-key (kbd "C-_"))
-(global-unset-key (kbd "C-h"))
 (global-set-key (kbd "C-_") 'comment-line) 
 (global-set-key (kbd "C-z") 'undo)
 
@@ -135,6 +136,7 @@
 
 (menu-bar-mode -1)
 
+
 ;; backup on every save, not just the first.
 (setq vc-make-backup-files t)
 (setq backup-by-copying t      ; don't clobber symlinks
@@ -145,11 +147,26 @@
       kept-old-versions 2
       version-control t)       ; use versioned backups
 
+;; (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
+;; (add-to-list
+ ;; 'auto-mode-alist
+ ;; '("\\.m$" . matlab-mode))
+;; (setq matlab-indent-function t)
+;; (setq matlab-shell-command "matlab")
+
 (normal-erase-is-backspace-mode 0)
 (add-hook 'prog-mode-hook #'hs-minor-mode)
-(global-set-key (kbd "M-[ 1 ; 6 k") 'hs-show-all) ;; ctrl + 
+(global-set-key (kbd "M-[ 1 ; 6 k") 'hs-show-all) ;; ctrl +
 (global-set-key (kbd "M-[ 1 ; 5 k") 'hs-hide-level) ;; ctrl =
 (global-set-key (kbd "M-[ 1 ; 5 m") 'hs-toggle-hiding) ;; ctrl -
 
 
 (add-to-list 'ac-modes 'latex-mode)   ; make auto-complete aware of `latex-mode`
+
+;; add matlab-mode to prog-mode
+(add-hook 'matlab-mode-hook
+          (lambda () (run-hooks 'prog-mode-hook)))
+(put 'matlab-mode 'derived-mode-parent 'prog-mode)
+
+;; hook all prog-mode to auto-complete-mode
+(add-hook 'prog-mode-hook 'auto-complete-mode)
