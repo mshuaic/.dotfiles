@@ -15,6 +15,7 @@ curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer 
 
 cp .bashrc .emacs .tmux.conf .inputrc ~
 source ~/.bashrc
+hash -r
 
 # docker 
 # curl -fsSL get.docker.com -o get-docker.sh
