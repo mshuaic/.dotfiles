@@ -170,3 +170,9 @@
 
 ;; hook all prog-mode to auto-complete-mode
 (add-hook 'prog-mode-hook 'auto-complete-mode)
+
+
+(setq initial-scratch-message nil)
+
+
+(auto-save-visited-mode 1)
