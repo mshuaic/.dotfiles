@@ -127,8 +127,8 @@
 (electric-pair-mode 1)
 
 ;; unset key
-(global-unset-key (kbd "C-x f"))
-(global-set-key (kbd "C-x f") 'find-file)
+;; (global-unset-key (kbd "C-x f"))
+;; (global-set-key (kbd "C-x f") 'find-file)
 
 ;; (global-unset-key (kbd "<C-right>"))
 ;; (global-unset-key (kbd "<C-left>"))
@@ -147,21 +147,12 @@
       kept-old-versions 2
       version-control t)       ; use versioned backups
 
-;; (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
-;; (add-to-list
- ;; 'auto-mode-alist
- ;; '("\\.m$" . matlab-mode))
-;; (setq matlab-indent-function t)
-;; (setq matlab-shell-command "matlab")
-
 (normal-erase-is-backspace-mode 0)
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 (global-set-key (kbd "M-[ 1 ; 6 k") 'hs-show-all) ;; ctrl +
 (global-set-key (kbd "M-[ 1 ; 5 k") 'hs-hide-level) ;; ctrl =
 (global-set-key (kbd "M-[ 1 ; 5 m") 'hs-toggle-hiding) ;; ctrl -
 
-
-(add-to-list 'ac-modes 'latex-mode)   ; make auto-complete aware of `latex-mode`
 
 ;; add matlab-mode to prog-mode
 (add-hook 'matlab-mode-hook
@@ -176,3 +167,55 @@
 
 
 (auto-save-visited-mode 1)
+
+;; auto refresh all buffers
+(global-auto-revert-mode 1)
+
+(setq ac-ignore-case 'smart)
+
+
+;; LATEX CONFIGURATION
+;; --------------------------------------
+
+(add-to-list 'ac-modes 'latex-mode)   ; make auto-complete aware of `latex-mode`
+(add-to-list 'ac-modes 'LaTeX-mode)   ; make auto-complete aware of `latex-mode`
+(add-hook 'LaTeX-mode-hook (lambda ()
+	(TeX-fold-mode 1)                             
+	(outline-minor-mode 1)
+	;; {table}
+	;; (add-to-list 'TeX-fold-env-spec-list '("[tabularx]" ("tabularx")))
+	;; (add-to-list 'LaTeX-fold-env-spec-list '("[figure]" ("figure")))
+	;; (add-to-list 'TeX-fold-env-spec-list '(("[table]" ("table"))))
+	(add-hook 'find-file-hook 'TeX-fold-buffer)
+	;; (add-to-list 'TeX-fold-env-spec-list '("[figure]" ("figure")))
+	;; (add-hook 'find-file-hook 'TeX-fold-dwim)
+	;; (add-hook 'find-file-hook 'TeX-fold-comment) 
+	;; (TeX-fold-comment 1)
+	;; (turn-on-reftex 1)
+	;; (setq reftex-plug-into-AUCTeX t)
+	(outline-hide-sublevels 3)
+	(local-set-key (kbd "M-[ 1 ; 6 k") 'outline-show-entry)
+	(local-set-key (kbd "M-[ 1 ; 5 k") 'outline-hide-body)
+	(local-set-key (kbd "M-[ 1 ; 5 m") 'outline-toggle-children)
+	(LaTeX-math-mode 1)
+	;; (flyspell-mode 1)
+	(set (make-variable-buffer-local 'TeX-electric-math)
+	     (cons "$" "$"))))
+
+
+;; FLYSPELL CONFIGURATION
+;; --------------------------------------
+(setq ispell-dictionary "english"); Default dictionary. To change do M-x ispell-change-dictionary RET.
+(add-hook 'text-mode-hook 'flyspell-mode)
+;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+(ac-flyspell-workaround) ; fixes a known bug of delay due to flyspell (if it is there)
+
+
+;; (autoload 'markdown-mode "markdown-mode"
+;;    "Major mode for editing Markdown files" t)
+;; (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+;; (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;; (autoload 'gfm-mode "markdown-mode"
+;;    "Major mode for editing GitHub Flavored Markdown files" t)
+;; (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
