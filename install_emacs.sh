@@ -1,5 +1,6 @@
-url='http://ftp.wayne.edu/gnu/emacs/emacs-26.1.tar.gz'
-filename='emacs-26.1.tar.gz'
+
+filename='emacs-26.2.tar.gz'
+url="http://ftp.wayne.edu/gnu/emacs/$filename"
 cpath=`pwd`
 folder='emacs'
 
