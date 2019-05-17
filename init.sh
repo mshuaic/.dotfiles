@@ -10,12 +10,11 @@ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
 
 # pyenv
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-export PATH="~/.pyenv/bin:$PATH"
+export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-cp .bashrc .emacs .tmux.conf .inputrc ~
-# source ~/.bashrc
+cp .bashrc .emacs .tmux.conf .inputrc .myshell ~
 
 # docker 
 # curl -fsSL get.docker.com -o get-docker.sh
@@ -40,3 +39,5 @@ bash install_emacs.sh
 
 
 emacs --fg-daemon -f jedi:install-server -f save-buffers-kill-emacs
+
+source .bashrc

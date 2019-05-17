@@ -117,27 +117,29 @@ if ! shopt -oq posix; then
 fi
 
 
-export PATH="~/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# export PATH="~/.pyenv/bin:$PATH"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 
-stty -ixon
+# stty -ixon
 
-alias emacs="emacs -nw"
-alias octave="octave-cli"
+# alias emacs="emacs -nw"
+# alias octave="octave-cli"
 
-set -o emacs
+# set -o emacs
 
-# disable CTRL-D window close in terminator (terminal emulator)
-export IGNOREEOF=2
-# set -o ignoreeof
+# # disable CTRL-D window close in terminator (terminal emulator)
+# export IGNOREEOF=2
+# # set -o ignoreeof
  
-alias rm='mv -b -t /tmp'
+# alias rm='mv -b -t /tmp'
 
-# only for WSL 
-if [[ "$(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/p')" == "Microsoft" ]]; then
-    export DISPLAY=localhost:0.0
-    alias matlab="matlab.exe -nodesktop -nosplash -r"
-    export work="/mnt/e/work"
-    umask 022
-fi    
+# # only for WSL 
+# if [[ "$(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/p')" == "Microsoft" ]]; then
+#     export DISPLAY=localhost:0.0
+#     alias matlab="matlab.exe -nodesktop -nosplash -r"
+#     export work="/mnt/e/work"
+#     umask 022
+# fi    
+
+source ~/.myshell
