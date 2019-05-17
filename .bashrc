@@ -142,4 +142,4 @@ fi
 #     umask 022
 # fi    
 
-source ~/.myshell
+source ~/.myshell.sh

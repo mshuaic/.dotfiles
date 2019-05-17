@@ -14,7 +14,7 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-cp .bashrc .emacs .tmux.conf .inputrc .myshell ~
+cp .bashrc .emacs .tmux.conf .inputrc .myshell.sh $HOME
 
 # docker 
 # curl -fsSL get.docker.com -o get-docker.sh

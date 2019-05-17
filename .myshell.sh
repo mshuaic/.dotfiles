@@ -22,3 +22,12 @@ if [[ "$(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/p')" == "Microsoft" ]]; t
     export work="/mnt/e/work"
     umask 022
 fi
+
+
+if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
+    # assume Zsh
+    setopt inc_append_history
+elif [ -n "`$SHELL -c 'echo $BASH_VERSION'`" ]; then
+    # assume Bash
+    export PROMPT_COMMAND="history -a; history -n"
+fi    
