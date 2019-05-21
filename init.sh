@@ -3,7 +3,7 @@ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
      libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
      xz-utils tk-dev libffi-dev jq xclip libevent-dev texinfo build-essential texinfo libx11-dev \
      libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libncurses-dev libxpm-dev \
-     automake autoconf libevent-dev libgtk-3-dev mailutils libgnutls28-dev aspell-en\
+     automake autoconf libevent-dev libgtk-3-dev mailutils libgnutls28-dev aspell-en zip\
 	 
 
 # libgtk2.0-dev libgnutls-dev
