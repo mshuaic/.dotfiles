@@ -24,10 +24,15 @@ if [[ "$(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/p')" == "Microsoft" ]]; t
 fi
 
 
-if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
-    # assume Zsh
-    setopt inc_append_history
-elif [ -n "`$SHELL -c 'echo $BASH_VERSION'`" ]; then
-    # assume Bash
-    export PROMPT_COMMAND="history -a; history -n"
-fi    
+# if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
+#     # assume Zsh
+#     setopt inc_append_history
+# elif [ -n "`$SHELL -c 'echo $BASH_VERSION'`" ]; then
+#     # assume Bash
+#     export PROMPT_COMMAND="history -a; history -n"
+# fi    
+
+
+## GO setting ##
+export GOPATH=$HOME/.local/go
+export PATH=$PATH:$GOPATH/bin
