@@ -13,7 +13,7 @@ set -o emacs
 export IGNOREEOF=2
 # set -o ignoreeof
  
-alias rm='mv -b -t /tmp'
+# alias rm='mv -b -t /tmp'
 
 # only for WSL 
 if [[ "$(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/p')" == "Microsoft" ]]; then
