@@ -14,3 +14,4 @@ sudo make install
 
 cd $cpath
 
+emacs --fg-daemon -f jedi:install-server -f save-buffers-kill-emacs
