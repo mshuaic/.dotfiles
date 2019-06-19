@@ -6,7 +6,8 @@
     [Reference](http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html) 
     
 ## raspberry pi
- * headless wifi
+ * headless wifi  
+ 	**wpa_supplicant.conf**
 	```
 	country=US
 	ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -18,4 +19,4 @@
 		psk="your_real_password"
 		key_mgmt=WPA-PSK
 	}
-```
+	```
