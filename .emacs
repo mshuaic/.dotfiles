@@ -96,16 +96,13 @@
 ;; (setq split-height-threshold nil)
 
 
-;; Traditionally, Unix uses the ^H keystroke to send a backspace from or to a terminal.
-(keyboard-translate ?\C-h ?\C-?)
-
 
 ;; set beep off
  (setq visible-bell 1)
 
-(global-set-key (kbd "<f5>") 'switch-to-buffer); switch buffer
-(global-set-key (kbd "<f6>") 'find-file); find file
-(global-set-key (kbd "<f12>") 'keyboard-escape-quit) ;; all platforms?
+;; (global-set-key (kbd "<f5>") 'switch-to-buffer); switch buffer
+;; (global-set-key (kbd "<f6>") 'find-file); find file
+;; (global-set-key (kbd "<f12>") 'keyboard-escape-quit) ;; all platforms?
 
 
 ;; use xclip to copy/paste in emacs-nox
@@ -219,3 +216,58 @@
 ;; (autoload 'gfm-mode "markdown-mode"
 ;;    "Major mode for editing GitHub Flavored Markdown files" t)
 ;; (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+
+
+(defun delete-word (arg)
+  "Delete characters backward until encountering the beginning of a word.
+With argument ARG, do this that many times."
+  (interactive "p")
+  (delete-region (point) (progn (backward-word arg) (point))))
+
+
+
+(defun my-delete-word (arg)
+  "Delete characters forward until encountering the end of a word.
+With argument, do this that many times.
+This command does not push text to `kill-ring'."
+  (interactive "p")
+  (delete-region
+   (point)
+   (progn
+     (forward-word arg)
+     (point))))
+
+(defun my-backward-delete-word (arg)
+  "Delete characters backward until encountering the beginning of a word.
+With argument, do this that many times.
+This command does not push text to `kill-ring'."
+  (interactive "p")
+  (my-delete-word (- arg)))
+
+(defun my-delete-line ()
+  "Delete text from current position to end of line char.
+This command does not push text to `kill-ring'."
+  (interactive)
+  (delete-region
+   (point)
+   (progn (end-of-line 1) (point)))
+  (delete-char 1))
+
+(defun my-delete-line-backward ()
+  "Delete text between the beginning of the line to the cursor position.
+This command does not push text to `kill-ring'."
+  (interactive)
+  (let (p1 p2)
+    (setq p1 (point))
+    (beginning-of-line 1)
+    (setq p2 (point))
+    (delete-region p1 p2)))
+
+; bind them to emacs's default shortcut keys:
+(global-set-key (kbd "C-S-k") 'my-delete-line-backward) ; Ctrl+Shift+k
+(global-set-key (kbd "C-k") 'my-delete-line)
+(global-set-key (kbd "M-d") 'my-delete-word)
+;; Traditionally, Unix uses the ^H keystroke to send a backspace from or to a terminal.
+;; swap the <Backspace> and <DEL> keys inside Emacs
+(keyboard-translate ?\C-h ?\C-?)
+(global-set-key (kbd "M-<DEL>") 'my-backward-delete-word)
