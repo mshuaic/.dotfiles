@@ -214,18 +214,16 @@
 ;; (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-;; (autoload 'gfm-mode "markdown-mode"
-;;    "Major mode for editing GitHub Flavored Markdown files" t)
-;; (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
-
+(autoload 'gfm-mode "markdown-mode"
+   "Major mode for editing GitHub Flavored Markdown files" t)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+(add-to-list 'ac-modes 'gfm-mode)
 
 (defun delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
 With argument ARG, do this that many times."
   (interactive "p")
   (delete-region (point) (progn (backward-word arg) (point))))
-
-
 
 (defun my-delete-word (arg)
   "Delete characters forward until encountering the end of a word.
@@ -272,3 +270,4 @@ This command does not push text to `kill-ring'."
 ;; swap the <Backspace> and <DEL> keys inside Emacs
 ;; (keyboard-translate ?\C-h ?\C-?)
 (global-set-key (kbd "M-<DEL>") 'my-backward-delete-word)
+
