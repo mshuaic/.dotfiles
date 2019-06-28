@@ -15,6 +15,9 @@ export IGNOREEOF=2
  
 # alias rm='mv -b -t /tmp'
 
+export VISUAL=emacs
+export EDITOR="$VISUAL"
+
 # only for WSL 
 if [[ "$(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/p')" == "Microsoft" ]]; then
     export DISPLAY=localhost:0.0
