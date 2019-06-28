@@ -164,6 +164,7 @@
 
 
 (auto-save-visited-mode 1)
+(setq auto-save-visited-interval 10)
 
 ;; auto refresh all buffers
 (global-auto-revert-mode 1)
@@ -269,5 +270,5 @@ This command does not push text to `kill-ring'."
 (global-set-key (kbd "M-d") 'my-delete-word)
 ;; Traditionally, Unix uses the ^H keystroke to send a backspace from or to a terminal.
 ;; swap the <Backspace> and <DEL> keys inside Emacs
-(keyboard-translate ?\C-h ?\C-?)
+;; (keyboard-translate ?\C-h ?\C-?)
 (global-set-key (kbd "M-<DEL>") 'my-backward-delete-word)
