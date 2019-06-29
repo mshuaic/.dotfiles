@@ -60,3 +60,6 @@ fi
 #     # assume Bash
 #     export PROMPT_COMMAND="history -a; history -n"
 # fi    
+
+export GOPATH=$HOME/.local/go
+export PATH=$PATH:$GOPATH/bin
