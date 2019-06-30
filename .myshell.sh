@@ -15,7 +15,7 @@ export IGNOREEOF=2
  
 # alias rm='mv -b -t /tmp'
 
-export VISUAL=emacs
+export VISUAL="emacs -nw"
 export EDITOR="$VISUAL"
 
 # only for WSL 
