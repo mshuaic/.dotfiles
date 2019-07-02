@@ -21,5 +21,5 @@
 	}
 	```
 * headless ip address setup  
-add a line in cmdline.txt  
+add a line in **cmdline.txt**  
 `ip=192.168.0.10`
