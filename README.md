@@ -1,4 +1,4 @@
-# linux Notes
+# Linux Notes
 
 ## Menu
 - [shell](#shell)
