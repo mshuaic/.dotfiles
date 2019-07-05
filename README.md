@@ -1,7 +1,18 @@
 # linux Notes
 
-## zsh
-  * Prompt only displays the basename of the current directory.  
+## Menu
+- [shell](#shell)
+- [raspberry pi](#raspberry-pi)
+
+## shell
+### bash
+- remove double quotes.
+	- all `"${opt//\"}"`
+	- suffix `"${opt%\"}"`
+	- prefix `"${opt#\"}"` 
+
+### zsh
+* Prompt only displays the basename of the current directory.  
     Change `%~` to `%1~`  
     [Reference](http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html) 
     
