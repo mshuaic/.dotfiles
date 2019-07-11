@@ -1,6 +1,6 @@
 sudo apt-get update
 
-echo "US/Eastern" > /etc/timezone 
+sudo sh -c "echo "US/Eastern" > /etc/timezone"
 dpkg-reconfigure -f noninteractive tzdata
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
 
