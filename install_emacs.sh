@@ -7,7 +7,7 @@ folder='emacs'
 cd /tmp
 wget $url
 mkdir $folder
-tar -xf $filename -C $folder --strip-components=1
+tar -xzf $filename -C $folder --strip-components=1
 cd $folder
 ./configure && make
 sudo make install
