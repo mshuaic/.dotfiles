@@ -3,6 +3,7 @@
 ## Menu
 - [shell](#shell)
 - [raspberry pi](#raspberry-pi)
+- [apt](#ap)
 
 ## shell
 ### bash
@@ -34,3 +35,6 @@
 * headless ip address setup  
 add a line in [**cmdline.txt**](https://elinux.org/RPi_cmdline.txt)  
 `ip=192.168.0.10`
+
+## apt
+- sudo dpkg -i --force-overwrite /var/cache/apt/archives/apport_2.20.1-0ubuntu2.4_all.deb
