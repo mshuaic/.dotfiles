@@ -46,4 +46,4 @@ bash install_emacs.sh
 
 # emacs --fg-daemon -f jedi:install-server -f save-buffers-kill-emacs
 
-source .bashrc
+source $HOME/.bashrc
