@@ -1,8 +1,8 @@
 sudo apt-get update
 
 sudo sh -c "echo "US/Eastern" > /etc/timezone"
-dpkg-reconfigure -f noninteractive tzdata
-debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
+sudo dpkg-reconfigure -f noninteractive tzdata
+sudo debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
 
 sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
      libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
