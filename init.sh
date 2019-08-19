@@ -38,7 +38,7 @@ pip install --upgrade pip
 pip install autopep8
 pip install virtualenv
 
-git config --global user.email "mshuaic@hotmail.com" 
+git config --global user.email "mshuaic@users.noreply.github.com " 
 git config --global user.name "Mark"
 
 bash install_tmux.sh
