@@ -63,3 +63,6 @@ fi
 
 export GOPATH=$HOME/.local/go
 export PATH=$PATH:$GOPATH/bin
+
+# Ethereum 
+export PATH=$PATH:/home/mark/go-ethereum/build/bin
