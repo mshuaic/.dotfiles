@@ -276,3 +276,36 @@ This command does not push text to `kill-ring'."
 (require 'solidity-mode)
 (setq solidity-comment-style 'slash)
 (setq c-basic-offset 4)
+
+
+(require 'ido)
+(ido-mode t)
+(setq my-unignored-buffers '("*scratch*" "*foo*" "*bar*"))
+
+(defun my-ido-ignore-func (name)
+  "Ignore all non-user (a.k.a. *starred*) buffers except those listed in `my-unignored-buffers'."
+  (and (string-match "^\*" name)
+       (not (member name my-unignored-buffers))))
+
+(setq ido-ignore-buffers '("\\` " my-ido-ignore-func))
+
+;; (setq skippable-buffers '("*Messages*" "*scratch*" "*Help*"))
+
+(defun my-next-buffer ()
+  "next-buffer that skips certain buffers"
+  (interactive)
+  (next-buffer)
+  (while   (and (string-match "^\*" (buffer-name))
+       (not (member (buffer-name) my-unignored-buffers)))
+    (next-buffer)))
+
+(defun my-previous-buffer ()
+  "previous-buffer that skips certain buffers"
+  (interactive)
+  (previous-buffer)
+  (while   (and (string-match "^\*" (buffer-name))
+       (not (member (buffer-name) my-unignored-buffers)))
+    (previous-buffer)))
+
+(global-set-key [remap next-buffer] 'my-next-buffer)
+(global-set-key [remap previous-buffer] 'my-previous-buffer)
