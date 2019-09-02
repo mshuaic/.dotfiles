@@ -39,7 +39,9 @@
     elpy
     flycheck
     material-theme
-    py-autopep8))
+    py-autopep8
+    solidity-mode
+    clang-format))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -164,8 +166,8 @@
 (setq initial-scratch-message nil)
 
 
+(setq auto-save-visited-interval 30)
 (auto-save-visited-mode 1)
-(setq auto-save-visited-interval 10)
 
 ;; auto refresh all buffers
 (global-auto-revert-mode 1)
@@ -273,14 +275,15 @@ This command does not push text to `kill-ring'."
 (global-set-key (kbd "M-<DEL>") 'my-backward-delete-word)
 
 
+;; solidity 
 (require 'solidity-mode)
 (setq solidity-comment-style 'slash)
 (setq c-basic-offset 4)
 
-
+;; skip buffer
 (require 'ido)
 (ido-mode t)
-(setq my-unignored-buffers '("*scratch*" "*foo*" "*bar*"))
+(setq my-unignored-buffers '( "*foo*" "*bar*"))
 
 (defun my-ido-ignore-func (name)
   "Ignore all non-user (a.k.a. *starred*) buffers except those listed in `my-unignored-buffers'."
@@ -288,8 +291,6 @@ This command does not push text to `kill-ring'."
        (not (member name my-unignored-buffers))))
 
 (setq ido-ignore-buffers '("\\` " my-ido-ignore-func))
-
-;; (setq skippable-buffers '("*Messages*" "*scratch*" "*Help*"))
 
 (defun my-next-buffer ()
   "next-buffer that skips certain buffers"
@@ -309,3 +310,14 @@ This command does not push text to `kill-ring'."
 
 (global-set-key [remap next-buffer] 'my-next-buffer)
 (global-set-key [remap previous-buffer] 'my-previous-buffer)
+
+
+;; C/C++ formating
+
+(require 'clang-format)
+(add-hook 'c-mode-common-hook
+          (function (lambda ()
+                    (add-hook 'before-save-hook
+                              'clang-format-buffer))))
+
+(remove-hook 'c-mode-hook 'makefile-gmake-mode)
