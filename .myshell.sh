@@ -66,3 +66,7 @@ export PATH=$PATH:$GOPATH/bin
 
 # Ethereum 
 export PATH=$PATH:/home/mark/go-ethereum/build/bin
+
+if [ -x "$(command -v fuck)" ]; then
+    eval $(thefuck --alias)
+fi
