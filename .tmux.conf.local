@@ -195,7 +195,8 @@ TO_EAT='#(curl -s -X GET "https://maps.googleapis.com/maps/api/distancematrix/js
 set -g @cpu_low_bg_color "#[bg=#00ff00]"
 set -g @cpu_medium_bg_color "#[bg=#ffff00]"
 set -g @cpu_high_bg_color "#[bg=#ff0000]"
-tmux_conf_theme_status_left=" ❐ #S | Lab → Buford: $TO_EAT #{cpu_bg_color} #{cpu_percentage} "
+
+tmux_conf_theme_status_left=" ❐ #S | Lab → Buford: $TO_EAT #{cpu_bg_color} CPU:#{cpu_percentage} GPU:#{gpu_percentage}"
 tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
 
 # status left style
