@@ -25,7 +25,7 @@ print_cpu_percentage() {
 		else
 			load=`ps -aux | awk '{print $3}' | tail -n+2 | awk '{s+=$1} END {print s}'`
 			cpus=$(cpus_number)
-			echo "$load $cpus" | awk '{printf "%3.1f%%", $1/$2}'
+			echo "$load $cpus" | awk '{printf "%.0f", $1/$2}'
 		fi
 	fi
 }
