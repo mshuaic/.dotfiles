@@ -70,3 +70,8 @@ export PATH=$PATH:/home/mark/go-ethereum/build/bin
 if [ -x "$(command -v fuck)" ]; then
     eval $(thefuck --alias)
 fi
+
+
+# local bin and library
+export PATH=$HOME/.local/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
