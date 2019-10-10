@@ -314,10 +314,14 @@ This command does not push text to `kill-ring'."
 
 ;; C/C++ formating
 
+
 (require 'clang-format)
 (add-hook 'c-mode-common-hook
           (function (lambda ()
                     (add-hook 'before-save-hook
                               'clang-format-buffer))))
+
+(add-hook 'c-mode-hook (lambda () (setq comment-start "//"
+                                        comment-end   "")))
 
 (remove-hook 'c-mode-hook 'makefile-gmake-mode)

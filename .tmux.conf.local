@@ -182,8 +182,8 @@ tmux_conf_theme_right_separator_sub='|'
 # tmux_conf_theme_status_left=' ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
 
 set -g status-interval 5
-TO_EAT='#(curl -s -X GET "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=400+Dowman+Drive,Atlanta,GA&destinations=Sweet+Hut+Bakery+Cafe,5150+Buford+Hwy+NE,Doraville,GA+30340&departure_time=now&key=AIzaSyDTPqGLwaYsXXIAqAl4dc77w9e8AuWVPlw" | jq -r ".rows[0].elements[0].duration_in_traffic.text")'
-TO_EAT="#(echo $TO_EAT | awk '{print $1}')"
+# TO_EAT='#(curl -s -X GET "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=400+Dowman+Drive,Atlanta,GA&destinations=Sweet+Hut+Bakery+Cafe,5150+Buford+Hwy+NE,Doraville,GA+30340&departure_time=now&key=AIzaSyDTPqGLwaYsXXIAqAl4dc77w9e8AuWVPlw" | jq -r ".rows[0].elements[0].duration_in_traffic.text")'
+# TO_EAT="#(echo $TO_EAT | awk '{print $1}')"
 
 
 # set -g @cpu_low_icon "="
@@ -204,7 +204,7 @@ set -g @mem_low_bg_color "#[bg=#00ff00]"
 set -g @mem_medium_bg_color "#[bg=#ffff00]"
 set -g @mem_high_bg_color "#[bg=#ff0000]"
 
-tmux_conf_theme_status_left=" ❐ #S |Lab→Buford:$TO_EAT|#{cpu_bg_color}C:#{cpu_percentage}#{gpu_bg_color} G:#{gpu_percentage} #{mem_bg_color}M:#{mem_percentage}|"
+tmux_conf_theme_status_left=" ❐ #S |#{cpu_bg_color}C:#{cpu_percentage}#{gpu_bg_color} G:#{gpu_percentage} #{mem_bg_color}M:#{mem_percentage}|"
 tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
 
 # status left style
