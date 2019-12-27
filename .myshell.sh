@@ -26,6 +26,13 @@ if [[ "$(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/p')" == "Microsoft" ]]; t
     umask 022
     # mayby use WSLENV later
     export CDPATH=/mnt/c/Users/mshua
+
+    if [ -z "$SSH_AUTH_SOCK" ] ; then
+	eval `ssh-agent  >| /dev/null 2>&1`   
+    fi
+
+    trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
+    
 fi
 
 
@@ -79,26 +86,26 @@ export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 
 
 # ssh agent forwarding
-env=~/.ssh/agent.env
+# env=~/.ssh/agent.env
 
-agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+# agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
 
-agent_start () {
-    (umask 077; ssh-agent >| "$env")
-    . "$env" >| /dev/null ; }
+# agent_start () {
+#     (umask 077; ssh-agent >| "$env")
+#     . "$env" >| /dev/null ; }
 
-agent_load_env
+# agent_load_env
 
-# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
-agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+# # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
+# agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
 
-if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ] || [ ! "$SSH_AGENT_PID" ] ; then
-    agent_start
-    # ssh-add
-elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-    ssh-add
-fi
+# if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+#     agent_start
+#     # ssh-add
+# elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+#     ssh-add
+# fi
 
-unset env
+# unset env
 
-trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
+# trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
