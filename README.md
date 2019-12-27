@@ -4,6 +4,7 @@
 - [shell](#shell)
 - [raspberry pi](#raspberry-pi)
 - [apt](#ap)
+- [X11](#x11)
 
 ## shell
 ### bash
@@ -38,3 +39,6 @@ add a line in [**cmdline.txt**](https://elinux.org/RPi_cmdline.txt)
 
 ## apt
 - sudo dpkg -i --force-overwrite /var/cache/apt/archives/apport_2.20.1-0ubuntu2.4_all.deb
+
+## X11
+- xauth generate $DISPLAY .

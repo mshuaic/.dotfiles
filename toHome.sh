@@ -15,3 +15,5 @@ done
 ln -s -f $currpath/.tmux $HOME
 ln -s -f $currpath/.oh-my-zsh $HOME
 ln -s -f $currpath/.tmux/.tmux.conf $HOME
+
+git submodule update --init --recursive

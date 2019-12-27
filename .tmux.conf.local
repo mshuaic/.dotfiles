@@ -205,6 +205,7 @@ set -g @mem_medium_bg_color "#[bg=#ffff00]"
 set -g @mem_high_bg_color "#[bg=#ff0000]"
 ignore_cached=yes
 
+
 tmux_conf_theme_status_left=" ❐ #S |#{cpu_bg_color}C:#{cpu_percentage}#{gpu_bg_color} G:#{gpu_percentage} #{mem_bg_color}M:#{mem_percentage}|"
 tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
 
