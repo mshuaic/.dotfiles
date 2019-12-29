@@ -1,3 +1,4 @@
+(setq vc-follow-symlinks t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -5,7 +6,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults)))
+    (neotree solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults)))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -325,3 +326,17 @@ This command does not push text to `kill-ring'."
                                         comment-end   "")))
 
 (remove-hook 'c-mode-hook 'makefile-gmake-mode)
+
+(require 'all-the-icons)
+(require 'neotree)
+(setq neo-theme  'emoji)
+;; (setq neo-autorefresh 1)
+;; (setq neo-global--autorefresh-timer 5)
+(global-set-key [f8] 'neotree-toggle)
+
+(require 'powerline)
+(powerline-default-theme)
+
+(setq vc-follow-symlinks t)
+
+
