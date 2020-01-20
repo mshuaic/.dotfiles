@@ -327,7 +327,6 @@ This command does not push text to `kill-ring'."
 
 (remove-hook 'c-mode-hook 'makefile-gmake-mode)
 
-(require 'all-the-icons)
 (require 'neotree)
 (setq neo-theme  'emoji)
 ;; (setq neo-autorefresh 1)
