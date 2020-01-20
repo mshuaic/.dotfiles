@@ -101,5 +101,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+setopt ignoreeof
 source ~/.myshell.sh
 export SHELL=`which zsh`

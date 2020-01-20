@@ -20,8 +20,8 @@ print_cpu_percentage() {
 		sar -u 1 1 | sed '/^\s*$/d' | tail -n 1 | awk '{usage=100-$NF} END {printf("%3.1f%%", usage)}' | sed 's/,/./'
 	else
 		if is_cygwin; then
-			usage="$(WMIC cpu get LoadPercentage | grep -Eo '^[0-9]+')"
-			printf "%3.1f%%" $usage
+			usage="$(WMIC.exe cpu get LoadPercentage | grep -Eo '^[0-9]+')"
+			printf "%.0f" $usage
 		else
 			load=`ps -aux | awk '{print $3}' | tail -n+2 | awk '{s+=$1} END {print s}'`
 			cpus=$(cpus_number)

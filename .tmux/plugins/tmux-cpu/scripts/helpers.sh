@@ -26,7 +26,7 @@ is_linux() {
 }
 
 is_cygwin() {
-	command -v WMIC &> /dev/null
+	command -v WMIC.exe &> /dev/null
 }
 
 is_linux_iostat() {

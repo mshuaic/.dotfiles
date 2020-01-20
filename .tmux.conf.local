@@ -181,7 +181,7 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{username_ssh}
 # tmux_conf_theme_status_left=' ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
 
-set -g status-interval 5
+set -g status-interval 10
 # TO_EAT='#(curl -s -X GET "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=400+Dowman+Drive,Atlanta,GA&destinations=Sweet+Hut+Bakery+Cafe,5150+Buford+Hwy+NE,Doraville,GA+30340&departure_time=now&key=AIzaSyDTPqGLwaYsXXIAqAl4dc77w9e8AuWVPlw" | jq -r ".rows[0].elements[0].duration_in_traffic.text")'
 # TO_EAT="#(echo $TO_EAT | awk '{print $1}')"
 
@@ -207,7 +207,7 @@ ignore_cached=yes
 
 WEATHER='#(curl -s wttr.in/Orlando:Atlanta:Hangzhou?format="%%ll:%%c+%%t%%m%%M&m&period=600")'
 
-tmux_conf_theme_status_left=" ❐ #S |#{cpu_bg_color}C:#{cpu_percentage}#{gpu_bg_color} G:#{gpu_percentage} #{mem_bg_color}M:#{mem_percentage}|"
+tmux_conf_theme_status_left=" ❐ #S |#{cpu_bg_color}C:#{cpu_percentage}#{gpu_bg_color}G:#{gpu_percentage}#{mem_bg_color}M:#{mem_percentage}|"
 tmux_conf_theme_status_right="#{prefix}#{pairing}#{synchronized} $WEATHER #{?battery_status, #{battery_status},}#{?battery_vbar, #{battery_vbar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
 
 # status left style
@@ -232,7 +232,7 @@ tmux_conf_theme_pairing_bg='none'
 tmux_conf_theme_pairing_attr='none'
 
 # prefix indicator
-tmux_conf_theme_prefix='⌨'            # U+2328
+tmux_conf_theme_prefix='⌨ '     # U+2328
 tmux_conf_theme_prefix_fg='none'
 tmux_conf_theme_prefix_bg='none'
 tmux_conf_theme_prefix_attr='none'
