@@ -27,7 +27,7 @@
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
 (unless package--initialized (package-initialize))
-;; (package-initialize)
+(package-initialize)
 
 
 (when (not package-archive-contents)
@@ -42,7 +42,10 @@
     material-theme
     py-autopep8
     solidity-mode
-    clang-format))
+    clang-format
+    powerline
+    neotree
+    gnu-elpa-keyring-update))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
