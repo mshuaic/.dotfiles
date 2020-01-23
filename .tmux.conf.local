@@ -208,7 +208,7 @@ ignore_cached=yes
 WEATHER='#(curl -s wttr.in/Orlando:Atlanta:Hangzhou?format="%%ll:%%c+%%t&m&period=600")'
 
 tmux_conf_theme_status_left=" ❐ #S |#{cpu_bg_color}C:#{cpu_percentage}#{gpu_bg_color}G:#{gpu_percentage}#{mem_bg_color}M:#{mem_percentage}|"
-tmux_conf_theme_status_right="#{prefix}#{pairing}#{synchronized} $WEATHER #{?battery_status, #{battery_status},}#{?battery_vbar, #{battery_vbar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right="#{prefix}#{pairing}#{synchronized} $WEATHER#{?battery_status, #{battery_status},}#{?battery_vbar, #{battery_vbar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
 
 # status left style
 # tmux_conf_theme_status_left_fg='#000000,#000000,#000000'  # black, white , white
