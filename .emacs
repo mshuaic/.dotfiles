@@ -1,3 +1,4 @@
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (setq vc-follow-symlinks t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -5,8 +6,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (neotree solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults)))
+   '(neotree solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -14,6 +14,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
 
 
 (require 'package)
@@ -27,7 +28,7 @@
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
 (unless package--initialized (package-initialize))
-(package-initialize)
+;; (package-initialize)
 
 
 (when (not package-archive-contents)

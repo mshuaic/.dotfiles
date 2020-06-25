@@ -19,11 +19,22 @@ export VISUAL="emacs -nw"
 export EDITOR="$VISUAL"
 
 # only for WSL 
-if [[ "$(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/p')" == "Microsoft" ]]; then
-    export DISPLAY=localhost:0.0
+if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]; then
+
+    # wsl2
+    if grep -q "microsoft" /proc/version &>/dev/null; then
+	# Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
+	export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
+    else
+	# wsl1
+	if [ "$(umask)" = "0000" ]; then
+	    umask 0022
+	fi
+	export DISPLAY=localhost:0.0
+    fi
     alias matlab="matlab.exe -nodesktop -nosplash -r"
     # export work="/mnt/e/work"
-    umask 022
+
     # mayby use WSLENV later
     export CDPATH=/mnt/c/Users/mshua
 
@@ -75,7 +86,7 @@ if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
     }
     zle -N x-kill-region
     x-yank () {
-	CUTBUFFER=$(xclip -o </dev/null)
+	CUTBUFFER=$(xclip -o -selection clipboard </dev/null)
 	zle yank
     }
     zle -N x-yank
@@ -83,6 +94,7 @@ if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
     bindkey -e '^W' x-kill-region
     bindkey -e '^Y' x-yank
 fi
+
 # elif [ -n "`$SHELL -c 'echo $BASH_VERSION'`" ]; then
 #     # assume Bash
 #     export PROMPT_COMMAND="history -a; history -n"
@@ -102,3 +114,5 @@ fi
 # local bin and library
 export PATH=$HOME/.local/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
+
+alias leetcode='docker run -it --rm -v ~/leetcode:/home/node -u 1000:1000 90d2b51bda97'

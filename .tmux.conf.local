@@ -179,46 +179,13 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-# tmux_conf_theme_status_left=' ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
-
-set -g status-interval 10
-# TO_EAT='#(curl -s -X GET "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=400+Dowman+Drive,Atlanta,GA&destinations=Sweet+Hut+Bakery+Cafe,5150+Buford+Hwy+NE,Doraville,GA+30340&departure_time=now&key=AIzaSyDTPqGLwaYsXXIAqAl4dc77w9e8AuWVPlw" | jq -r ".rows[0].elements[0].duration_in_traffic.text")'
-# TO_EAT="#(echo $TO_EAT | awk '{print $1}')"
-
-
-# set -g @cpu_low_icon "="
-# set -g @cpu_medium_icon "≡"
-# set -g @cpu_high_icon "≡"
-
-# set -g @cpu_low_fg_color "#[fg=#00ff00]"
-# set -g @cpu_medium_fg_color "#[fg=#ffff00]"
-# set -g @cpu_high_fg_color "#[fg=#ff0000]"
-
-set -g @cpu_low_bg_color "#[bg=#00ff00]"
-set -g @cpu_medium_bg_color "#[bg=#ffff00]"
-set -g @cpu_high_bg_color "#[bg=#ff0000]"
-set -g @gpu_low_bg_color "#[bg=#00ff00]"
-set -g @gpu_medium_bg_color "#[bg=#ffff00]"
-set -g @gpu_high_bg_color "#[bg=#ff0000]"
-set -g @mem_low_bg_color "#[bg=#00ff00]"
-set -g @mem_medium_bg_color "#[bg=#ffff00]"
-set -g @mem_high_bg_color "#[bg=#ff0000]"
-ignore_cached=yes
-
-WEATHER='#(curl -s wttr.in/Orlando:Atlanta:Hangzhou?format="%%ll:%%c+%%t&m&period=600")'
-
-tmux_conf_theme_status_left=" ❐ #S |#{cpu_bg_color}C:#{cpu_percentage}#{gpu_bg_color}G:#{gpu_percentage}#{mem_bg_color}M:#{mem_percentage}|"
-tmux_conf_theme_status_right="#{prefix}#{pairing}#{synchronized} $WEATHER#{?battery_status, #{battery_status},}#{?battery_vbar, #{battery_vbar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_left=' ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
+tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
 
 # status left style
-# tmux_conf_theme_status_left_fg='#000000,#000000,#000000'  # black, white , white
-# tmux_conf_theme_status_left_bg='#ffff00,#ff00af,#00afff'  # yellow, pink, white blue
-# tmux_conf_theme_status_left_attr='bold,none,none'
-
-tmux_conf_theme_status_left_fg='#000000,#000000'  # black, white , white
-tmux_conf_theme_status_left_bg='#ffff00,#00afff'  # yellow, pink, white blue
-tmux_conf_theme_status_left_attr='none,none'
-
+tmux_conf_theme_status_left_fg='#000000,#e4e4e4,#e4e4e4'  # black, white , white
+tmux_conf_theme_status_left_bg='#ffff00,#ff00af,#00afff'  # yellow, pink, white blue
+tmux_conf_theme_status_left_attr='bold,none,none'
 
 # status right style
 tmux_conf_theme_status_right_fg='#8a8a8a,#e4e4e4,#000000' # light gray, white, black
@@ -232,7 +199,7 @@ tmux_conf_theme_pairing_bg='none'
 tmux_conf_theme_pairing_attr='none'
 
 # prefix indicator
-tmux_conf_theme_prefix='⌨ '     # U+2328
+tmux_conf_theme_prefix='⌨ '            # U+2328
 tmux_conf_theme_prefix_fg='none'
 tmux_conf_theme_prefix_bg='none'
 tmux_conf_theme_prefix_attr='none'
@@ -278,15 +245,15 @@ tmux_conf_battery_hbar_palette='gradient'
 #   - gradient (default)
 #   - heat
 #   - 'colour_low,colour_half,colour_full'
-# tmux_conf_battery_vbar_palette='gradient'
-tmux_conf_battery_vbar_palette='#d70000,#ff5f00,#5fff00'  # red, orange, green
+tmux_conf_battery_vbar_palette='gradient'
+#tmux_conf_battery_vbar_palette='#d70000,#ff5f00,#5fff00'  # red, orange, green
 
 # symbols used to indicate whether battery is charging or discharging
-# tmux_conf_battery_status_charging='↑'       # U+2191
-# tmux_conf_battery_status_discharging='↓'    # U+2193
-# tmux_conf_battery_status_charging='⚡'    # U+26A1
-tmux_conf_battery_status_charging='🔌'    # U+1F50C
-tmux_conf_battery_status_discharging='🔋' # U+1F50B
+tmux_conf_battery_status_charging='↑'       # U+2191
+tmux_conf_battery_status_discharging='↓'    # U+2193
+#tmux_conf_battery_status_charging='⚡ '    # U+26A1
+#tmux_conf_battery_status_charging='🔌 '    # U+1F50C
+#tmux_conf_battery_status_discharging='🔋 ' # U+1F50B
 
 # clock style (when you hit <prefix> + t)
 # you may want to use %I:%M %p in place of %R in tmux_conf_theme_status_right
@@ -311,7 +278,7 @@ tmux_conf_copy_to_os_clipboard=true
 #set -g history-limit 10000
 
 # start with mouse mode enabled
-# set -g mouse on
+#set -g mouse on
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
@@ -322,10 +289,22 @@ tmux_conf_copy_to_os_clipboard=true
 set -gu prefix2
 unbind C-a
 # unbind C-b
-# set -g prefix C-b
+# set -g prefix C-a
 # bind C-a send-prefix
 
 # move status line to top
 #set -g status-position top
 
-source-file ~/linux/.tmux.conf
+# copy
+bind-key -T copy-mode M-w send-keys -X copy-pipe "xclip -selection clipboard -i" \; send -X cancel
+
+condition="if [ $(tmux display -p -F '#{pane_current_command}') = \"emacs\" ] && ([ $(tmux display -p -F '#{window_zoomed_flag}') = \"1\" ] || [ $(tmux display -p -F '#{window_panes}') = \"1\" ]); "
+bind-key -n C-Left run "$condition then tmux send-keys C-Left; else tmux select-pane -L; fi"
+bind-key -n C-Right run "$condition then tmux send-keys C-Right; else tmux select-pane -R; fi"
+# bind-key -n C-Up run "if [ $(tmux display -p -F '#{pane_current_command}') = \"emacs\" ]; then tmux display 'hello'; fi"
+bind-key -n C-Up run "$condition then tmux send-keys C-Up; else tmux select-pane -U; fi"
+bind-key -n C-Down run "$condition then tmux send-keys C-Down; else tmux select-pane -D; fi"
+
+set-option -g update-environment "SSH_AUTH_SOCK \
+                                  SSH_CONNECTION \
+                                  DISPLAY"
