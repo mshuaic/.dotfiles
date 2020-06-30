@@ -140,6 +140,7 @@
 (windmove-default-keybindings 'ctrl)
 
 (menu-bar-mode -1)
+(tool-bar-mode -1)
 
 
 ;; backup on every save, not just the first.
@@ -341,5 +342,4 @@ This command does not push text to `kill-ring'."
 (powerline-default-theme)
 
 (setq vc-follow-symlinks t)
-
 

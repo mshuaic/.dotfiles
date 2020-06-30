@@ -13,7 +13,9 @@ set -o emacs
 export IGNOREEOF=2
 # set -o ignoreeof
  
-# alias rm='mv -b -t /tmp'
+# alias sudo='nocorrect sudo '
+alias rm='trash'
+
 
 export VISUAL="emacs -nw"
 export EDITOR="$VISUAL"
@@ -74,7 +76,7 @@ if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
 	# [[ "$REGION_ACTIVE" -ne 0 ]] && zle copy-region-as-
 	zle copy-region-as-kill
 	# print -rn -- $CUTBUFFER | xclip -selection clipboard -i
-	print -rn -- $CUTBUFFER | xclip -i
+	print -rn -- $CUTBUFFER | xclip -i -selection clipboard
 	zle deactivate-region
 	# print -rn -- $CUTBUFFER | clipcopy 
 
@@ -82,7 +84,7 @@ if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
     zle -N x-copy-region-as-kill
     x-kill-region () {
 	zle kill-region
-	print -rn $CUTBUFFER | xclip -i 
+	print -rn $CUTBUFFER | xclip -i -selection clipboard
     }
     zle -N x-kill-region
     x-yank () {
@@ -115,4 +117,33 @@ fi
 export PATH=$HOME/.local/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 
-alias leetcode='docker run -it --rm -v ~/leetcode:/home/node -u 1000:1000 90d2b51bda97'
+alias leetcode='NODE_NO_WARNINGS=1 ~/leetcode-cli/bin/leetcode'
+###-begin-leetcode-completions-###
+#
+# yargs command completion script
+#
+# Installation: /home/mark/leetcode-cli/bin/leetcode completion >> ~/.bashrc
+#    or /home/mark/leetcode-cli/bin/leetcode completion >> ~/.bash_profile on OSX.
+#
+_yargs_completions()
+{
+    local cur_word args type_list
+
+    cur_word="${COMP_WORDS[COMP_CWORD]}"
+    args=("${COMP_WORDS[@]}")
+
+    # ask yargs to generate completions.
+    type_list=$(/home/mark/leetcode-cli/bin/leetcode --get-yargs-completions "${args[@]}")
+
+    COMPREPLY=( $(compgen -W "${type_list}" -- ${cur_word}) )
+
+    # if no match was found, fall back to filename completion
+    if [ ${#COMPREPLY[@]} -eq 0 ]; then
+      COMPREPLY=( $(compgen -f -- "${cur_word}" ) )
+    fi
+
+    return 0
+}
+complete -F _yargs_completions leetcode
+###-end-leetcode-completions-###
+

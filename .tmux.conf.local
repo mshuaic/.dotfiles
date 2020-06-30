@@ -42,7 +42,7 @@ tmux_conf_new_session_prompt=false
 # RGB 24-bit colour support (tmux >= 2.2), possible values are:
 #  - true
 #  - false (default)
-tmux_conf_theme_24b_colour=false
+tmux_conf_theme_24b_colour=true
 
 # window style
 tmux_conf_theme_window_fg='default'
@@ -308,3 +308,6 @@ bind-key -n C-Down run "$condition then tmux send-keys C-Down; else tmux select-
 set-option -g update-environment "SSH_AUTH_SOCK \
                                   SSH_CONNECTION \
                                   DISPLAY"
+
+set -g mouse on
+unbind -n C-l
