@@ -71,7 +71,6 @@ ZSH_CUSTOM=$HOME/dotfiles/custom
 plugins=(
     git
     virtualenv
-    zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
