@@ -4,7 +4,7 @@
 # make symbolic links for all dot files
 
 dotfiles=( .bashrc .emacs .inputrc .myshell.sh .zshrc .tmux.conf.local)
-currpath=`pwd`
+currpath=$(readlink -nf -- "$0")
 #echo $currpath
 
 for i in "${dotfiles[@]}"

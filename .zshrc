@@ -61,7 +61,7 @@ ENABLE_CORRECTION="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/dotfiles/custom
+ZSH_CUSTOM=$(readlink -nf -- "$0")/custom
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -71,6 +71,7 @@ ZSH_CUSTOM=$HOME/dotfiles/custom
 plugins=(
     git
     virtualenv
+    fzf
 )
 
 source $ZSH/oh-my-zsh.sh

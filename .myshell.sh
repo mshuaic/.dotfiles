@@ -117,7 +117,8 @@ fi
 export PATH=$HOME/.local/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 
-alias leetcode='NODE_NO_WARNINGS=1 ~/leetcode-cli/bin/leetcode'
+LEETCODE_CLI=$HOME/leetcode/.cli
+alias leetcode="NODE_NO_WARNINGS=1 $LEETCODE_CLI/bin/leetcode"
 ###-begin-leetcode-completions-###
 #
 # yargs command completion script
@@ -133,7 +134,7 @@ _yargs_completions()
     args=("${COMP_WORDS[@]}")
 
     # ask yargs to generate completions.
-    type_list=$(/home/mark/leetcode-cli/bin/leetcode --get-yargs-completions "${args[@]}")
+    type_list=$($LEETCODE_CLI/bin/leetcode --get-yargs-completions "${args[@]}")
 
     COMPREPLY=( $(compgen -W "${type_list}" -- ${cur_word}) )
 
