@@ -5,6 +5,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ido-ignore-files '("^\\."))
  '(package-selected-packages
    '(neotree solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(show-paren-mode t))
@@ -297,6 +298,7 @@ This command does not push text to `kill-ring'."
        (not (member name my-unignored-buffers))))
 
 (setq ido-ignore-buffers '("\\` " my-ido-ignore-func))
+
 
 (defun my-next-buffer ()
   "next-buffer that skips certain buffers"

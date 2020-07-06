@@ -72,6 +72,7 @@ plugins=(
     git
     virtualenv
     fzf
+    direnv
 )
 
 source $ZSH/oh-my-zsh.sh
