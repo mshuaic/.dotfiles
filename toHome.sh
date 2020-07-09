@@ -18,3 +18,5 @@ ln -s -f $currpath/.oh-my-zsh $HOME
 
 
 git submodule update --init --recursive
+
+source .myshell.sh
