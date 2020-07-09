@@ -15,13 +15,6 @@ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
 
 # libgtk2.0-dev libgnutls-dev
 
-# pyenv
-curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
-cp .bashrc .emacs .tmux.conf .inputrc .myshell.sh $HOME
 
 # docker 
 # curl -fsSL get.docker.com -o get-docker.sh
@@ -30,21 +23,12 @@ cp .bashrc .emacs .tmux.conf .inputrc .myshell.sh $HOME
 # sudo groupadd docker
 # sudo usermod -aG docker $USER
 
-
-# install python
-pyenv install 3.7.0
-pyenv global 3.7.0
-pip install --upgrade pip
-pip install autopep8
-pip install virtualenv
-
 git config --global user.email "mshuaic@users.noreply.github.com" 
 git config --global user.name "Mark"
 
+
+bash install_python.sh
 bash install_tmux.sh
 bash install_emacs.sh
 
-
-# emacs --fg-daemon -f jedi:install-server -f save-buffers-kill-emacs
-
-source $HOME/.bashrc
+bash toHome.sh
