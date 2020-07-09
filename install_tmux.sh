@@ -1,5 +1,5 @@
-url=$(curl -s https://api.github.com/repos/tmux/tmux/releases/latest | jq -r '.assets[0].browser_download_url' | grep .tar.gz)
-filename=$(curl -s https://api.github.com/repos/tmux/tmux/releases/latest | jq -r '.assets[0].name' | grep .tar.gz)
+url=$(curl -s https://api.github.com/repos/tmux/tmux/releases/latest | jq -r '.assets[].browser_download_url' | grep .tar.gz)
+filename=$(curl -s https://api.github.com/repos/tmux/tmux/releases/latest | jq -r '.assets[].name' | grep .tar.gz)
 cpath=`pwd`
 folder='tmux'
 
