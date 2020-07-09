@@ -7,7 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(ido-ignore-files '("^\\."))
  '(package-selected-packages
-   '(neotree solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
+   '(lsp-ui which-key lsp-mode neotree solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -82,10 +82,6 @@
 (require 'py-autopep8)
 (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 
-
-(global-auto-complete-mode t)
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
    
 (global-linum-mode t)
 
@@ -158,7 +154,7 @@
 (put 'matlab-mode 'derived-mode-parent 'prog-mode)
 
 ;; hook all prog-mode to auto-complete-mode
-(add-hook 'prog-mode-hook 'auto-complete-mode)
+;; (add-hook 'prog-mode-hook 'auto-complete-mode)
 
 
 (setq initial-scratch-message nil)
@@ -176,8 +172,8 @@
 ;; LATEX CONFIGURATION
 ;; --------------------------------------
 
-(add-to-list 'ac-modes 'latex-mode)   ; make auto-complete aware of `latex-mode`
-(add-to-list 'ac-modes 'LaTeX-mode)   ; make auto-complete aware of `latex-mode`
+;; (add-to-list 'ac-modes 'latex-mode)   ; make auto-complete aware of `latex-mode`
+;; (add-to-list 'ac-modes 'LaTeX-mode)   ; make auto-complete aware of `latex-mode`
 (add-hook 'LaTeX-mode-hook (lambda ()
 	(TeX-fold-mode 1)                             
 	(outline-minor-mode 1)
@@ -194,16 +190,16 @@
 
 ;; FLYSPELL CONFIGURATION
 ;; --------------------------------------
-(setq ispell-dictionary "english"); Default dictionary. To change do M-x ispell-change-dictionary RET.
-(add-hook 'text-mode-hook 'flyspell-mode)
+;; (setq ispell-dictionary "english"); Default dictionary. To change do M-x ispell-change-dictionary RET.
+;; (add-hook 'text-mode-hook 'flyspell-mode)
 ;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-(ac-flyspell-workaround) ; fixes a known bug of delay due to flyspell (if it is there)
+;; (ac-flyspell-workaround) ; fixes a known bug of delay due to flyspell (if it is there)
 
 
 (autoload 'gfm-mode "markdown-mode"
    "Major mode for editing GitHub Flavored Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
-(add-to-list 'ac-modes 'gfm-mode)
+;; (add-to-list 'ac-modes 'gfm-mode)
 
 (defun delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
@@ -299,20 +295,27 @@ This command does not push text to `kill-ring'."
 ;; C/C++ formating
 
 
-(require 'clang-format)
-(add-hook 'c-mode-common-hook
-          (function (lambda ()
-                    (add-hook 'before-save-hook
-                              'clang-format-buffer))))
+;; (require 'clang-format)
+;; (add-hook 'c-mode-common-hook
+;;           (function (lambda ()
+;;                     (add-hook 'before-save-hook
+;;                               'clang-format-buffer))))
 
-(add-hook 'c-mode-hook (lambda () (setq comment-start "//"
-                                        comment-end   "")))
+;; (add-hook 'c-mode-hook (lambda () (setq comment-start "//"
+;;                                         comment-end   "")))
 
-(remove-hook 'c-mode-hook 'makefile-gmake-mode)
+;; (remove-hook 'c-mode-hook 'makefile-gmake-mode)
 
 
 (require 'powerline)
 (powerline-default-theme)
 
-(setq vc-follow-symlinks t)
+(setq lsp-keymap-prefix "M-l")
+(require 'lsp-mode)
+(add-hook 'prog-mode-hook #'lsp)
 
+(require 'which-key)
+(which-key-mode)
+
+(with-eval-after-load 'lsp-mode
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
