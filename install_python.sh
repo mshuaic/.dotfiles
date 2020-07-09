@@ -15,3 +15,4 @@ pyenv global $VERSION
 pip install --upgrade pip
 pip install autopep8
 pip install virtualenv
+hash -r

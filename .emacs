@@ -109,10 +109,6 @@
 ;; set beep off
  (setq visible-bell 1)
 
-;; (global-set-key (kbd "<f5>") 'switch-to-buffer); switch buffer
-;; (global-set-key (kbd "<f6>") 'find-file); find file
-;; (global-set-key (kbd "<f12>") 'keyboard-escape-quit) ;; all platforms?
-
 
 ;; use xclip to copy/paste in emacs-nox
 (unless window-system
@@ -132,12 +128,7 @@
 ;; auto pair
 (electric-pair-mode 1)
 
-;; unset key
-;; (global-unset-key (kbd "C-x f"))
-;; (global-set-key (kbd "C-x f") 'find-file)
 
-;; (global-unset-key (kbd "<C-right>"))
-;; (global-unset-key (kbd "<C-left>"))
 (windmove-default-keybindings 'ctrl)
 
 (menu-bar-mode -1)
@@ -190,17 +181,7 @@
 (add-hook 'LaTeX-mode-hook (lambda ()
 	(TeX-fold-mode 1)                             
 	(outline-minor-mode 1)
-	;; {table}
-	;; (add-to-list 'TeX-fold-env-spec-list '("[tabularx]" ("tabularx")))
-	;; (add-to-list 'LaTeX-fold-env-spec-list '("[figure]" ("figure")))
-	;; (add-to-list 'TeX-fold-env-spec-list '(("[table]" ("table"))))
 	(add-hook 'find-file-hook 'TeX-fold-buffer)
-	;; (add-to-list 'TeX-fold-env-spec-list '("[figure]" ("figure")))
-	;; (add-hook 'find-file-hook 'TeX-fold-dwim)
-	;; (add-hook 'find-file-hook 'TeX-fold-comment) 
-	;; (TeX-fold-comment 1)
-	;; (turn-on-reftex 1)
-	;; (setq reftex-plug-into-AUCTeX t)
 	(outline-hide-sublevels 3)
 	(local-set-key (kbd "M-[ 1 ; 6 k") 'outline-show-entry)
 	(local-set-key (kbd "M-[ 1 ; 5 k") 'outline-hide-body)
@@ -218,11 +199,6 @@
 ;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 (ac-flyspell-workaround) ; fixes a known bug of delay due to flyspell (if it is there)
 
-
-;; (autoload 'markdown-mode "markdown-mode"
-;;    "Major mode for editing Markdown files" t)
-;; (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-;; (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (autoload 'gfm-mode "markdown-mode"
    "Major mode for editing GitHub Flavored Markdown files" t)
@@ -334,11 +310,6 @@ This command does not push text to `kill-ring'."
 
 (remove-hook 'c-mode-hook 'makefile-gmake-mode)
 
-(require 'neotree)
-(setq neo-theme  'emoji)
-;; (setq neo-autorefresh 1)
-;; (setq neo-global--autorefresh-timer 5)
-(global-set-key [f8] 'neotree-toggle)
 
 (require 'powerline)
 (powerline-default-theme)

@@ -1,5 +1,5 @@
-url=$(curl -s https://api.github.com/repos/tmux/tmux/releases/latest | jq -r '.assets[0].browser_download_url')
-filename=$(curl -s https://api.github.com/repos/tmux/tmux/releases/latest | jq -r '.assets[0].name')
+url=$(curl -s https://api.github.com/repos/tmux/tmux/releases/latest | jq -r '.assets[0].browser_download_url' | grep .tar.gz)
+filename=$(curl -s https://api.github.com/repos/tmux/tmux/releases/latest | jq -r '.assets[0].name' | grep .tar.gz)
 cpath=`pwd`
 folder='tmux'
 
@@ -12,4 +12,4 @@ cd $folder
 sudo make install
 
 cd $cpath
-
+hash -r
