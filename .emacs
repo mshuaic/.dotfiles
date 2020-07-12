@@ -54,7 +54,7 @@
       (package-install package)))
       myPackages)
 
-;; BASIC CUSTOMIZATION
+;; basic customization
 ;; --------------------------------------
 
 (setq inhibit-startup-message t) ;; hide the startup message
@@ -234,18 +234,18 @@ This command does not push text to `kill-ring'."
    (progn (end-of-line 1) (point)))
   (delete-char 1))
 
-(defun my-delete-line-backward ()
-  "Delete text between the beginning of the line to the cursor position.
-This command does not push text to `kill-ring'."
-  (interactive)
-  (let (p1 p2)
-    (setq p1 (point))
-    (beginning-of-line 1)
-    (setq p2 (point))
-    (delete-region p1 p2)))
+;; (defun my-delete-line-backward ()
+;;   "Delete text between the beginning of the line to the cursor position.
+;; This command does not push text to `kill-ring'."
+;;   (interactive)
+;;   (let (p1 p2)
+;;     (setq p1 (point))
+;;     (beginning-of-line 1)
+;;     (setq p2 (point))
+;;     (delete-region p1 p2)))
 
-; bind them to emacs's default shortcut keys:
-(global-set-key (kbd "C-S-k") 'my-delete-line-backward) ; Ctrl+Shift+k
+;; ; bind them to emacs's default shortcut keys:
+;; (global-set-key (kbd "C-S-k") 'my-delete-line-backward) ; Ctrl+Shift+k
 (global-set-key (kbd "C-k") 'my-delete-line)
 (global-set-key (kbd "M-d") 'my-delete-word)
 ;; Traditionally, Unix uses the ^H keystroke to send a backspace from or to a terminal.
@@ -312,7 +312,8 @@ This command does not push text to `kill-ring'."
 
 (setq lsp-keymap-prefix "M-l")
 (require 'lsp-mode)
-(add-hook 'prog-mode-hook #'lsp)
+(add-hook 'python-mode-hook #'lsp)
+(add-hook 'python-mode-hook #'yas-minor-mode)
 
 (require 'which-key)
 (which-key-mode)

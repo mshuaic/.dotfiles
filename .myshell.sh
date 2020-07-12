@@ -2,7 +2,7 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-stty -ixon
+# stty -ixon
 
 alias emacs="emacs -nw"
 alias octave="octave-cli"
@@ -38,7 +38,7 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
     # export work="/mnt/e/work"
 
     # mayby use WSLENV later
-    export CDPATH=/mnt/c/Users/mshua
+    export CDPATH=/c/Users/mshua
 
     # ssh agent forwarding
     env=~/.ssh/agent.env
