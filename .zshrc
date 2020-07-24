@@ -72,7 +72,8 @@ plugins=(
     git
     virtualenv
     fzf
-    direnv
+    asdf
+    tmuxinator
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -104,7 +105,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 setopt ignoreeof
-source ~/.myshell.sh
 export SHELL=`which zsh`
 
 if [ -n "$TMUX" ]; then                                                      
@@ -115,3 +115,6 @@ if [ -n "$TMUX" ]; then
 else
   function refresh { }
 fi
+
+source ~/.myshell.sh
+source ~/.dotfiles/lib/zsh-autoenv/autoenv.zsh

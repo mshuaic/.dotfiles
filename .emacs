@@ -121,6 +121,7 @@
     (setq interprogram-paste-function 'xclip-paste-function)
         ))
 
+
 ;; auto pair
 (electric-pair-mode 1)
 
@@ -161,7 +162,9 @@
 
 
 (setq auto-save-visited-interval 30)
-(auto-save-visited-mode 1)
+;; (auto-save-visited-mode 1)
+;; (setq auto-save-default t)
+(setq auto-save-visited-file-name t)
 
 ;; auto refresh all buffers
 (global-auto-revert-mode 1)
@@ -252,6 +255,7 @@ This command does not push text to `kill-ring'."
 ;; swap the <Backspace> and <DEL> keys inside Emacs
 ;; (keyboard-translate ?\C-h ?\C-?)
 (global-set-key (kbd "M-<DEL>") 'my-backward-delete-word)
+;; (global-set-key (kbd "[127;5u") 'my-backward-delete-word)
 
 
 ;; solidity 
@@ -310,7 +314,7 @@ This command does not push text to `kill-ring'."
 (require 'powerline)
 (powerline-default-theme)
 
-(setq lsp-keymap-prefix "M-l")
+(setq lsp-keymap-prefix "s-l")
 (require 'lsp-mode)
 (add-hook 'python-mode-hook #'lsp)
 (add-hook 'python-mode-hook #'yas-minor-mode)
@@ -320,3 +324,10 @@ This command does not push text to `kill-ring'."
 
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+
+(define-key input-decode-map "" [C-S-A])
+
+(global-set-key [C-S-A] 'mark-whole-buffer)
+;; (global-set-key (kbd "s-a") 'mark-whole-buffer)
+(define-key function-key-map "[25~" 'event-apply-super-modifier) ;; f13
+;; (define-key local-function-key-map "\033[32;16~" [(super)])
