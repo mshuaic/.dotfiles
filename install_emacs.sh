@@ -21,7 +21,7 @@ mkdir $folder
 tar -xvzf $filename -C $folder --strip-components=1
 cd $folder
 ./autogen.sh
-./configure && make
+./configure --with-x-toolkit=lucid && make
 sudo make install
 
 cd $cpath
