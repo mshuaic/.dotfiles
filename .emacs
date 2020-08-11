@@ -7,7 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(ido-ignore-files '("^\\."))
  '(package-selected-packages
-   '(lsp-ui which-key lsp-mode neotree solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
+   '(xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -46,8 +46,8 @@
     solidity-mode
     clang-format
     powerline
-    neotree
-    gnu-elpa-keyring-update))
+    gnu-elpa-keyring-update
+    xclip))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -103,24 +103,25 @@
 
 
 ;; set beep off
- (setq visible-bell 1)
+(setq visible-bell 1)
 
 
 ;; use xclip to copy/paste in emacs-nox
-(unless window-system
-  (when (getenv "DISPLAY")
-    (defun xclip-cut-function (text &optional push)
-      (with-temp-buffer
-	(insert text)
-	(call-process-region (point-min) (point-max) "xclip" nil 0 nil "-i" "-selection" "clipboard")))
-    (defun xclip-paste-function()
-      (let ((xclip-output (shell-command-to-string "xclip -o -selection clipboard")))
-	(unless (string= (car kill-ring) xclip-output)
-	  xclip-output )))
-    (setq interprogram-cut-function 'xclip-cut-function)
-    (setq interprogram-paste-function 'xclip-paste-function)
-        ))
+;; (unless window-system
+  ;; (when (getenv "DISPLAY")
+    ;; (defun xclip-cut-function (text &optional push)
+    ;;   (with-temp-buffer
+    ;; 	(insert text)
+    ;; 	(call-process-region (point-min) (point-max) "xclip" nil 0 nil "-i" "-selection" "clipboard")))
+    ;; (defun xclip-paste-function()
+    ;;   (let ((xclip-output (shell-command-to-string "xclip -o -selection clipboard")))
+    ;; 	(unless (string= (car kill-ring) xclip-output)
+    ;; 	  xclip-output )))
+    ;; (setq interprogram-cut-function 'xclip-cut-function)
+    ;; (setq interprogram-paste-function 'xclip-paste-function)
+        ;; ))
 
+(xclip-mode 1)
 
 ;; auto pair
 (electric-pair-mode 1)
@@ -130,6 +131,7 @@
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+(toggle-scroll-bar -1)
 
 
 ;; backup on every save, not just the first.
@@ -318,6 +320,7 @@ This command does not push text to `kill-ring'."
 (require 'lsp-mode)
 (add-hook 'python-mode-hook #'lsp)
 (add-hook 'python-mode-hook #'yas-minor-mode)
+(setq lsp-ui-doc-position 'top)
 
 (require 'which-key)
 (which-key-mode)
@@ -325,9 +328,19 @@ This command does not push text to `kill-ring'."
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
-(define-key input-decode-map "" [C-S-A])
+(defun setup-input-decode-map ()
+  (define-key input-decode-map "" [C-S-A]))
 
+(setup-input-decode-map)
+
+(add-hook 'tty-setup-hook #'setup-input-decode-map)
+
+;; (global-set-key [C-M-A] 'mark-whole-buffer)
+;; (define-key function-key-map "" 'mark-whole-buffer) ;; [C-S-A]
+;; (define-key local-function-key-map "" [C-S-A]) ;; [C-S-A]
 (global-set-key [C-S-A] 'mark-whole-buffer)
-;; (global-set-key (kbd "s-a") 'mark-whole-buffer)
+(when (display-graphic-p)
+    (global-set-key (kbd "C-A") 'mark-whole-buffer))
+;; (global-set-key (kbd "C-A") 'mark-whole-buffer)
 (define-key function-key-map "[25~" 'event-apply-super-modifier) ;; f13
 ;; (define-key local-function-key-map "\033[32;16~" [(super)])

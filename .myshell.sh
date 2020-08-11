@@ -4,8 +4,11 @@ eval "$(pyenv virtualenv-init -)"
 
 # stty -ixon
 
-alias emacs="emacs -nw"
+# alias emacs="$EMACS_PLUGIN_LAUNCHER -nw"
+alias emacs="emacsclient -t"
+alias e=emacs
 alias octave="octave-cli"
+alias ta="tmux a"
 
 set -o emacs
 
@@ -16,9 +19,9 @@ export IGNOREEOF=2
 # alias sudo='nocorrect sudo '
 alias rm='trash'
 
-
-export VISUAL="emacs -nw"
-export EDITOR="$VISUAL"
+export ALTERNATE_EDITOR=""
+export EDITOR="emacsclient -t"
+export VISUAL="emacsclient -c -a emacs"
 
 # only for WSL 
 if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]; then
@@ -108,9 +111,9 @@ export PATH=$PATH:$GOPATH/bin
 # Ethereum 
 export PATH=$PATH:/home/mark/go-ethereum/build/bin
 
-if [ -x "$(command -v fuck)" ]; then
-    eval $(thefuck --alias)
-fi
+# if [ -x "$(command -v fuck)" ]; then
+#     eval $(thefuck --alias)
+# fi
 
 
 # local bin and library

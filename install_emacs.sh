@@ -1,6 +1,6 @@
 
 tag=`curl -s https://github.com/emacs-mirror/emacs/tags/ \
-| egrep "^\s+emacs" | sort -r | tr -d ' ' | head -1`
+| egrep "^\s+emacs[^(rc)]*$" | sort -r | tr -d ' ' | head -1`
 
 filename="$tag.tar.gz"
 # url="http://ftp.wayne.edu/gnu/emacs/$filename"
