@@ -1,10 +1,12 @@
+export DOTFILES=$(dirname "$(readlink -f "$0")")
+source $DOTFILES/tools/check_for_upgrade.sh
+
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 # stty -ixon
 
-# alias emacs="$EMACS_PLUGIN_LAUNCHER -nw"
 alias emacs="emacsclient -t"
 alias e=emacs
 alias octave="octave-cli"
@@ -17,7 +19,7 @@ export IGNOREEOF=2
 # set -o ignoreeof
  
 # alias sudo='nocorrect sudo '
-if command -v trash; then
+if command -v trash > /dev/null; then
     alias rm='trash'
 else
     alias rm='mv -b -t /tmp'
@@ -123,35 +125,3 @@ export PATH=$PATH:/home/mark/go-ethereum/build/bin
 # local bin and library
 export PATH=$HOME/.local/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
-
-LEETCODE_CLI=$HOME/leetcode/.cli
-alias leetcode="NODE_NO_WARNINGS=1 $LEETCODE_CLI/bin/leetcode"
-###-begin-leetcode-completions-###
-#
-# yargs command completion script
-#
-# Installation: /home/mark/leetcode-cli/bin/leetcode completion >> ~/.bashrc
-#    or /home/mark/leetcode-cli/bin/leetcode completion >> ~/.bash_profile on OSX.
-#
-_yargs_completions()
-{
-    local cur_word args type_list
-
-    cur_word="${COMP_WORDS[COMP_CWORD]}"
-    args=("${COMP_WORDS[@]}")
-
-    # ask yargs to generate completions.
-    type_list=$($LEETCODE_CLI/bin/leetcode --get-yargs-completions "${args[@]}")
-
-    COMPREPLY=( $(compgen -W "${type_list}" -- ${cur_word}) )
-
-    # if no match was found, fall back to filename completion
-    if [ ${#COMPREPLY[@]} -eq 0 ]; then
-      COMPREPLY=( $(compgen -f -- "${cur_word}" ) )
-    fi
-
-    return 0
-}
-complete -F _yargs_completions leetcode
-###-end-leetcode-completions-###
-
