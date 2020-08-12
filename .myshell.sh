@@ -1,5 +1,5 @@
 export DOTFILES=$(dirname "$(readlink -f "$0")")
-source $DOTFILES/tools/check_for_upgrade.sh
+DOTFILES="$DOTFILES" sh $DOTFILES/tools/check_for_upgrade.sh
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
