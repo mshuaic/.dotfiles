@@ -17,7 +17,11 @@ export IGNOREEOF=2
 # set -o ignoreeof
  
 # alias sudo='nocorrect sudo '
-alias rm='trash'
+if command -v trash; then
+    alias rm='trash'
+else
+    alias rm='mv -b -t /tmp'
+fi
 
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"

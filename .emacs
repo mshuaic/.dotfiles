@@ -1,4 +1,4 @@
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+;; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (setq vc-follow-symlinks t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -19,16 +19,10 @@
 
 
 (require 'package)
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
-  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
-(unless package--initialized (package-initialize))
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
+			 ("org" . "http://orgmode.org/elpa/")))
+;; (unless package--initialized (package-initialize))
 ;; (package-initialize)
 
 
@@ -47,12 +41,13 @@
     clang-format
     powerline
     gnu-elpa-keyring-update
-    xclip))
+    xclip
+    lsp-mode))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
       (package-install package)))
-      myPackages)
+      package-selected-packages)
 
 ;; basic customization
 ;; --------------------------------------
@@ -316,11 +311,12 @@ This command does not push text to `kill-ring'."
 (require 'powerline)
 (powerline-default-theme)
 
+
 (setq lsp-keymap-prefix "s-l")
 (require 'lsp-mode)
 (add-hook 'python-mode-hook #'lsp)
 (add-hook 'python-mode-hook #'yas-minor-mode)
-(setq lsp-ui-doc-position 'top)
+(add-hook 'lsp-ui-doc-mode-hook (lambda () (setq truncate-lines t)))
 
 (require 'which-key)
 (which-key-mode)
