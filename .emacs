@@ -1,4 +1,4 @@
-;; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+  ;; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (setq vc-follow-symlinks t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -7,7 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(ido-ignore-files '("^\\."))
  '(package-selected-packages
-   '(xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
+   '(org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -22,27 +22,12 @@
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
 			 ("org" . "http://orgmode.org/elpa/")))
-;; (unless package--initialized (package-initialize))
+(unless package--initialized (package-initialize))
 ;; (package-initialize)
 
 
 (when (not package-archive-contents)
   (package-refresh-contents))
-
-(defvar myPackages
-  '(better-defaults
-    jedi
-    ein
-    elpy
-    flycheck
-    material-theme
-    py-autopep8
-    solidity-mode
-    clang-format
-    powerline
-    gnu-elpa-keyring-update
-    xclip
-    lsp-mode))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -71,7 +56,7 @@
 ;; use flycheck not flymake with elpy
 ;; (when (require 'flycheck nil t)
 ;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
+;;   (add-hook 'elpy-mode-hook 'flycheck-mode)
 
 ;; enable autopep8 formatting on save
 (require 'py-autopep8)
@@ -340,3 +325,6 @@ This command does not push text to `kill-ring'."
 ;; (global-set-key (kbd "C-A") 'mark-whole-buffer)
 (define-key function-key-map "[25~" 'event-apply-super-modifier) ;; f13
 ;; (define-key local-function-key-map "\033[32;16~" [(super)])
+
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
