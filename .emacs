@@ -1,4 +1,4 @@
-  ;; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+;; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (setq vc-follow-symlinks t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -14,7 +14,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+)
 
 
 
@@ -309,22 +309,27 @@ This command does not push text to `kill-ring'."
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
+
 (defun setup-input-decode-map ()
-  (define-key input-decode-map "" [C-S-A]))
-
+  (define-key input-decode-map "" (kbd "C-S-a")))
 (setup-input-decode-map)
-
 (add-hook 'tty-setup-hook #'setup-input-decode-map)
 
-;; (global-set-key [C-M-A] 'mark-whole-buffer)
+
+(global-set-key (kbd "C-S-a") 'mark-whole-buffer)
 ;; (define-key function-key-map "" 'mark-whole-buffer) ;; [C-S-A]
 ;; (define-key local-function-key-map "" [C-S-A]) ;; [C-S-A]
-(global-set-key [C-S-A] 'mark-whole-buffer)
-(when (display-graphic-p)
-    (global-set-key (kbd "C-A") 'mark-whole-buffer))
-;; (global-set-key (kbd "C-A") 'mark-whole-buffer)
+;; (global-set-key [C-S-a] 'mark-whole-buffer)
+;; (when (display-graphic-p)
+;;     (global-set-key (kbd "C-A") 'mark-whole-buffer))
+;; ;; (global-set-key (kbd "C-A") 'mark-whole-buffer)
 (define-key function-key-map "[25~" 'event-apply-super-modifier) ;; f13
 ;; (define-key local-function-key-map "\033[32;16~" [(super)])
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;; ;; (add-to-list 'default-frame-alist
+;; ;;                        '(font . "DejaVu Sans Mono"))
+;; (set-frame-font "DejaVuSansMono Nerd Font 12" nil t)
+(add-to-list 'default-frame-alist '(font . "DejaVuSansMono Nerd Font"))
+(set-face-attribute 'default t :font "DejaVuSansMono Nerd Font")
