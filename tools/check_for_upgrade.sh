@@ -5,9 +5,10 @@ LOCAL=$(git rev-parse @)
 REMOTE=$(git rev-parse "$UPSTREAM")
 BASE=$(git merge-base @ "$UPSTREAM")
 
-# if [ $LOCAL = $REMOTE ]; then
-#     echo "Up-to-date"
-if [ $LOCAL = $BASE ]; then
+if [ $LOCAL = $REMOTE ]; then
+    # echo "Up-to-date"
+    return
+elif [ $LOCAL = $BASE ]; then
     echo "Need to pull"
     git pull https://github.com/mshuaic/dotfiles.git
     # DOTFILES="$DOTFILES" sh "$DOTFILES/tools/upgrade.sh"
