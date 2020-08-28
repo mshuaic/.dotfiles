@@ -7,14 +7,14 @@
  ;; If there is more than one, they won't work right.
  '(ido-ignore-files '("^\\."))
  '(package-selected-packages
-   '(org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
+   '(hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
 
 
 
@@ -328,8 +328,11 @@ This command does not push text to `kill-ring'."
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-;; ;; (add-to-list 'default-frame-alist
-;; ;;                        '(font . "DejaVu Sans Mono"))
-;; (set-frame-font "DejaVuSansMono Nerd Font 12" nil t)
-(add-to-list 'default-frame-alist '(font . "DejaVuSansMono Nerd Font"))
-(set-face-attribute 'default t :font "DejaVuSansMono Nerd Font")
+
+;; Need to set font for GUI Emacs
+;; TODO: add .font to .dotfiles
+;; (add-to-list 'default-frame-alist '(font . "DejaVuSansMono Nerd Font"))
+;; (set-face-attribute 'default t :font "DejaVuSansMono Nerd Font")
+
+(require 'hlinum)
+(hlinum-activate)

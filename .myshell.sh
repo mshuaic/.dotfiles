@@ -11,6 +11,7 @@ alias emacs="emacsclient -t"
 alias e=emacs
 alias octave="octave-cli"
 alias ta="tmux a"
+alias ximg='feh'
 
 set -o emacs
 
@@ -28,6 +29,7 @@ fi
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
 export VISUAL="emacsclient -c -a emacs"
+export CDPATH=$CDPATH:.:~:~/.windir
 
 # only for WSL 
 if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]; then
@@ -47,7 +49,7 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
     # export work="/mnt/e/work"
 
     # mayby use WSLENV later
-    export CDPATH=/c/Users/mshua
+    # export CDPATH=$CDPATH:/c/Users/mshua/Desktop
 
     # ssh agent forwarding
     env=~/.ssh/agent.env

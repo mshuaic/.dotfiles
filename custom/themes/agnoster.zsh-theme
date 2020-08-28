@@ -198,7 +198,21 @@ prompt_hg() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue $CURRENT_FG '%1~'
+  if [[ -z "$TMUX" ]]; then
+    prompt_segment blue $CURRENT_FG '%1~'
+  else
+    local bg fg
+    bg="%K{blue}"
+    fg="%F{$CURRENT_FG}"
+    if [[ $CURRENT_BG != 'NONE' && blue != $CURRENT_BG ]]; then
+      echo -n "%{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%}"
+    else
+      echo -n "%{$bg%}%{$fg%}"
+    fi
+    CURRENT_BG=blue
+    [[ $RETVAL -ne 0 ]] && echo -n " %{%F{red}%}✘"
+    tmux select-pane -T " #[bold]${PWD/#$HOME/~} "
+  fi
 }
 
 # Virtualenv: current working virtualenv
@@ -216,7 +230,7 @@ prompt_virtualenv() {
 prompt_status() {
   local -a symbols
 
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
+  [[ $RETVAL -ne 0 &&  -z "$TMUX" ]] && symbols+="%{%F{red}%}✘"
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
