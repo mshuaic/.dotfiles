@@ -131,3 +131,4 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib:$HOME/.linuxbrew/lib
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.linuxbrew/lib/pkgconfig
 
 eval $(/home/sma30/.linuxbrew/bin/brew shellenv)
+eval $(docker-machine env default)
