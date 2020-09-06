@@ -130,6 +130,11 @@ export PATH=$HOME/.local/bin:$HOME/.linuxbrew/bin:$PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib:$HOME/.linuxbrew/lib
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.linuxbrew/lib/pkgconfig
 
+
 if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
     eval $($HOME/.linuxbrew/bin/brew shellenv)
+fi
+
+if [[ -x "$(command -v docker-machine)" ]]; then
+    eval $(docker-machine env default)
 fi
