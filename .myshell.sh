@@ -137,5 +137,5 @@ if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
 fi
 
 if [[ -x "$(command -v docker-machine)" ]]; then
-    eval $(docker-machine env default)
+    eval $(docker-machine env ubuntu)
 fi

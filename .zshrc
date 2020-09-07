@@ -74,6 +74,7 @@ plugins=(
     fzf
     asdf
     tmuxinator
+    docker
     # emacs
 )
 

@@ -303,7 +303,10 @@ This command does not push text to `kill-ring'."
 (require 'lsp-mode)
 (add-hook 'python-mode-hook #'lsp)
 (add-hook 'python-mode-hook #'yas-minor-mode)
+(add-hook 'c-mode-hook #'lsp)
+(add-hook 'c++-mode-hook #'lsp)
 (add-hook 'lsp-ui-doc-mode-hook (lambda () (setq truncate-lines t)))
+
 
 
 (require 'which-key)
@@ -348,8 +351,11 @@ This command does not push text to `kill-ring'."
 
 (setq org-src-tab-acts-natively t)
 
+(require 'lsp-clangd)
+
+
 ;; Uncomment the next line if you are using this from source
-;; (add-to-list 'load-path "<path-to-lsp-docker-dir>")
+;; (add-to-list 'load-path "/home/sma30/lsp-docker")
 (require 'lsp-docker)
 
 (defvar lsp-docker-client-packages
@@ -361,15 +367,16 @@ This command does not push text to `kill-ring'."
    (list :server-id 'bash-ls :docker-server-id 'bashls-docker :server-command "bash-language-server start")
    (list :server-id 'clangd :docker-server-id 'clangd-docker :server-command "ccls")
    (list :server-id 'css-ls :docker-server-id 'cssls-docker :server-command "css-languageserver --stdio")
-   (list :server-id 'dockerfile-ls :docker-server-id 'dockerfilels-docker :server-command "docker-langserver --stdio")
-   (list :server-id 'gopls :docker-server-id 'gopls-docker :server-command "gopls")
-   (list :server-id 'html-ls :docker-server-id 'htmls-docker :server-command "html-languageserver --stdio")
+   ;; (list :server-id 'dockerfile-ls :docker-server-id 'dockerfilels-docker :server-command "docker-langserver --stdio")
+   ;; (list :server-id 'gopls :docker-server-id 'gopls-docker :server-command "gopls")
+   ;; (list :server-id 'html-ls :docker-server-id 'htmls-docker :server-command "html-languageserver --stdio")
    (list :server-id 'pyls :docker-server-id 'pyls-docker :server-command "pyls")
-   (list :server-id 'ts-ls :docker-server-id 'tsls-docker :server-command "typescript-language-server --stdio")))
+   ;; (list :server-id 'ts-ls :docker-server-id 'tsls-docker :server-command "typescript-language-server --stdio")
+   ))
 
 (require 'lsp-docker)
 (lsp-docker-init-clients
-  :path-mappings '(("/home/mark/test" . "/projects"))
+  :path-mappings '(((substitute-in-file-name "$HOME/test") . "/projects"))
   :client-packages lsp-docker-client-packages
   :client-configs lsp-docker-client-configs)
     
