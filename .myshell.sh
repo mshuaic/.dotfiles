@@ -127,13 +127,14 @@ export PATH=$PATH:/home/mark/go-ethereum/build/bin
 
 
 # local bin and library
-export PATH=$HOME/.local/bin:$HOME/.linuxbrew/bin:$PATH
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib:$HOME/.linuxbrew/lib
+export PATH=$HOME/.local/bin:$PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.linuxbrew/lib/pkgconfig
 
 
 if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
     eval $($HOME/.linuxbrew/bin/brew shellenv)
+    alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
 fi
 
 if [[ -x "$(command -v docker-machine)" ]]; then
