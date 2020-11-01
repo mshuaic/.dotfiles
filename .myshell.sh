@@ -29,7 +29,7 @@ fi
 
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
-export VISUAL="emacsclient -c -a emacs"
+export VISUAL="emacsclient -t"
 export CDPATH=$CDPATH:.:~:~/.windir
 
 # only for WSL 
