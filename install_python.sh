@@ -9,6 +9,11 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 
+# if failed using brew
+# check this
+# https://stackoverflow.com/questions/50036091/pyenv-zlib-error-on-macos
+# https://docs.brew.sh/How-to-Build-Software-Outside-Homebrew-with-Homebrew-keg-only-Dependencies
+
 # install python
 pyenv install $VERSION
 pyenv global $VERSION
