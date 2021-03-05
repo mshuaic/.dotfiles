@@ -1,0 +1,28 @@
+(setq vc-follow-symlinks t)
+
+(require 'package)
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
+			 ("org" . "http://orgmode.org/elpa/")))
+(unless package--initialized (package-initialize))
+;; (package-initialize)
+
+(xterm-mouse-mode 1)
+(xclip-mode 1)
+(electric-pair-mode 1)
+
+(windmove-default-keybindings 'ctrl)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(use-package xclip wrap-region which-key solidity-mode py-autopep8 powerline org-bullets neotree matlab-mode material-theme lsp-ui jedi-direx hlinum gnu-elpa-keyring-update flycheck elpy ein clang-format better-defaults)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

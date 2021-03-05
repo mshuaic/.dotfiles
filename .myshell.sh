@@ -69,7 +69,8 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
 
     if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
         agent_start  >| /dev/null 2>&1
-	agent_run_state && ssh-add >| /dev/null 2>&1
+	echo "ssh-agent is not running"
+	# $agent_run_state && ssh-add >| /dev/null 2>&1
     #     ssh-add >| /dev/null 2>&1
     # elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
     #     ssh-add >| /dev/null 2>&1
@@ -140,3 +141,6 @@ fi
 if [[ -x "$(command -v docker-machine)" ]]; then
     eval $(docker-machine env ubuntu)
 fi
+
+
+export LIBGL_ALWAYS_INDIRECT=1
