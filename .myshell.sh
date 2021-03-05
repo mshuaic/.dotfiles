@@ -138,7 +138,7 @@ fi
 
 if [[ -f $HOME/.asdf/asdf.sh ]]; then
     . $HOME/.asdf/asdf.sh
-    . $HOME/.asdf/completions/asdf.$(echo "$BASH")$(echo "$ZSH_NAME")
+    . $HOME/.asdf/completions/asdf.bash
 fi
 
 export LIBGL_ALWAYS_INDIRECT=1
