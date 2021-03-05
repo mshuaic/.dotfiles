@@ -8,6 +8,8 @@
  '(ido-ignore-files '("^\\."))
  '(package-selected-packages
    '(smartparens powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
+ '(safe-local-variable-values
+   '((eval add-hook 'after-save-hook 'org-ascii-export-to-ascii t t)))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -353,30 +355,9 @@ This command does not push text to `kill-ring'."
 
 (require 'lsp-clangd)
 
-
-;; Uncomment the next line if you are using this from source
-;; (add-to-list 'load-path "/home/sma30/lsp-docker")
-(require 'lsp-docker)
-
-(defvar lsp-docker-client-packages
-    '(lsp-css lsp-clients lsp-bash lsp-go lsp-pyls lsp-html lsp-typescript
-      lsp-terraform lsp-cpp))
-
-(defvar lsp-docker-client-configs
-   (list
-   (list :server-id 'bash-ls :docker-server-id 'bashls-docker :server-command "bash-language-server start")
-   (list :server-id 'clangd :docker-server-id 'clangd-docker :server-command "ccls")
-   (list :server-id 'css-ls :docker-server-id 'cssls-docker :server-command "css-languageserver --stdio")
-   ;; (list :server-id 'dockerfile-ls :docker-server-id 'dockerfilels-docker :server-command "docker-langserver --stdio")
-   ;; (list :server-id 'gopls :docker-server-id 'gopls-docker :server-command "gopls")
-   ;; (list :server-id 'html-ls :docker-server-id 'htmls-docker :server-command "html-languageserver --stdio")
-   (list :server-id 'pyls :docker-server-id 'pyls-docker :server-command "pyls")
-   ;; (list :server-id 'ts-ls :docker-server-id 'tsls-docker :server-command "typescript-language-server --stdio")
-   ))
-
-(require 'lsp-docker)
-(lsp-docker-init-clients
-  :path-mappings '(((substitute-in-file-name "$HOME/test") . "/projects"))
-  :client-packages lsp-docker-client-packages
-  :client-configs lsp-docker-client-configs)
-    
+(setq sql-product 'postgres)
+(add-hook 'sql-mode-hook (lambda ()
+			   (lsp)
+			   (auto-fill-mode 1)
+			   (setq-local fill-column 65)))
+;; (add-hook 'sql-mode-hook #'auto-fill-mode)

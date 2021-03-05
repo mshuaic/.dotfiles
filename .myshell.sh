@@ -137,6 +137,9 @@ if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
     alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
 fi
 
-if [[ -x "$(command -v docker-machine)" ]]; then
-    eval $(docker-machine env ubuntu)
-fi
+# if [[ -x "$(command -v docker-machine)" ]]; then
+#     eval $(docker-machine env ubuntu)
+# fi
+
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
