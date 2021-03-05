@@ -101,8 +101,8 @@
     ;; (defun xclip-paste-function()
     ;;   (let ((xclip-output (shell-command-to-string "xclip -o -selection clipboard")))
     ;; 	(unless (string= (car kill-ring) xclip-output)
-    ;; 	  xclip-output )))
-    ;; (setq interprogram-cut-function 'xclip-cut-function)
+;; 	  xclip-output )))
+    ;; (setq interprogram-cut-function 'xclip-cut-fzunction)
     ;; (setq interprogram-paste-function 'xclip-paste-function)
         ;; ))
 
@@ -115,8 +115,16 @@
 (windmove-default-keybindings 'ctrl)
 
 (menu-bar-mode -1)
-(tool-bar-mode -1)
-(toggle-scroll-bar -1)
+(if (display-graphic-p)
+    (progn
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1))
+  (progn
+  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+  (global-set-key (kbd "<mouse-5>") 'scroll-up-line)))
+
+;; (tool-bar-mode -1)
+;; (toggle-scroll-bar -1)
 
 
 ;; backup on every save, not just the first.
@@ -355,40 +363,6 @@ This command does not push text to `kill-ring'."
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
 
-;; Uncomment the next line if you are using this from source
-;; (add-to-list 'load-path "/home/sma30/lsp-docker")
-(require 'lsp-docker)
-
-(defvar lsp-docker-client-packages
-    '(lsp-css lsp-clients lsp-bash lsp-go lsp-pyls lsp-html lsp-typescript
-      lsp-terraform lsp-cpp))
-
-(defvar lsp-docker-client-configs
-   (list
-   (list :server-id 'bash-ls :docker-server-id 'bashls-docker :server-command "bash-language-server start")
-   (list :server-id 'clangd :docker-server-id 'clangd-docker :server-command "ccls")
-   (list :server-id 'css-ls :docker-server-id 'cssls-docker :server-command "css-languageserver --stdio")
-   (list :server-id 'dockerfile-ls :docker-server-id 'dockerfilels-docker :server-command "docker-langserver --stdio")
-   (list :server-id 'gopls :docker-server-id 'gopls-docker :server-command "gopls")
-   (list :server-id 'html-ls :docker-server-id 'htmls-docker :server-command "html-languageserver --stdio")
-   (list :server-id 'pyls :docker-server-id 'pyls-docker :server-command "pyls")
-   (list :server-id 'ts-ls :docker-server-id 'tsls-docker :server-command "typescript-language-server --stdio")
-   ))
-
-(require 'lsp-docker)
-(lsp-docker-init-clients
-  :path-mappings '(((substitute-in-file-name "$HOME/test") . "/projects"))
-  :client-packages lsp-docker-client-packages
-  :client-configs lsp-docker-client-configs)
-
-
-
-    
-(add-to-list 'auto-mode-alist '("\\.pl\\'" . prolog-mode))
-(add-hook 'prolog-mode-hook 'company-mode)
-(add-to-list 'exec-path "/home/mark/.asdf/shims/")
-
-(require 'ediprolog)
-(global-set-key "\C-c\C-e" 'ediprolog-dwim)
-
 (require 'org-ref)
+
+(require 'lsp-clangd)
