@@ -1,10 +1,6 @@
 export DOTFILES=$(dirname "$(readlink -f "$0")")
 DOTFILES="$DOTFILES" sh $DOTFILES/tools/check_for_upgrade.sh
 
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
 # stty -ixon
 
 alias emacs="emacsclient -t"
@@ -69,7 +65,8 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
 
     if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
         agent_start  >| /dev/null 2>&1
-	agent_run_state && ssh-add >| /dev/null 2>&1
+	echo "ssh-agent is not running"
+	# $agent_run_state && ssh-add >| /dev/null 2>&1
     #     ssh-add >| /dev/null 2>&1
     # elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
     #     ssh-add >| /dev/null 2>&1
@@ -135,11 +132,15 @@ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.linuxb
 if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
     eval $($HOME/.linuxbrew/bin/brew shellenv)
     alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
+else
+    eval "$(pyenv virtualenv-init -)"
 fi
 
-# if [[ -x "$(command -v docker-machine)" ]]; then
-#     eval $(docker-machine env ubuntu)
-# fi
+if [[ -f $HOME/.asdf/asdf.sh ]]; then
+    . $HOME/.asdf/asdf.sh
+    . $HOME/.asdf/completions/asdf.$(echo "$BASH")$(echo "$ZSH_NAME")
+fi
 
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+export LIBGL_ALWAYS_INDIRECT=1
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"

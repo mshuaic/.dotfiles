@@ -6,10 +6,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ido-ignore-files '("^\\."))
+ '(org-agenda-files '("~/hw/cs534/project/proposal.org"))
  '(package-selected-packages
-   '(smartparens powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
+   '(org-ref ediprolog powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(safe-local-variable-values
-   '((eval add-hook 'after-save-hook 'org-ascii-export-to-ascii t t)))
+   '((eval setq org-latex-pdf-process
+	   '("pdflatex -interaction nonstopmode -output-directory %o %f" "biber %b" "pdflatex -interaction nonstopmode -output-directory %o %f" "pdflatex -interaction nonstopmode -output-directory %o %f"))
+     (eval add-hook 'after-save-hook 'org-latex-export-to-pdf t t)))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -98,24 +101,30 @@
     ;; (defun xclip-paste-function()
     ;;   (let ((xclip-output (shell-command-to-string "xclip -o -selection clipboard")))
     ;; 	(unless (string= (car kill-ring) xclip-output)
-    ;; 	  xclip-output )))
-    ;; (setq interprogram-cut-function 'xclip-cut-function)
+;; 	  xclip-output )))
+    ;; (setq interprogram-cut-function 'xclip-cut-fzunction)
     ;; (setq interprogram-paste-function 'xclip-paste-function)
         ;; ))
 
 (xclip-mode 1)
 
 ;; auto pair
-;; (electric-pair-mode 1)
-(require 'smartparens-config)
-(smartparens-global-mode 1)
+(electric-pair-mode 1)
 
 
 (windmove-default-keybindings 'ctrl)
 
 (menu-bar-mode -1)
-(tool-bar-mode -1)
-(toggle-scroll-bar -1)
+(if (display-graphic-p)
+    (progn
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1))
+  (progn
+  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+  (global-set-key (kbd "<mouse-5>") 'scroll-up-line)))
+
+;; (tool-bar-mode -1)
+;; (toggle-scroll-bar -1)
 
 
 ;; backup on every save, not just the first.
@@ -301,26 +310,10 @@ This command does not push text to `kill-ring'."
 (powerline-default-theme)
 
 
-(setq lsp-keymap-prefix "s-l")
-(require 'lsp-mode)
-(add-hook 'python-mode-hook #'lsp)
-(add-hook 'python-mode-hook #'yas-minor-mode)
-(add-hook 'c-mode-hook #'lsp)
-(add-hook 'c++-mode-hook #'lsp)
-(add-hook 'lsp-ui-doc-mode-hook (lambda () (setq truncate-lines t)))
-
-
-
-(require 'which-key)
-(which-key-mode)
-
-(with-eval-after-load 'lsp-mode
-  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
-
-
 (defun setup-input-decode-map ()
   (define-key input-decode-map "" (kbd "C-S-a"))
-  (define-key input-decode-map "[1;5l" (kbd "C-,")))
+  (define-key input-decode-map "[1;5l" (kbd "C-,"))
+  (define-key input-decode-map "[1;5p" (kbd "C-0")))
 (setup-input-decode-map)
 (add-hook 'tty-setup-hook #'setup-input-decode-map)
 
@@ -338,6 +331,8 @@ This command does not push text to `kill-ring'."
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 (add-hook 'org-mode-hook (lambda () (visual-line-mode 1)))
+(add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
+(add-hook 'org-mode-hook (lambda () (company-mode 1)))
 
 ;; Need to set font for GUI Emacs
 ;; TODO: add .font to .dotfiles
@@ -353,11 +348,27 @@ This command does not push text to `kill-ring'."
 
 (setq org-src-tab-acts-natively t)
 
-(require 'lsp-clangd)
+(setq lsp-keymap-prefix "s-l")
+(require 'lsp-mode)
+(add-hook 'python-mode-hook #'lsp)
+(add-hook 'python-mode-hook #'yas-minor-mode)
+(add-hook 'c-mode-hook #'lsp)
+(add-hook 'c++-mode-hook #'lsp)
+(add-hook 'lsp-ui-doc-mode-hook (lambda () (setq truncate-lines t)))
+
+(require 'which-key)
+(which-key-mode)
+
+(with-eval-after-load 'lsp-mode
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
 (setq sql-product 'postgres)
 (add-hook 'sql-mode-hook (lambda ()
 			   (lsp)
 			   (auto-fill-mode 1)
 			   (setq-local fill-column 65)))
-;; (add-hook 'sql-mode-hook #'auto-fill-mode)
+
+
+(require 'org-ref)
+
+(require 'lsp-clangd)
