@@ -1,10 +1,6 @@
 export DOTFILES=$(dirname "$(readlink -f "$0")")
 DOTFILES="$DOTFILES" sh $DOTFILES/tools/check_for_upgrade.sh
 
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
 # stty -ixon
 
 alias emacs="emacsclient -t"
@@ -135,8 +131,14 @@ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.linuxb
 if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
     eval $($HOME/.linuxbrew/bin/brew shellenv)
     alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
+else
+    eval "$(pyenv virtualenv-init -)"
 fi
 
 if [[ -x "$(command -v docker-machine)" ]]; then
     eval $(docker-machine env ubuntu)
 fi
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+

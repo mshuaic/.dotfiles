@@ -96,8 +96,8 @@
     ;; (defun xclip-paste-function()
     ;;   (let ((xclip-output (shell-command-to-string "xclip -o -selection clipboard")))
     ;; 	(unless (string= (car kill-ring) xclip-output)
-    ;; 	  xclip-output )))
-    ;; (setq interprogram-cut-function 'xclip-cut-function)
+;; 	  xclip-output )))
+    ;; (setq interprogram-cut-function 'xclip-cut-fzunction)
     ;; (setq interprogram-paste-function 'xclip-paste-function)
         ;; ))
 
@@ -115,7 +115,10 @@
 (if (display-graphic-p)
     (progn
       (tool-bar-mode -1)
-      (scroll-bar-mode -1)))
+      (scroll-bar-mode -1))
+  (progn
+  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+  (global-set-key (kbd "<mouse-5>") 'scroll-up-line)))
 
 ;; (tool-bar-mode -1)
 ;; (toggle-scroll-bar -1)
