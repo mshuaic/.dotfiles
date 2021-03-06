@@ -362,6 +362,12 @@ This command does not push text to `kill-ring'."
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
+(setq sql-product 'postgres)
+(add-hook 'sql-mode-hook (lambda ()
+			   (lsp)
+			   (auto-fill-mode 1)
+			   (setq-local fill-column 65)))
+
 
 (require 'org-ref)
 
