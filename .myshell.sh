@@ -129,6 +129,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.linuxbrew/lib/pkgconfig
 
 
+export PATH="$HOME/.pyenv/bin:$PATH"
 if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
     eval $($HOME/.linuxbrew/bin/brew shellenv)
     alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
@@ -136,10 +137,5 @@ else
     eval "$(pyenv virtualenv-init -)"
 fi
 
-if [[ -x "$(command -v docker-machine)" ]]; then
-    eval $(docker-machine env ubuntu)
-fi
-
 export LIBGL_ALWAYS_INDIRECT=1
-export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
