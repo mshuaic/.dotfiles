@@ -26,7 +26,6 @@ fi
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
 export VISUAL="emacsclient -t"
-export CDPATH=$CDPATH:.:~:~/.windir
 
 # only for WSL 
 if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]; then
@@ -63,19 +62,15 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
     agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
     # echo $agent_run_state
 
-    if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+    while [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; do
         agent_start  >| /dev/null 2>&1
-	echo "ssh-agent is not running"
-	# $agent_run_state && ssh-add >| /dev/null 2>&1
-    #     ssh-add >| /dev/null 2>&1
-    # elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-    #     ssh-add >| /dev/null 2>&1
-    fi
-
-    unset env
+	agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+	# echo "ssh-agent is not running"
+    done
 
     trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
-    
+
+    export CDPATH=$CDPATH:.:~:~/.windir
 fi
 
 
@@ -107,20 +102,8 @@ if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
     bindkey -e '^Y' x-yank
 fi
 
-# elif [ -n "`$SHELL -c 'echo $BASH_VERSION'`" ]; then
-#     # assume Bash
-#     export PROMPT_COMMAND="history -a; history -n"
-# fi    
-
-export GOPATH=$HOME/.local/go
-export PATH=$PATH:$GOPATH/bin
-
 # Ethereum 
 export PATH=$PATH:/home/mark/go-ethereum/build/bin
-
-# if [ -x "$(command -v fuck)" ]; then
-#     eval $(thefuck --alias)
-# fi
 
 
 # local bin and library
@@ -144,3 +127,4 @@ fi
 
 export LIBGL_ALWAYS_INDIRECT=1
 eval "$(pyenv init -)"
+
