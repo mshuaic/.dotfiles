@@ -7,3 +7,6 @@
 [submodule "lib/zsh-autoenv"]
 	path = lib/zsh-autoenv
 	url = https://github.com/Tarrasch/zsh-autoenv
+[submodule "custom/plugins/ssh"]
+	path = custom/plugins/ssh
+	url = https://github.com/zpm-zsh/ssh.git
