@@ -23,6 +23,10 @@ else
     alias rm='mv -b -t /tmp'
 fi
 
+if [[ "$TERM" == "tmux"* ]]; then
+    export TMUX=1
+fi
+
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
 export VISUAL="emacsclient -t"
