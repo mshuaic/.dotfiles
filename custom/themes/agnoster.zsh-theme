@@ -211,7 +211,8 @@ prompt_dir() {
     fi
     CURRENT_BG=blue
     [[ $RETVAL -ne 0 ]] && echo -n " %{%F{red}%}✘"
-    tmux select-pane -T " #[bold]${PWD/#$HOME/~} "
+    # printf '\033]2;%s\033\\' " #[bold]${PWD/#$HOME/~} " 2>/dev/null
+    # tmux select-pane -T " #[bold]${PWD/#$HOME/~} "
   fi
 }
 
@@ -250,9 +251,14 @@ prompt_aws() {
   esac
 }
 
+tmux_title() {
+  echo -n "%{\033]2; #[bold]${PWD/#$HOME/~} \007%}"
+}
+
 ## Main prompt
 build_prompt() {
   RETVAL=$?
+  tmux_title	
   prompt_status
   prompt_virtualenv
   prompt_aws
@@ -265,3 +271,4 @@ build_prompt() {
 }
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
+
