@@ -46,22 +46,6 @@
 (load-theme 'material t) ;; load material theme
 (global-linum-mode t) ;; enable line numbers globally
 
-;; PYTHON CONFIGURATION
-;; --------------------------------------
-
-;; (elpy-enable)
-;; ;;(elpy-use-ipython)
-;; ;;(setq python-shell-interpreter "ipython"
-;; ;;      python-shell-interpreter-args "-i --simple-prompt")
-;; (setq python-shell-interpreter "python"
-;;       python-shell-interpreter-args "-i")
-
-
-
-;; use flycheck not flymake with elpy
-;; (when (require 'flycheck nil t)
-;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-;;   (add-hook 'elpy-mode-hook 'flycheck-mode)
 
 ;; enable autopep8 formatting on save
 (require 'py-autopep8)
@@ -73,8 +57,10 @@
 (setq visible-cursor nil)
 
 (global-unset-key (kbd "C-_"))
-(global-set-key (kbd "C-_") 'comment-line) 
+(global-set-key (kbd "C-_") 'comment-line)
 (global-set-key (kbd "C-z") 'undo)
+
+
 
 ;; no confirmation for killing processes when exit file
 (setq confirm-kill-processes nil)
@@ -90,21 +76,6 @@
 ;; set beep off
 (setq visible-bell 1)
 
-
-;; use xclip to copy/paste in emacs-nox
-;; (unless window-system
-  ;; (when (getenv "DISPLAY")
-    ;; (defun xclip-cut-function (text &optional push)
-    ;;   (with-temp-buffer
-    ;; 	(insert text)
-    ;; 	(call-process-region (point-min) (point-max) "xclip" nil 0 nil "-i" "-selection" "clipboard")))
-    ;; (defun xclip-paste-function()
-    ;;   (let ((xclip-output (shell-command-to-string "xclip -o -selection clipboard")))
-    ;; 	(unless (string= (car kill-ring) xclip-output)
-;; 	  xclip-output )))
-    ;; (setq interprogram-cut-function 'xclip-cut-fzunction)
-    ;; (setq interprogram-paste-function 'xclip-paste-function)
-        ;; ))
 
 (xclip-mode 1)
 
