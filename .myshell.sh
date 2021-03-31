@@ -132,6 +132,10 @@ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.linuxb
 if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
     eval $($HOME/.linuxbrew/bin/brew shellenv)
     alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
+
+    ## for building python3
+    export LDFLAGS="-L$(brew --prefix zlib)/lib -L$(brew --prefix bzip2)/lib -L$(brew --prefix xz)/lib"
+    export CFLAGS="-I$(brew --prefix zlib)/include -I$(brew --prefix bzip2)/include -I$(brew --prefix xz)/include"
 else
     eval "$(pyenv virtualenv-init -)"
 fi
