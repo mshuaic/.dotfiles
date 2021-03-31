@@ -73,7 +73,8 @@ plugins=(
     virtualenv
     fzf
     asdf
-    tmuxinator
+    ssh
+    # tmuxinator
     docker
     # emacs
 )
