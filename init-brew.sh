@@ -62,5 +62,7 @@ if ! command -v zsh &> /dev/null; then
     echo "exec $(which zsh) -l" >> ~/.profile
 fi
 
+git config --global user.email "mshuaic@users.noreply.github.com" 
+git config --global user.name "Mark"
 
-. toHome.sh
+source toHome.sh
