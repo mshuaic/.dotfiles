@@ -8,7 +8,7 @@
  '(ido-ignore-files '("^\\."))
  '(org-agenda-files '("~/hw/cs534/project/proposal.org"))
  '(package-selected-packages
-   '(org-ref ediprolog powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
+   '(org-ref powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(safe-local-variable-values
    '((eval setq org-latex-pdf-process
 	   '("pdflatex -interaction nonstopmode -output-directory %o %f" "biber %b" "pdflatex -interaction nonstopmode -output-directory %o %f" "pdflatex -interaction nonstopmode -output-directory %o %f"))
