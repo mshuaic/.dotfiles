@@ -1,5 +1,5 @@
-export DOTFILES=$(dirname "$(readlink -f "$0")")
-DOTFILES="$DOTFILES" sh $DOTFILES/tools/check_for_upgrade.sh
+# export DOTFILES=$(dirname "$(readlink -f -- "$0")")
+# DOTFILES="$DOTFILES" sh $DOTFILES/tools/check_for_upgrade.sh
 
 # stty -ixon
 
@@ -116,19 +116,29 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.linuxbrew/lib/pkgconfig
 
 
-export PATH="$HOME/.pyenv/bin:$PATH"
+
+# eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+# eval "$(pyenv init --path)"
+
+# export PATH="$HOME/.pyenv/bin:$PATH"
 if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
     eval $($HOME/.linuxbrew/bin/brew shellenv)
-    alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
-else
-    eval "$(pyenv virtualenv-init -)"
+    # alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
+elif [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# else
+#     eval "$(pyenv virtualenv-init -)"
 fi
 
-if [[ -f $HOME/.asdf/asdf.sh ]]; then
-    . $HOME/.asdf/asdf.sh
-    . $HOME/.asdf/completions/asdf.bash
-fi
+# if [[ -f $HOME/.asdf/asdf.sh ]]; then
+#     . $HOME/.asdf/asdf.sh
+#     . $HOME/.asdf/completions/asdf.bash
+# fi
+
+eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"
 
 export LIBGL_ALWAYS_INDIRECT=1
-eval "$(pyenv init -)"
+# eval "$(pyenv init -)"
 
