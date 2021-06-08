@@ -1,10 +1,18 @@
 #!/bin/bash
 
+currpath=$(dirname $(readlink -nf -- "$0"))
+git submodule update --init --recursive --remote
+
+# apply custom configuration to .tmux.conf.local
+cp $currpath/.tmux/.tmux.conf.local $currpath
+cat $currpath/.tmux.conf.local.diff >> $currpath/.tmux.conf.local
+
+
 # cp .bashrc .emacs .tmux.conf .inputrc .myshell.sh $HOME
 # make symbolic links for all dot files
 
-dotfiles=( .bashrc .emacs .inputrc .myshell.sh .zshrc .tmux.conf.local)
-currpath=$(dirname $(readlink -nf -- "$0"))
+dotfiles=( .emacs .inputrc .myshell.sh .zshrc .tmux.conf.local)
+
 #echo $currpath
 
 for i in "${dotfiles[@]}"
@@ -16,7 +24,4 @@ ln -s -f $currpath/.tmux $HOME
 ln -s -f $currpath/.tmux/.tmux.conf $HOME
 ln -s -f $currpath/.oh-my-zsh $HOME
 
-
-git submodule update --init --recursive
-
-source .myshell.sh
+$SHELL .myshell.sh

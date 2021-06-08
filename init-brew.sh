@@ -29,6 +29,9 @@ apps=(
     fzf
     asdf
     xclip
+    bat
+    feh
+    trash-cli
 )
 
 libs=(
@@ -51,19 +54,28 @@ for lib in "${libs_to_install[@]}"; do
     export LDFLAGS="$LDFLAGS -L$(brew --prefix $lib)/lib"
     export CPPFLAGS="$CPPFLAGS -I$(brew --prefix $lib)/include"
 done
-echo 'eval "$(pyenv init --path)"' >> ~/.profile
+# echo 'eval "$(pyenv init --path)"' >> ~/.profile
 # echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 pyenv install $(pyenv install --list | sed 's/^  //' | grep -v - | grep --invert-match 'dev\|a\|b' | tail -1)
 
 
 
-
+# change login shell to zsh
 if ! command -v zsh &> /dev/null; then
     brew install zsh
     echo "exec $(which zsh) -l" >> ~/.profile
+    chsh -s /bin/sh
+else
+    chsh -s "$(which zsh)"
 fi
 
 git config --global user.email "mshuaic@users.noreply.github.com" 
 git config --global user.name "Mark"
+git config --global submodule.recurse true
+
+# trash auto empty
+if ! crontab -l | grep trash-empty >/dev/null; then
+    (crontab -l ; echo "@daily $(which trash-empty) 30") | crontab -
+fi
 
 source toHome.sh

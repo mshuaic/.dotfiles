@@ -76,6 +76,8 @@ plugins=(
     ssh
     # tmuxinator
     docker
+    x-copy-paste
+    # clipboard
     # emacs
 )
 
@@ -120,4 +122,3 @@ else
 fi
 
 source ~/.myshell.sh
-source ~/.dotfiles/lib/zsh-autoenv/autoenv.zsh

@@ -78,34 +78,6 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
 fi
 
 
-if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
-    # assume Zsh
-    # setopt inc_append_history
-    x-copy-region-as-kill () {
-	# [[ "$REGION_ACTIVE" -ne 0 ]] && zle copy-region-as-
-	zle copy-region-as-kill
-	# print -rn -- $CUTBUFFER | xclip -selection clipboard -i
-	print -rn -- $CUTBUFFER | xclip -i -selection clipboard
-	zle deactivate-region
-	# print -rn -- $CUTBUFFER | clipcopy 
-
-    }
-    zle -N x-copy-region-as-kill
-    x-kill-region () {
-	zle kill-region
-	print -rn $CUTBUFFER | xclip -i -selection clipboard
-    }
-    zle -N x-kill-region
-    x-yank () {
-	CUTBUFFER=$(xclip -o -selection clipboard </dev/null)
-	zle yank
-    }
-    zle -N x-yank
-    bindkey -e '\ew' x-copy-region-as-kill
-    bindkey -e '^W' x-kill-region
-    bindkey -e '^Y' x-yank
-fi
-
 # Ethereum 
 export PATH=$PATH:/home/mark/go-ethereum/build/bin
 
@@ -116,29 +88,16 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.linuxbrew/lib/pkgconfig
 
 
-
-# eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
-# eval "$(pyenv init --path)"
-
-# export PATH="$HOME/.pyenv/bin:$PATH"
 if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
     eval $($HOME/.linuxbrew/bin/brew shellenv)
     # alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
 elif [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-# else
-#     eval "$(pyenv virtualenv-init -)"
 fi
 
-# if [[ -f $HOME/.asdf/asdf.sh ]]; then
-#     . $HOME/.asdf/asdf.sh
-#     . $HOME/.asdf/completions/asdf.bash
-# fi
-
 eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-export LIBGL_ALWAYS_INDIRECT=1
-# eval "$(pyenv init -)"
 
+export LIBGL_ALWAYS_INDIRECT=1
