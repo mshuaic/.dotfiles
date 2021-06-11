@@ -135,4 +135,13 @@ fi
 
 export LIBGL_ALWAYS_INDIRECT=1
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
+export PATH=$PATH:/home/markma/.local/texlive/2021/bin/x86_64-linux
+
+# fzf
+# https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings
+export FZF_CTRL_T_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+# export FZF_TMUX=1

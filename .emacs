@@ -341,5 +341,4 @@ This command does not push text to `kill-ring'."
 
 
 (require 'org-ref)
-
 (require 'lsp-clangd)
