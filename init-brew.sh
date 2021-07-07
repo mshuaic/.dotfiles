@@ -18,6 +18,7 @@ test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
 test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
 echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.zshenv
 
 
 apps=(
@@ -50,7 +51,7 @@ brew install "${libs_to_install[@]}" "${apps[@]}"
 
 
 # install the latest python
-for lib in "${libs_to_install[@]}"; do
+for lib in "${libs[@]}"; do
     export LDFLAGS="$LDFLAGS -L$(brew --prefix $lib)/lib"
     export CPPFLAGS="$CPPFLAGS -I$(brew --prefix $lib)/include"
 done

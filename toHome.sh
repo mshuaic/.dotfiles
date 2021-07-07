@@ -11,7 +11,7 @@ cat $currpath/.tmux.conf.local.diff >> $currpath/.tmux.conf.local
 # cp .bashrc .emacs .tmux.conf .inputrc .myshell.sh $HOME
 # make symbolic links for all dot files
 
-dotfiles=( .emacs .inputrc .myshell.sh .zshrc .tmux.conf.local)
+dotfiles=( .emacs .inputrc .myshell.sh .zshrc .zshenv .tmux.conf.local )
 
 #echo $currpath
 
