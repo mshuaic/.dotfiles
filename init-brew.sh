@@ -21,7 +21,6 @@ echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
 echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.zshenv
 
 
-
 apps=(
     gcc
     tmux
