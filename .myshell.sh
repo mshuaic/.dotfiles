@@ -124,5 +124,4 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-
 export LIBGL_ALWAYS_INDIRECT=1
