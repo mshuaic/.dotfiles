@@ -99,8 +99,7 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
 	echo >&2 "WARNING: $wsl2_ssh_pageant_bin is not executable."
       fi
       unset wsl2_ssh_pageant_bin
-    fi
-    
+    fi    
 fi
 
 
