@@ -23,7 +23,8 @@ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
 # sudo groupadd docker
 # sudo usermod -aG docker $USER
 
-git config --global user.email "mshuaic@users.noreply.github.com" 
+# git config --global user.email "mshuaic@users.noreply.github.com"
+git config --global user.email "mark@shma.dev"
 git config --global user.name "Mark"
 
 

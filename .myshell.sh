@@ -53,29 +53,54 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
     # export CDPATH=$CDPATH:/c/Users/mshua/Desktop
 
     # ssh agent forwarding
-    env=~/.ssh/agent.env
+    # env=~/.ssh/agent.env
 
-    agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+    # agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
 
-    agent_start () {
-        (umask 077; ssh-agent >| "$env")
-        . "$env" >| /dev/null ; }
+    # agent_start () {
+    #     (umask 077; ssh-agent >| "$env")
+    #     . "$env" >| /dev/null ; }
 
-    agent_load_env
+    # agent_load_env
 
-    # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
-    agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
-    # echo $agent_run_state
+    # # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
+    # agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+    # # echo $agent_run_state
 
-    while [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; do
-        agent_start  >| /dev/null 2>&1
-	agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
-	# echo "ssh-agent is not running"
-    done
+    # while [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; do
+    #     agent_start  >| /dev/null 2>&1
+    # 	agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+    # 	# echo "ssh-agent is not running"
+    # done
 
-    trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
+    # trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
 
     export CDPATH=$CDPATH:.:~:~/.windir
+
+    export SSH_AUTH_SOCK="$HOME/.ssh/agent.sock"
+    if ! ss -a | grep -q "$SSH_AUTH_SOCK"; then
+      command rm -f "$SSH_AUTH_SOCK"
+      wsl2_ssh_pageant_bin="$HOME/.ssh/wsl2-ssh-pageant.exe"
+      if test -x "$wsl2_ssh_pageant_bin"; then
+	(setsid nohup socat UNIX-LISTEN:"$SSH_AUTH_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin" >/dev/null 2>&1 &)
+      else
+	echo >&2 "WARNING: $wsl2_ssh_pageant_bin is not executable."
+      fi
+      unset wsl2_ssh_pageant_bin
+    fi
+
+
+    export GPG_AGENT_SOCK="$HOME/.gnupg/S.gpg-agent"
+    if ! ss -a | grep -q "$GPG_AGENT_SOCK"; then
+      command rm -rf "$GPG_AGENT_SOCK"
+      wsl2_ssh_pageant_bin="$HOME/.ssh/wsl2-ssh-pageant.exe"
+      if test -x "$wsl2_ssh_pageant_bin"; then
+	(setsid nohup socat UNIX-LISTEN:"$GPG_AGENT_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin --gpg S.gpg-agent" >/dev/null 2>&1 &)
+      else
+	echo >&2 "WARNING: $wsl2_ssh_pageant_bin is not executable."
+      fi
+      unset wsl2_ssh_pageant_bin
+    fi    
 fi
 
 
@@ -99,6 +124,5 @@ fi
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-
 
 export LIBGL_ALWAYS_INDIRECT=1
