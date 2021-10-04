@@ -20,6 +20,7 @@ export IGNOREEOF=2
 if command -v trash > /dev/null; then
     alias rm='trash'
 else
+    mkdir -p /tmp/$USER
     alias rm='mv -b -t /tmp'
 fi
 

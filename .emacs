@@ -302,7 +302,7 @@ This command does not push text to `kill-ring'."
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 (add-hook 'org-mode-hook (lambda () (visual-line-mode 1)))
-(add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
+;; (add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'org-mode-hook (lambda () (company-mode 1)))
 
 ;; Need to set font for GUI Emacs
@@ -333,7 +333,7 @@ This command does not push text to `kill-ring'."
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
-(setq sql-product 'postgres)
+(setq sql-product 'sqlite)
 (add-hook 'sql-mode-hook (lambda ()
 			   (lsp)
 			   (auto-fill-mode 1)
