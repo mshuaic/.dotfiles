@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION='3.10.0'
+[ "$1" ] && VERSION="$1" || VERSION='3.10.0'
 
 # pyenv
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
