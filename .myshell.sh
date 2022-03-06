@@ -104,9 +104,6 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
 fi
 
 
-# Ethereum 
-export PATH=$PATH:/home/mark/go-ethereum/build/bin
-
 
 # local bin and library
 export PATH=$HOME/.local/bin:$PATH
@@ -126,3 +123,7 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 export LIBGL_ALWAYS_INDIRECT=1
+
+
+# .cargo
+export PATH=$PATH:$HOME/.cargo/bin
