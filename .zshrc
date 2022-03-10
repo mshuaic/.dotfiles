@@ -80,6 +80,7 @@ plugins=(
     # clipboard
     # emacs
     # ssh-agent
+    # zsh-renew-tmux-env
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -113,13 +114,16 @@ source $ZSH/oh-my-zsh.sh
 setopt ignoreeof
 export SHELL=`which zsh`
 
-if [ -n "$TMUX" ]; then                                                      
+if [ -n "$TMUX" ]; then
   function refresh {                                                                     
-    export $(tmux show-environment | grep "^SSH_AUTH_SOCK")             
-    export $(tmux show-environment | grep "^DISPLAY")                  
+      eval $(tmux show-environment -s DISPLAY)
   }                                                                                  
 else
   function refresh { }
 fi
+
+function preexec {
+    refresh
+}
 
 source ~/.myshell.sh

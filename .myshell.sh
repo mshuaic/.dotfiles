@@ -6,7 +6,7 @@
 alias emacs="emacsclient -t"
 alias e=emacs
 alias octave="octave-cli"
-alias ta="tmux a"
+alias ta="tmux attach -E"
 alias ximg='feh'
 alias killall='killall -u `whoami`'
 
@@ -24,9 +24,10 @@ else
     alias rm='mv -b -t /tmp/$USER'
 fi
 
-if [[ "$TERM" == "tmux"* ]]; then
-    export TMUX=1
-fi
+# comment out this for tmux show-env
+# if [[ "$TERM" == "tmux"* ]]; then
+#     export TMUX=1
+# fi
 
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
