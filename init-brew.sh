@@ -62,13 +62,13 @@ pyenv install $(pyenv install --list | sed 's/^  //' | grep -v - | grep --invert
 
 
 # change login shell to zsh
-if ! command -v zsh &> /dev/null; then
-    brew install zsh
-    echo "exec $(which zsh) -l" >> ~/.profile
-    chsh -s /bin/sh
-else
-    chsh -s "$(which zsh)"
-fi
+# if ! command -v zsh &> /dev/null; then
+#     brew install zsh
+#     echo "exec $(which zsh) -l" >> ~/.profile
+#     chsh -s /bin/sh
+# else
+#     chsh -s "$(which zsh)"
+# fi
 
 git config --global user.email "mshuaic@users.noreply.github.com" 
 git config --global user.name "Mark"

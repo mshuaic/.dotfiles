@@ -79,7 +79,9 @@ plugins=(
     x-copy-paste
     # clipboard
     # emacs
+    # ssh-agent
 )
+# zstyle :omz:plugins:ssh-agent helper ksshaskpass
 
 source $ZSH/oh-my-zsh.sh
 
