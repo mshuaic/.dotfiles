@@ -6,7 +6,7 @@
 alias emacs="emacsclient -t"
 alias e=emacs
 alias octave="octave-cli"
-alias ta="tmux a"
+alias ta="tmux attach -E"
 alias ximg='feh'
 alias killall='killall -u `whoami`'
 
@@ -17,15 +17,19 @@ export IGNOREEOF=2
 # set -o ignoreeof
  
 # alias sudo='nocorrect sudo '
-# if command -v trash > /dev/null; then
-#     alias rm='trash'
-# else
-#     alias rm='mv -b -t /tmp'
-# fi
 
-if [[ "$TERM" == "tmux"* ]]; then
-    export TMUX=1
+if command -v trash > /dev/null; then
+    alias rm='trash'
+else
+    mkdir -p /tmp/$USER
+    alias rm='mv -b -t /tmp/$USER'
 fi
+
+
+# comment out this for tmux show-env
+# if [[ "$TERM" == "tmux"* ]]; then
+#     export TMUX=1
+# fi
 
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
@@ -96,9 +100,6 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
 fi
 
 
-# Ethereum 
-export PATH=$PATH:/home/mark/go-ethereum/build/bin
-
 
 # local bin and library
 export PATH=$HOME/.local/bin:$PATH
@@ -122,4 +123,8 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 export LIBGL_ALWAYS_INDIRECT=1
+
+
+# .cargo
+export PATH=$PATH:$HOME/.cargo/bin
 

@@ -8,7 +8,7 @@
  '(ido-ignore-files '("^\\."))
  '(org-agenda-files '("~/hw/cs534/project/proposal.org"))
  '(package-selected-packages
-   '(org-ref powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
+   '(lsp-python-ms cypher-mode org-ref powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(safe-local-variable-values
    '((eval setq org-latex-pdf-process
 	   '("pdflatex -interaction nonstopmode -output-directory %o %f" "biber %b" "pdflatex -interaction nonstopmode -output-directory %o %f" "pdflatex -interaction nonstopmode -output-directory %o %f"))
@@ -302,7 +302,7 @@ This command does not push text to `kill-ring'."
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 (add-hook 'org-mode-hook (lambda () (visual-line-mode 1)))
-(add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
+;; (add-hook 'org-mode-hook (lambda () (flyspell-mode 1)))
 (add-hook 'org-mode-hook (lambda () (company-mode 1)))
 
 ;; Need to set font for GUI Emacs
@@ -320,8 +320,11 @@ This command does not push text to `kill-ring'."
 (setq org-src-tab-acts-natively t)
 
 (setq lsp-keymap-prefix "s-l")
+
 (require 'lsp-mode)
-(add-hook 'python-mode-hook #'lsp)
+(require 'lsp-python-ms)
+(setq lsp-python-ms-auto-install-server t)
+(add-hook 'python-mode-hook #'lsp) ; or lsp-deferred
 (add-hook 'python-mode-hook #'yas-minor-mode)
 (add-hook 'c-mode-hook #'lsp)
 (add-hook 'c++-mode-hook #'lsp)
@@ -333,7 +336,7 @@ This command does not push text to `kill-ring'."
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
-(setq sql-product 'postgres)
+(setq sql-product 'sqlite)
 (add-hook 'sql-mode-hook (lambda ()
 			   (lsp)
 			   (auto-fill-mode 1)

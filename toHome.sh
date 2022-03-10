@@ -25,3 +25,5 @@ ln -s -f $currpath/.tmux/.tmux.conf $HOME
 ln -s -f $currpath/.oh-my-zsh $HOME
 
 $SHELL .myshell.sh
+
+ln -sf $currpath/rc $HOME/.ssh/
