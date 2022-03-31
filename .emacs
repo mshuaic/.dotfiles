@@ -346,3 +346,8 @@ This command does not push text to `kill-ring'."
 (require 'org-ref)
 
 (require 'lsp-clangd)
+
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
+
