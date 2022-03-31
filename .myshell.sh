@@ -17,12 +17,14 @@ export IGNOREEOF=2
 # set -o ignoreeof
  
 # alias sudo='nocorrect sudo '
+
 if command -v trash > /dev/null; then
     alias rm='trash'
 else
     mkdir -p /tmp/$USER
     alias rm='mv -b -t /tmp/$USER'
 fi
+
 
 # comment out this for tmux show-env
 # if [[ "$TERM" == "tmux"* ]]; then
@@ -91,17 +93,19 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
     fi
 
 
-    export GPG_AGENT_SOCK="$HOME/.gnupg/S.gpg-agent"
+    export GPG_AGENT_SOCK="$HOME/.gnupg/S.gpg-agent"    
     if ! ss -a | grep -q "$GPG_AGENT_SOCK"; then
-      command rm -rf "$GPG_AGENT_SOCK"
-      wsl2_ssh_pageant_bin="$HOME/.ssh/wsl2-ssh-pageant.exe"
-      if test -x "$wsl2_ssh_pageant_bin"; then
-	(setsid nohup socat UNIX-LISTEN:"$GPG_AGENT_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin --gpg S.gpg-agent" >/dev/null 2>&1 &)
-      else
-	echo >&2 "WARNING: $wsl2_ssh_pageant_bin is not executable."
-      fi
-      unset wsl2_ssh_pageant_bin
-    fi    
+	command rm -rf "$GPG_AGENT_SOCK"
+	wsl2_ssh_pageant_bin="$HOME/.ssh/wsl2-ssh-pageant.exe"
+	if test -x "$wsl2_ssh_pageant_bin"; then
+	    (setsid nohup socat UNIX-LISTEN:"$GPG_AGENT_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin -gpgConfigBasepath 'C:/Users/mshua/AppData/Local/gnupg' --gpg S.gpg-agent" >/dev/null 2>&1 &)
+	    # (setsid nohup socat UNIX-LISTEN:"$GPG_AGENT_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin -gpgConfigBasepath $(wslvar LOCALAPPDATA\\gnupg) --gpg S.gpg-agent" >/dev/null 2>&1 &)
+	else
+	    echo >&2 "WARNING: $wsl2_ssh_pageant_bin is not executable."
+	fi
+	unset wsl2_ssh_pageant_bin
+    fi
+    
 fi
 
 
@@ -111,6 +115,7 @@ export PATH=$HOME/.local/bin:$PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.linuxbrew/lib/pkgconfig
 
+####### HomeBrew ################################
 
 if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
     eval $($HOME/.linuxbrew/bin/brew shellenv)
@@ -118,6 +123,9 @@ if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
 elif [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
+
+export HOMEBREW_NO_AUTO_UPDATE=1
+################################################
 
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
@@ -128,3 +136,4 @@ export LIBGL_ALWAYS_INDIRECT=1
 
 # .cargo
 export PATH=$PATH:$HOME/.cargo/bin
+

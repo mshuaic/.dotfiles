@@ -80,7 +80,6 @@ plugins=(
     # clipboard
     # emacs
     # ssh-agent
-    # zsh-renew-tmux-env
 )
 
 source $ZSH/oh-my-zsh.sh
