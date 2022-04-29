@@ -125,4 +125,9 @@ function preexec {
     refresh
 }
 
+## fzf search key bindings
+bindkey -r '^T'
+bindkey '^F' fzf-file-widget
+
 source ~/.myshell.sh
+

@@ -33,6 +33,7 @@ apps=(
     bat
     feh
     trash-cli
+    fd
 )
 
 libs=(

@@ -1,2 +1,4 @@
 notebook
 python-lsp-server[all]
+requests
+pandas

@@ -6,13 +6,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ido-ignore-files '("^\\."))
- '(org-agenda-files '("~/hw/cs534/project/proposal.org"))
  '(package-selected-packages
-   '(lsp-python-ms cypher-mode org-ref powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
+   '(rust-mode lsp-python-ms cypher-mode org-ref powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(safe-local-variable-values
-   '((eval setq org-latex-pdf-process
-	   '("pdflatex -interaction nonstopmode -output-directory %o %f" "biber %b" "pdflatex -interaction nonstopmode -output-directory %o %f" "pdflatex -interaction nonstopmode -output-directory %o %f"))
-     (eval add-hook 'after-save-hook 'org-latex-export-to-pdf t t)))
+   '((eval add-hook 'after-save-hook 'org-html-export-to-html t t)))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -351,3 +348,15 @@ This command does not push text to `kill-ring'."
 (setq-default tab-width 4)
 (setq indent-line-function 'insert-tab)
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (shell . t)))
+
+(setq org-confirm-babel-evaluate nil)
+(setq mouse-1-click-follows-link nil)
+;; (setq org-src-fontify-natively t)
+
+;; emacs console mode Org-mode strike-through is not displayed as expected
+;; https://stackoverflow.com/questions/24185102/emacs-console-mode-org-mode-strike-through-is-not-displayed-as-expected
+(add-to-list 'org-emphasis-alist '("+" (:background "grey" :foreground "MidnightBlue" :strike-through t)))
