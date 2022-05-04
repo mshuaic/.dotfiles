@@ -13,9 +13,10 @@ fi
 alias e="emacs"
 alias octave="octave-cli"
 alias t="tmux new -s"
-alias ta="tmux attach -E"
+alias ta="tmux attach"
 alias ximg='feh'
 alias killall='killall -u `whoami`'
+export UID=$UID
 
 
 # disable CTRL-D window close in terminator (terminal emulator)
