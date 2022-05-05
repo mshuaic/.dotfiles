@@ -359,4 +359,5 @@ This command does not push text to `kill-ring'."
 
 ;; emacs console mode Org-mode strike-through is not displayed as expected
 ;; https://stackoverflow.com/questions/24185102/emacs-console-mode-org-mode-strike-through-is-not-displayed-as-expected
+;; https://www.reddit.com/r/emacs/comments/mnlp0u/strike_through_in_emacs_terminal/
 (add-to-list 'org-emphasis-alist '("+" (:background "grey" :foreground "MidnightBlue" :strike-through t)))
