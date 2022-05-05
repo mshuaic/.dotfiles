@@ -435,7 +435,9 @@ setenv -g SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
 
 set-option -g update-environment "SSH_AUTH_SOCK \
                                   SSH_CONNECTION \
-                                  DISPLAY"
+                                  DISPLAY "
+
+    
 
 set -g mouse on
 unbind -n C-l
@@ -449,3 +451,5 @@ set -g default-terminal "tmux-256color" # colors!
 # unbind -n C-,
 set -g pane-border-status top
 set -g pane-border-format "#T"
+
+set-hook -g session-closed 'run-shell "pkill -f \"emacs --daemon=/tmp/emacs$UID/#{hook_session_name}\""'
