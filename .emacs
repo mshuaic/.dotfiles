@@ -7,7 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(ido-ignore-files '("^\\."))
  '(package-selected-packages
-   '(rust-mode lsp-python-ms cypher-mode org-ref powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
+   '(prettier-js web-mode rust-mode lsp-python-ms cypher-mode org-ref powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(safe-local-variable-values
    '((eval add-hook 'after-save-hook 'org-html-export-to-html t t)))
  '(show-paren-mode t))
@@ -106,10 +106,10 @@
       version-control t)       ; use versioned backups
 
 (normal-erase-is-backspace-mode 0)
-(add-hook 'prog-mode-hook #'hs-minor-mode)
-(global-set-key (kbd "M-[ 1 ; 6 k") 'hs-show-all) ;; ctrl +
-(global-set-key (kbd "M-[ 1 ; 5 k") 'hs-hide-level) ;; ctrl =
-(global-set-key (kbd "M-[ 1 ; 5 m") 'hs-toggle-hiding) ;; ctrl -
+;; (add-hook 'prog-mode-hook #'hs-minor-mode)
+;; (global-set-key (kbd "M-[ 1 ; 6 k") 'hs-show-all) ;; ctrl +
+;; (global-set-key (kbd "M-[ 1 ; 5 k") 'hs-hide-level) ;; ctrl =
+;; (global-set-key (kbd "M-[ 1 ; 5 m") 'hs-toggle-hiding) ;; ctrl -
 
 
 ;; add matlab-mode to prog-mode
@@ -361,3 +361,25 @@ This command does not push text to `kill-ring'."
 ;; https://stackoverflow.com/questions/24185102/emacs-console-mode-org-mode-strike-through-is-not-displayed-as-expected
 ;; https://www.reddit.com/r/emacs/comments/mnlp0u/strike_through_in_emacs_terminal/
 (add-to-list 'org-emphasis-alist '("+" (:background "grey" :foreground "MidnightBlue" :strike-through t)))
+
+
+;; web development
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+(add-hook 'web-mode-hook
+  (lambda ()
+  (if (equal web-mode-content-type "javascript")
+  (web-mode-set-content-type "jsx")
+  (message "now set to: %s" web-mode-content-type))))
+(setq web-mode-content-types-alist
+  '(("jsx" . "\\.js[x]?\\'")))
+(add-hook 'web-mode-hook #'lsp) ; or lsp-deferred
+(defun enable-minor-mode (my-pair)
+  "Enable minor mode if filename match the regexp.  MY-PAIR is a cons cell (regexp . minor-mode)."
+  (if (buffer-file-name)
+      (if (string-match (car my-pair) buffer-file-name)
+          (funcall (cdr my-pair)))))
+(add-hook 'web-mode-hook #'(lambda ()
+                            (enable-minor-mode
+                             '("\\.jsx?\\'" . prettier-js-mode))))
