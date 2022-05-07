@@ -19,6 +19,8 @@
  )
 
 
+(setq lsp-use-plists t)
+(setq package-native-compile t)
 
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
@@ -383,3 +385,7 @@ This command does not push text to `kill-ring'."
 (add-hook 'web-mode-hook #'(lambda ()
                             (enable-minor-mode
                              '("\\.jsx?\\'" . prettier-js-mode))))
+
+;; lsp performance tuning
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb  
