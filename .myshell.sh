@@ -17,6 +17,8 @@ alias ta="tmux attach"
 alias ximg='feh'
 alias killall='killall -u `whoami`'
 export UID=$UID
+export LSP_USE_PLISTS=true
+alias brew="HOMEBREW_MAKE_JOBS=$(nproc) brew"
 
 
 # disable CTRL-D window close in terminator (terminal emulator)
