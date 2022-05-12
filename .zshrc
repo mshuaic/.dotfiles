@@ -130,4 +130,3 @@ bindkey -r '^T'
 bindkey '^F' fzf-file-widget
 
 source ~/.myshell.sh
-
