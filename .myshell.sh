@@ -6,9 +6,9 @@
 set -o emacs
 
 if [ $TMUX ]; then
-    alias emacs="emacsclient -t -s /tmp/emacs$UID/$(tmux display-message -p "#S")"
+    alias emacs="emacsclient -t -s $(tmux display-message -p "#S")"
 else
-    alias emacs="emacsclient -t -s /tmp/emacs$UID/server"
+    alias emacs="emacsclient -t -s default"
 fi
 alias e="emacs"
 alias octave="octave-cli"

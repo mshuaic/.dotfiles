@@ -7,7 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(ido-ignore-files '("^\\."))
  '(package-selected-packages
-   '(prettier-js web-mode rust-mode lsp-python-ms cypher-mode org-ref powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
+   '(prettier-js web-mode rust-mode lsp-python-ms cypher-mode powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(safe-local-variable-values
    '((eval add-hook 'after-save-hook 'org-html-export-to-html t t)))
  '(show-paren-mode t))
@@ -21,6 +21,9 @@
 
 (setq lsp-use-plists t)
 (setq package-native-compile t)
+;; lsp performance tuning
+(setq gc-cons-threshold 1000000000)
+(setq read-process-output-max (* 1024 1024 10)) ;; 1mb  
 
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
@@ -47,8 +50,8 @@
 
 
 ;; enable autopep8 formatting on save
-(require 'py-autopep8)
-(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+;; (require 'py-autopep8)
+;; (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 
    
 (global-linum-mode t)
@@ -327,13 +330,13 @@ This command does not push text to `kill-ring'."
 (add-hook 'python-mode-hook #'yas-minor-mode)
 (add-hook 'c-mode-hook #'lsp)
 (add-hook 'c++-mode-hook #'lsp)
-(add-hook 'lsp-ui-doc-mode-hook (lambda () (setq truncate-lines t)))
+;; (add-hook 'lsp-ui-doc-mode-hook (lambda () (setq truncate-lines t)))
 
 (require 'which-key)
 (which-key-mode)
 
-(with-eval-after-load 'lsp-mode
-  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+;; (with-eval-after-load 'lsp-mode
+;;   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
 (setq sql-product 'sqlite)
 (add-hook 'sql-mode-hook (lambda ()
@@ -342,7 +345,7 @@ This command does not push text to `kill-ring'."
 			   (setq-local fill-column 65)))
 
 
-(require 'org-ref)
+;; (require 'org-ref)
 
 (require 'lsp-clangd)
 
@@ -387,6 +390,9 @@ This command does not push text to `kill-ring'."
                              '("\\.jsx?\\'" . prettier-js-mode))))
 
 
-;; lsp performance tuning
-(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 1024 1024)) ;; 1mb  
+
+(setq lsp-log-io nil)
+
+(add-hook 'python-mode-hook (lambda () (company-mode 1)))
+(add-hook 'python-mode-hook (lambda () (py-autopep8-mode 1)))
+
