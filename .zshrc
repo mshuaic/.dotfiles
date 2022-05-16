@@ -79,7 +79,7 @@ plugins=(
     x-copy-paste
     # clipboard
     # emacs
-    # ssh-agent
+    ssh-agent
 )
 
 source $ZSH/oh-my-zsh.sh
