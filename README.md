@@ -42,7 +42,8 @@ add a line in [**cmdline.txt**](https://elinux.org/RPi_cmdline.txt)
 
 ## X11
 ### Solution for `Warning: No xauth data; using fake authentication data for X11 forwarding.`
-  ```bash
-  touch ~/.Xauthority
-  xauth generate $DISPLAY .
-  ```
+  - at local(client) machine.
+	  ```bash
+	  touch ~/.Xauthority
+	  xauth generate $DISPLAY .
+	  ```
