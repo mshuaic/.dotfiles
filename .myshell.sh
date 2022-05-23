@@ -56,6 +56,31 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
 
     export CDPATH=$CDPATH:.:~:~/.windir
 
+
+    # ssh agent forwarding
+    env=~/.ssh/agent.env
+
+    agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+
+    agent_start () {
+        (umask 077; ssh-agent -P "/*" >| "$env")
+        . "$env" >| /dev/null ; }
+
+    agent_load_env
+
+    # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
+    agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+    # echo $agent_run_state
+
+    if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+        agent_start  >| /dev/null 2>&1
+    	agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+    	# echo "ssh-agent is not running"
+    fi
+
+    trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
+    
+
     # export SSH_AUTH_SOCK="$HOME/.ssh/agent.sock"
     # if ! ss -a | grep -q "$SSH_AUTH_SOCK"; then
     #     command rm -f "$SSH_AUTH_SOCK"
@@ -153,3 +178,7 @@ _fzf_comprun() {
   esac
 }
 #####################################
+
+if [ -f $HOME/.aliases ]; then
+    . $HOME/.aliases
+fi
