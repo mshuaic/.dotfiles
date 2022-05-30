@@ -453,3 +453,7 @@ set -g pane-border-status top
 set -g pane-border-format "#T"
 
 set-hook -g session-closed 'run-shell "pkill -f \"emacs --daemon=/tmp/emacs$UID/#{hook_session_name}\""'
+
+bind -nr C-PgUp switch-client -p
+bind -nr C-PgDn switch-client -n
+    
