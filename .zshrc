@@ -68,6 +68,7 @@ ZSH_CUSTOM=$HOME/.dotfiles/custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
 plugins=(
     git
     virtualenv
@@ -81,6 +82,13 @@ plugins=(
     # emacs
     # ssh-agent
 )
+
+######## begin ssh-agent config ###############
+# zstyle :omz:plugins:ssh-agent quiet yes
+# zstyle :omz:plugins:ssh-agent agent-forwarding yes
+# zstyle :omz:plugins:ssh-agent lazy yes
+# zstyle :omz:plugins:ssh-agent ssh-add-args -d -P '/*'
+######## end ssh-agent config ###############
 
 source $ZSH/oh-my-zsh.sh
 

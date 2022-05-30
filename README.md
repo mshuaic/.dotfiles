@@ -41,4 +41,9 @@ add a line in [**cmdline.txt**](https://elinux.org/RPi_cmdline.txt)
 - sudo dpkg -i --force-overwrite /var/cache/apt/archives/apport_2.20.1-0ubuntu2.4_all.deb
 
 ## X11
-- xauth generate $DISPLAY .
+### Solution for `Warning: No xauth data; using fake authentication data for X11 forwarding.`
+  - at local(client) machine.
+	  ```bash
+	  touch ~/.Xauthority
+	  xauth generate $DISPLAY .
+	  ```
