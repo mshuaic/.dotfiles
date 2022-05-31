@@ -7,7 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(ido-ignore-files '("^\\."))
  '(package-selected-packages
-   '(prettier-js web-mode rust-mode lsp-python-ms cypher-mode powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
+   '(go-mode lsp-grammarly use-package prettier-js web-mode rust-mode lsp-python-ms cypher-mode powerline hlinum org-bullets xclip lsp-ui which-key lsp-mode solidity-mode matlab-mode jedi-direx py-autopep8 material-theme flycheck elpy ein jedi better-defaults))
  '(safe-local-variable-values
    '((eval add-hook 'after-save-hook 'org-html-export-to-html t t)))
  '(show-paren-mode t))
@@ -396,3 +396,22 @@ This command does not push text to `kill-ring'."
 (add-hook 'python-mode-hook (lambda () (company-mode 1)))
 (add-hook 'python-mode-hook (lambda () (py-autopep8-mode 1)))
 
+;; (eval-when-compile
+;;   (require 'use-package))
+
+;; (use-package lsp-grammarly
+;;   :ensure t
+;;   :hook (text-mode . (lambda ()
+;;                        (require 'lsp-grammarly)
+;;                        (lsp))))  ; or lsp-deferred
+;; (setq lsp-grammarly-server-path "/home/linuxbrew/.linuxbrew/lib/node_modules/@emacs-grammarly/grammarly-languageserver/bin/server.js")
+
+
+(add-hook 'go-mode-hook #'lsp-deferred)
+
+;; Set up before-save hooks to format buffer and add/delete imports.
+;; Make sure you don't have other gofmt/goimports hooks enabled.
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)

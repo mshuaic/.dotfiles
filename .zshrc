@@ -80,14 +80,16 @@ plugins=(
     x-copy-paste
     # clipboard
     # emacs
-    # ssh-agent
+    ssh-agent
 )
 
 ######## begin ssh-agent config ###############
 # zstyle :omz:plugins:ssh-agent quiet yes
-# zstyle :omz:plugins:ssh-agent agent-forwarding yes
+# zstyle :omz:plugins:ssh-agent helper 
+zstyle :omz:plugins:ssh-agent agent-forwarding yes
+# zstyle :omz:plugins:ssh-agent identities id_ed25519_sk id_ed25519_sk_touch
 # zstyle :omz:plugins:ssh-agent lazy yes
-# zstyle :omz:plugins:ssh-agent ssh-add-args -d -P '/*'
+# zstyle :omz:plugins:ssh-agent ssh-add-args -s /home/linuxbrew/.linuxbrew/lib/libykcs11.so
 ######## end ssh-agent config ###############
 
 source $ZSH/oh-my-zsh.sh

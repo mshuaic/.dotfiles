@@ -18,7 +18,6 @@ alias ximg='feh'
 alias killall='killall -u `whoami`'
 export UID=$UID
 export LSP_USE_PLISTS=true
-# alias brew="HOMEBREW_MAKE_JOBS=$(nproc) brew"
 
 
 # disable CTRL-D window close in terminator (terminal emulator)
@@ -33,7 +32,7 @@ else
     alias rm='mv -b -t /tmp/$USER'
 fi
 
-export ALTERNATE_EDITOR=""
+export ALTERNATE_EDITOR="command emacs"
 export EDITOR="emacsclient -t"
 export VISUAL="emacsclient -t"
 
@@ -53,59 +52,8 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
     fi
     alias matlab="matlab.exe -nodesktop -nosplash -r"
 
-
     export CDPATH=$CDPATH:.:~:~/.windir
 
-
-    # ssh agent forwarding
-    env=~/.ssh/agent.env
-
-    agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
-
-    agent_start () {
-        (umask 077; ssh-agent -P "/*" >| "$env")
-        . "$env" >| /dev/null ; }
-
-    agent_load_env
-
-    # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
-    agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
-    # echo $agent_run_state
-
-    if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
-        agent_start  >| /dev/null 2>&1
-    	agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
-    	# echo "ssh-agent is not running"
-    fi
-
-    trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
-    
-
-    # export SSH_AUTH_SOCK="$HOME/.ssh/agent.sock"
-    # if ! ss -a | grep -q "$SSH_AUTH_SOCK"; then
-    #     command rm -f "$SSH_AUTH_SOCK"
-    #     wsl2_ssh_pageant_bin="$HOME/.ssh/wsl2-ssh-pageant.exe"
-    #     if test -x "$wsl2_ssh_pageant_bin"; then
-	#         (setsid nohup socat UNIX-LISTEN:"$SSH_AUTH_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin" >/dev/null 2>&1 &)
-    #     else
-	#         echo >&2 "WARNING: $wsl2_ssh_pageant_bin is not executable."
-    #     fi
-    #     unset wsl2_ssh_pageant_bin
-    # fi
-
-
-    # export GPG_AGENT_SOCK="$HOME/.gnupg/S.gpg-agent"    
-    # if ! ss -a | grep -q "$GPG_AGENT_SOCK"; then
-	#     command rm -rf "$GPG_AGENT_SOCK"
-	#     wsl2_ssh_pageant_bin="$HOME/.ssh/wsl2-ssh-pageant.exe"
-	#     if test -x "$wsl2_ssh_pageant_bin"; then
-	#         (setsid nohup socat UNIX-LISTEN:"$GPG_AGENT_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin -gpgConfigBasepath 'C:/Users/mshua/AppData/Local/gnupg' --gpg S.gpg-agent" >/dev/null 2>&1 &)
-	#         # (setsid nohup socat UNIX-LISTEN:"$GPG_AGENT_SOCK,fork" EXEC:"$wsl2_ssh_pageant_bin -gpgConfigBasepath $(wslvar LOCALAPPDATA\\gnupg) --gpg S.gpg-agent" >/dev/null 2>&1 &)
-	#     else
-	#         echo >&2 "WARNING: $wsl2_ssh_pageant_bin is not executable."
-	#     fi
-	#     unset wsl2_ssh_pageant_bin
-    # fi    
 fi
 
 
@@ -116,13 +64,6 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.linuxbrew/lib/pkgconfig
 
 ####### HomeBrew ################################
-
-if [[ -f $HOME/.linuxbrew/bin/brew ]]; then
-    eval $($HOME/.linuxbrew/bin/brew shellenv)
-    # alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
-elif [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-fi
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 ################################################
@@ -136,7 +77,6 @@ export LIBGL_ALWAYS_INDIRECT=1
 
 # .cargo
 export PATH=$PATH:$HOME/.cargo/bin
-
 
 
 ############# fzf ###################
@@ -182,3 +122,5 @@ _fzf_comprun() {
 if [ -f $HOME/.aliases ]; then
     . $HOME/.aliases
 fi
+
+export GOBIN="$HOME/.local/bin"
