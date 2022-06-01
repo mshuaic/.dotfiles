@@ -32,7 +32,7 @@ else
     alias rm='mv -b -t /tmp/$USER'
 fi
 
-export ALTERNATE_EDITOR="command emacs"
+export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
 export VISUAL="emacsclient -t"
 
