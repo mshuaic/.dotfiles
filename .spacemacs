@@ -62,7 +62,8 @@ This function should only modify configuration layer settings."
      ;; syntax-checking
      ;; version-control
      (treemacs :variables
-               treemacs-use-filewatch-mode t))
+               treemacs-use-filewatch-mode t)
+     )
 
 
    ;; List of additional packages that will be installed without being wrapped
@@ -73,13 +74,14 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(xclip)
+   dotspacemacs-additional-packages '(xclip
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()  
+   dotspacemacs-excluded-packages '()
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -569,7 +571,8 @@ before packages are loaded."
    
   (unbind-key (kbd "C-_") undo-tree-map)
   (global-set-key (kbd "C-_") 'comment-line)
-  (global-set-key (kbd "C-z") 'undo)
+  (global-set-key (kbd "C-z") 'undo-tree-undo)
+  (global-set-key (kbd "C-M-z") 'undo-tree-redo)
   (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
   (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
   (global-set-key (kbd "") 'mark-whole-buffer)
