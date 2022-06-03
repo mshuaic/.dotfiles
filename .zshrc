@@ -73,7 +73,7 @@ plugins=(
     git
     virtualenv
     fzf
-    asdf
+    # asdf
     ssh
     # tmuxinator
     docker

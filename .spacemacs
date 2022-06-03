@@ -39,7 +39,10 @@ This function should only modify configuration layer settings."
             javascript-backend 'lsp)
      html
      python
-     go
+     (go :variables
+         go-backend 'lsp
+         go-tab-width 4
+         go-format-before-save t)
      ;; prettier
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -51,7 +54,9 @@ This function should only modify configuration layer settings."
      emacs-lisp
      ;; git
      helm
-     lsp
+     (lsp :variables
+          lsp-use-lsp-ui t
+          lsp-ui-remap-xref-keybindings t)
      markdown
      multiple-cursors
      org
@@ -550,7 +555,7 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq vc-follow-symlinks t)
-  (setq evil-toggle-key "C-`")  
+  (setq evil-toggle-key "C-`")
 )
 
 
@@ -641,6 +646,16 @@ This command does not push text to `kill-ring'."
 
   (with-eval-after-load 'treemacs
     (setq treemacs-width 20))
+
+  ;; lsp configuration
+  (setq lsp-ui-doc-show-with-cursor t)
+  (setq lsp-ui-doc-show-with-mouse nil)
+  (setq focus-follows-mouse t) 
+  (setq lsp-ui-peek-always-show t)
+  (with-eval-after-load 'lsp-ui
+    (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+    (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+    )
 )
 
 

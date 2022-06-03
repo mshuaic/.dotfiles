@@ -456,4 +456,4 @@ set-hook -g session-closed 'run-shell "pkill -f \"emacs --daemon=/tmp/emacs$UID/
 
 bind -nr C-PgUp switch-client -p
 bind -nr C-PgDn switch-client -n
-    
+
