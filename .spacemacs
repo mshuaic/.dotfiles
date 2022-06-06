@@ -33,6 +33,7 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     java
      (react :variables
             javascript-fmt-tool 'prettier
             javascript-fmt-on-save t
@@ -57,6 +58,7 @@ This function should only modify configuration layer settings."
      (lsp :variables
           lsp-use-lsp-ui t
           lsp-ui-remap-xref-keybindings t)
+
      markdown
      multiple-cursors
      org
@@ -575,11 +577,15 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
    
   (unbind-key (kbd "C-_") undo-tree-map)
+  (unbind-key (kbd "C-/") undo-tree-map)
   (global-set-key (kbd "C-_") 'comment-line)
+  (global-set-key (kbd "C-/") 'comment-line)
   (global-set-key (kbd "C-z") 'undo-tree-undo)
-  (global-set-key (kbd "C-M-z") 'undo-tree-redo)
+  ;; Ctrl-Shift-z
+  (global-set-key (kbd "") 'undo-tree-redo)
   (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
   (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
+  ;; Ctrl-Shift-a
   (global-set-key (kbd "") 'mark-whole-buffer)
 
 
@@ -648,9 +654,9 @@ This command does not push text to `kill-ring'."
     (setq treemacs-width 20))
 
   ;; lsp configuration
-  (setq lsp-ui-doc-show-with-cursor t)
-  (setq lsp-ui-doc-show-with-mouse nil)
-  (setq focus-follows-mouse t) 
+  ;; (setq lsp-ui-doc-show-with-cursor t)
+  ;; (setq lsp-ui-doc-show-with-mouse nil)
+  ;; (setq focus-follows-mouse t) 
   (setq lsp-ui-peek-always-show t)
   (with-eval-after-load 'lsp-ui
     (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
