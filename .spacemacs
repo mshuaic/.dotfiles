@@ -70,10 +70,13 @@ This function should only modify configuration layer settings."
      multiple-cursors
      (org :variables
           org-enable-github-support t)
+     bibtex
      (shell :variables
              shell-default-height 30
              shell-default-position 'bottom)
-     ;; spell-checking
+     (spell-checking :variables
+                     enable-flyspell-auto-completion t
+                     spell-checking-enable-by-default nil)
      ;; syntax-checking
      ;; version-control
      (treemacs :variables
@@ -683,6 +686,9 @@ This command does not push text to `kill-ring'."
   (with-eval-after-load 'org
     (add-to-list 'org-emphasis-alist '("+" (:background "grey" :foreground "MidnightBlue" :strike-through t)))
     )
+  ;; (with-eval-after-load 'flycheck
+    ;; (flycheck-grammarly-setup))
+
 )
 
 
@@ -699,9 +705,12 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(toml-mode ron-mode racer rust-mode flycheck-rust cargo solidity-flycheck solidity-mode mvn maven-test-mode lsp-java groovy-mode groovy-imports pcache web-beautify tern npm-mode nodejs-repl livid-mode skewer-mode js2-refactor multiple-cursors js2-mode js-doc import-js grizzl impatient-mode simple-httpd add-node-modules-path xterm-color vterm unfill terminal-here shell-pop mwim multi-term mmm-mode markdown-toc gh-md eshell-z eshell-prompt-extras esh-help yapfify stickyfunc-enhance sphinx-doc pytest pylookup pyenv-mode pydoc py-isort poetry transient pippel pipenv load-env-vars pyvenv pip-requirements nose lsp-python-ms lsp-pyright live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope xcscope ggtags dap-mode lsp-treemacs bui lsp-mode markdown-mode cython-mode counsel-gtags counsel swiper ivy company-anaconda company code-cells blacken anaconda-mode pythonic org-rich-yank ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired toc-org symon symbol-overlay string-inflection string-edit spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-terminal-cursor-changer evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-ediff evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
+   '(org-ref ox-pandoc citeproc helm-bibtex bibtex-completion parsebib biblio biblio-core flycheck-grammarly toml-mode ron-mode racer rust-mode flycheck-rust cargo solidity-flycheck solidity-mode mvn maven-test-mode lsp-java groovy-mode groovy-imports pcache web-beautify tern npm-mode nodejs-repl livid-mode skewer-mode js2-refactor multiple-cursors js2-mode js-doc import-js grizzl impatient-mode simple-httpd add-node-modules-path xterm-color vterm unfill terminal-here shell-pop mwim multi-term mmm-mode markdown-toc gh-md eshell-z eshell-prompt-extras esh-help yapfify stickyfunc-enhance sphinx-doc pytest pylookup pyenv-mode pydoc py-isort poetry transient pippel pipenv load-env-vars pyvenv pip-requirements nose lsp-python-ms lsp-pyright live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope xcscope ggtags dap-mode lsp-treemacs bui lsp-mode markdown-mode cython-mode counsel-gtags counsel swiper ivy company-anaconda company code-cells blacken anaconda-mode pythonic org-rich-yank ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired toc-org symon symbol-overlay string-inflection string-edit spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-terminal-cursor-changer evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-ediff evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
  '(safe-local-variable-values
-   '((eval add-hook 'after-save-hook 'org-html-export-to-html t t)
+   '((add-to-list 'bibtex-completion-notes-path "bib.org")
+     (bibtex-completion-library-path "./")
+     (bibtex-completion-bibliography "notes.bib")
+     (eval add-hook 'after-save-hook 'org-html-export-to-html t t)
      (javascript-backend . tide)
      (javascript-backend . tern)
      (javascript-backend . lsp))))
