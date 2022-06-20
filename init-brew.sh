@@ -34,6 +34,7 @@ apps=(
     # feh
     trash-cli
     fd
+    git
 )
 
 libs=(
