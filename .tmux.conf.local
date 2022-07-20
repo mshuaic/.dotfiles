@@ -42,8 +42,13 @@ tmux_conf_new_session_prompt=false
 
 # RGB 24-bit colour support (tmux >= 2.2), possible values are:
 #  - true
-#  - false (default)
-tmux_conf_24b_colour=false
+#  - false
+#  - auto (default)
+#
+# automatic detection relies on the COLORTERM environment variable being defined
+# to 'truecolor' or '24bit' or '$ tput colors' answering '16777216'
+# see https://github.com/termstandard/colors
+tmux_conf_24b_colour=auto
 
 # default theme
 tmux_conf_theme_colour_1="#080808"    # dark gray
@@ -347,6 +352,7 @@ tmux_conf_copy_to_os_clipboard=false
 # move status line to top
 #set -g status-position top
 
+
 # -- tpm -----------------------------------------------------------------------
 
 # while I don't use tpm myself, many people requested official support so here
@@ -365,6 +371,17 @@ tmux_conf_update_plugins_on_launch=true
 #   - true (default)
 #   - false
 tmux_conf_update_plugins_on_reload=true
+
+# by default, reloading the configuration will uninstall tpm and plugins when no
+# plugins are enabled
+#   - true (default)
+#   - false
+tmux_conf_uninstall_plugins_on_reload=true
+
+# /!\ the tpm bindings differ slightly from upstream:
+#   - installing plugins: <prefix> + I
+#   - uninstalling plugins: <prefix> + Alt + u
+#   - updating plugins: <prefix> + u
 
 # /!\ do not add set -g @plugin 'tmux-plugins/tpm'
 # /!\ do not add run '~/.tmux/plugins/tpm/tpm'
@@ -429,15 +446,10 @@ set -s user-keys[0] "[25~"
 bind-key -n User0 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l '[25~'; else tmux copy-mode; fi\"" #f13
 bind-key -T copy-mode User0 send -X cancel
 
-
-# set -g update-environment -r
 setenv -g SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
-
 set-option -g update-environment "SSH_AUTH_SOCK \
                                   SSH_CONNECTION \
-                                  DISPLAY "
-
-    
+                                  DISPLAY"
 
 set -g mouse on
 unbind -n C-l
@@ -445,8 +457,8 @@ unbind -n C-h
 bind -nr PgUp previous-window     # select next window
 bind -nr PgDn next-window     # select next window
 
-tmux_conf_24b_colour=true
-set -g default-terminal "tmux-256color" # colors!
+# tmux_conf_24b_colour=true
+# set -g default-terminal "tmux-256color" # colors!
 
 # unbind -n C-,
 set -g pane-border-status top
@@ -456,4 +468,3 @@ set-hook -g session-closed 'run-shell "pkill -f \"emacs --daemon=/tmp/emacs$UID/
 
 bind -nr C-PgUp switch-client -p
 bind -nr C-PgDn switch-client -n
-
