@@ -32,7 +32,10 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(rust
+   '(csv
+     yaml
+     typescript
+     rust
      (solidity :variables
                solidity-flycheck-solc-checker-active t
                solidity-comment-style 'slash)
@@ -44,7 +47,6 @@ This function should only modify configuration layer settings."
      html
      (python :variables
              python-lsp-server 'pyright
-             python-backend 'lsp
              python-formatter 'black
              python-format-on-save t)
      (go :variables
@@ -605,6 +607,7 @@ before packages are loaded."
   (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
   ;; Ctrl-Shift-a
   (global-set-key (kbd "") 'mark-whole-buffer)
+  (global-set-key (kbd "C-S-A") 'mark-whole-buffer)
 
 
   (defun delete-word (arg)
@@ -712,8 +715,13 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(csv-mode yaml-mode typescript-mode import-js grizzl add-node-modules-path yasnippet-snippets yapfify xterm-color xclip ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vim-powerline vi-tilde-fringe uuidgen use-package unfill undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired toml-mode toc-org terminal-here tagedit symon symbol-overlay string-edit sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc solidity-flycheck slim-mode shell-pop scss-mode sass-mode rust-mode ron-mode rjsx-mode restart-emacs rainbow-delimiters quickrun pytest pylookup pyenv-mode pydoc py-isort pug-mode prettier-js popwin poetry pippel pipenv pip-requirements pcre2el password-generator paradox ox-gfm overseer org-superstar org-rich-yank org-ref org-projectile org-present org-pomodoro org-mime org-download org-contrib org-cliplink open-junk-file npm-mode nose nodejs-repl nameless mwim mvn multi-term multi-line mmm-mode maven-test-mode material-theme markdown-toc macrostep lsp-ui lsp-python-ms lsp-pyright lsp-origami lsp-java lorem-ipsum livid-mode live-py-mode link-hint json-reformat json-navigator json-mode js2-refactor js-doc inspector info+ indent-guide importmagic impatient-mode hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-bibtex helm-ag groovy-mode groovy-imports google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gh-md fuzzy font-lock+ flyspell-popup flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-terminal-cursor-changer evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-ediff evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word cython-mode company-web company-go company-anaconda column-enforce-mode code-cells clean-aindent-mode centered-cursor-mode cargo blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
  '(safe-local-variable-values
-   '((eval add-hook 'after-save-hook 'org-gfm-export-to-markdown t t)
+   '((add-to-list 'bibtex-completion-notes-path "bib.org")
+     (bibtex-completion-library-path "./")
+     (bibtex-completion-bibliography "notes.bib")
+     (eval add-hook 'after-save-hook 'org-gfm-export-to-markdown t t)
      (eval add-hook 'after-save-hook 'org-html-export-to-html t t)
      (javascript-backend . tide)
      (javascript-backend . tern)
@@ -725,3 +733,4 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
 )
+
