@@ -47,3 +47,7 @@ add a line in [**cmdline.txt**](https://elinux.org/RPi_cmdline.txt)
 	  touch ~/.Xauthority
 	  xauth generate $DISPLAY .
 	  ```
+
+## Issues 
+ - [Local sites running in WSL2 not accessible in browser](https://github.com/microsoft/WSL/issues/5298) 
+   - the windows docker edits the host file. it works well after reseting the host file. 
