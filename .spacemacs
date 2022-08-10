@@ -704,6 +704,8 @@ This command does not push text to `kill-ring'."
   ;; ssh -> mac mode has to use xclip
   (setq xclip-method 'xclip)
   (xclip-mode 1)
+
+  (setq importmagic-python-interpreter "python")
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
