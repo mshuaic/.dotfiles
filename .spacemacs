@@ -48,7 +48,8 @@ This function should only modify configuration layer settings."
      (python :variables
              python-lsp-server 'pyright
              python-formatter 'black
-             python-format-on-save t)
+             python-format-on-save t
+             importmagic-python-interpreter "python")
      (go :variables
          go-backend 'lsp
          go-tab-width 4
@@ -705,7 +706,6 @@ This command does not push text to `kill-ring'."
   (setq xclip-method 'xclip)
   (xclip-mode 1)
 
-  (setq importmagic-python-interpreter "python")
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
