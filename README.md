@@ -55,3 +55,6 @@ add a line in [**cmdline.txt**](https://elinux.org/RPi_cmdline.txt)
  - `echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.myshell.sh`
  - failed to use asdf zsh plugin
 
+## Emacs
+The emacs daemon can be started automatically in a very simple manner.
+`export ALTERNATE_EDITOR=""` 
