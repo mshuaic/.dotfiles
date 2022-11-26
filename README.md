@@ -58,3 +58,7 @@ add a line in [**cmdline.txt**](https://elinux.org/RPi_cmdline.txt)
 ## Emacs
 The emacs daemon can be started automatically in a very simple manner.
 `export ALTERNATE_EDITOR=""` 
+
+## ulimit -n in WSL2:
+problem: https://askubuntu.com/a/1327539
+walkaround: https://github.com/microsoft/WSL/discussions/6226
