@@ -54,6 +54,11 @@ if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]
 
     export CDPATH=$CDPATH:.:~:~/.windir
 
+    ULIMIT=65536
+    if [[ "$(ulimit -n)" != $ULIMIT ]]; then
+        sudo prlimit --nofile=$ULIMIT:$ULIMIT --pid $$
+        exec zsh
+    fi
 fi
 
 
@@ -124,3 +129,5 @@ if [ -f $HOME/.aliases ]; then
 fi
 
 export GOBIN="$HOME/.local/bin"
+
+. /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh

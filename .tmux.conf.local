@@ -451,6 +451,10 @@ set-option -g update-environment "SSH_AUTH_SOCK \
                                   SSH_CONNECTION \
                                   DISPLAY"
 
+## from tmux 3.3, we need this.
+set -s user-keys[1] ''
+bind-key -n User1 run "$condition then tmux send-keys -l ''; fi\""
+
 set -g mouse on
 unbind -n C-l
 unbind -n C-h
@@ -468,3 +472,7 @@ set-hook -g session-closed 'run-shell "pkill -f \"emacs --daemon=/tmp/emacs$UID/
 
 bind -nr C-PgUp switch-client -p
 bind -nr C-PgDn switch-client -n
+
+# revisit this in future
+# set -s extended-keys always
+# set -as terminal-features 'xterm*:extkeys'
