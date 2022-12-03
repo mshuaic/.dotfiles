@@ -20,21 +20,25 @@
 # new window retains current path, possible values are:
 #   - true
 #   - false (default)
+#   - disabled (do not modify new-window bindings)
 tmux_conf_new_window_retain_current_path=false
 
 # new pane retains current path, possible values are:
 #   - true (default)
 #   - false
+#   - disabled (do not modify split-window bindings)
 tmux_conf_new_pane_retain_current_path=true
 
-# new pane tries to reconnect ssh sessions (experimental), possible values are:
+# new pane tries to reconnect ssh sessions, possible values are:
 #   - true
 #   - false (default)
+#   - disabled (do not modify split-window bindings)
 tmux_conf_new_pane_reconnect_ssh=false
 
 # prompt for session name when creating a new session, possible values are:
 #   - true
 #   - false (default)
+#   - disabled (do not modify new-session bindings)
 tmux_conf_new_session_prompt=false
 
 
@@ -323,8 +327,9 @@ tmux_conf_theme_clock_style="24"
 # in copy mode, copying selection also copies to the OS clipboard
 #   - true
 #   - false (default)
+#   - disabled
 # on macOS, this requires installing reattach-to-user-namespace, see README.md
-# on Linux, this requires xsel or xclip
+# on Linux, this requires xsel, xclip or wl-copy
 tmux_conf_copy_to_os_clipboard=false
 
 
@@ -348,6 +353,9 @@ tmux_conf_copy_to_os_clipboard=false
 # unbind C-b
 # set -g prefix C-a
 # bind C-a send-prefix
+
+# if you don't want Oh my tmux! to alter a binding, use #!important
+# bind v new-window -c #{pane_current_path} #!important
 
 # move status line to top
 #set -g status-position top
@@ -410,9 +418,9 @@ tmux_conf_uninstall_plugins_on_reload=true
 #
 # # /!\ do not "uncomment" the functions: the leading "# " characters are needed
 #
-# weather() {
-#   curl -m 1 wttr.in?format=3 2>/dev/null
-#   sleep 900 # sleep for 15 minutes, throttle network requests whatever the value of status-interval
+# weather() {                                         # see https://github.com/chubin/wttr.in#one-line-output
+#   curl -f -s -m 2 'wttr.in?format=3' || printf '\n' # /!\ make sure curl is installed
+#   sleep 900                                         # sleep for 15 minutes, throttle network requests whatever the value of status-interval
 # }
 #
 # online() {
@@ -446,13 +454,16 @@ set -s user-keys[0] "[25~"
 bind-key -n User0 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l '[25~'; else tmux copy-mode; fi\"" #f13
 bind-key -T copy-mode User0 send -X cancel
 
-setenv -g SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
 set-option -g update-environment "SSH_AUTH_SOCK \
                                   SSH_CONNECTION \
                                   DISPLAY"
 
-## from tmux 3.3, we need this.
-set -s user-keys[1] ''
+# for >= tmux3.3a, revisit later
+# C-S-Z
+set -s user-keys[1] ""
+bind-key -n User1 run "$condition then tmux send-keys -l ''; fi\""
+# C-S-A
+set -s user-keys[1] ""
 bind-key -n User1 run "$condition then tmux send-keys -l ''; fi\""
 
 set -g mouse on
@@ -461,18 +472,10 @@ unbind -n C-h
 bind -nr PgUp previous-window     # select next window
 bind -nr PgDn next-window     # select next window
 
-# tmux_conf_24b_colour=true
-# set -g default-terminal "tmux-256color" # colors!
+tmux_conf_24b_colour=true
+set -g default-terminal "tmux-256color" # colors!
 
 # unbind -n C-,
 set -g pane-border-status top
 set -g pane-border-format "#T"
 
-set-hook -g session-closed 'run-shell "pkill -f \"emacs --daemon=/tmp/emacs$UID/#{hook_session_name}\""'
-
-bind -nr C-PgUp switch-client -p
-bind -nr C-PgDn switch-client -n
-
-# revisit this in future
-# set -s extended-keys always
-# set -as terminal-features 'xterm*:extkeys'
