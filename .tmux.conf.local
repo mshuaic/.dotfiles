@@ -459,12 +459,12 @@ set-option -g update-environment "SSH_AUTH_SOCK \
                                   DISPLAY"
 
 # for >= tmux3.3a, revisit later
-# C-S-Z
-set -s user-keys[1] ""
-bind-key -n User1 run "$condition then tmux send-keys -l ''; fi\""
 # C-S-A
 set -s user-keys[1] ""
 bind-key -n User1 run "$condition then tmux send-keys -l ''; fi\""
+# C-S-Z
+set -s user-keys[2] ""
+bind-key -n User2 run "$condition then tmux send-keys -l ''; fi\""
 
 set -g mouse on
 unbind -n C-l
@@ -478,4 +478,7 @@ set -g default-terminal "tmux-256color" # colors!
 # unbind -n C-,
 set -g pane-border-status top
 set -g pane-border-format "#T"
+
+bind -n C-PgUp switch-client -p
+bind -n C-PgDn switch-client -n
 
