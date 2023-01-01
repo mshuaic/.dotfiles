@@ -39,17 +39,17 @@ export VISUAL="emacsclient -t"
 # only for WSL 
 if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]; then
 
-    # wsl2
-    if grep -q "microsoft" /proc/version &>/dev/null; then
-	# Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
-	    export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
-    else
-	# wsl1
-	    if [ "$(umask)" = "0000" ]; then
-	        umask 0022
-	    fi
-	    export DISPLAY=localhost:0.0
-    fi
+    # wsl2 
+    # if grep -q "microsoft" /proc/version &>/dev/null; then
+	  #     # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
+	  #     export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
+    # else
+	  #     # wsl1
+	  #     if [ "$(umask)" = "0000" ]; then
+	  #         umask 0022
+	  #     fi
+	  #     export DISPLAY=localhost:0.0
+    # fi
     alias matlab="matlab.exe -nodesktop -nosplash -r"
 
     export CDPATH=$CDPATH:.:~:~/.windir

@@ -397,10 +397,13 @@ tmux_conf_uninstall_plugins_on_reload=true
 # to enable a plugin, use the 'set -g @plugin' syntax:
 # visit https://github.com/tmux-plugins for available plugins
 #set -g @plugin 'tmux-plugins/tmux-copycat'
-#set -g @plugin 'tmux-plugins/tmux-cpu'
+# set -g @plugin 'tmux-plugins/tmux-cpu'
+# set -g @plugin 'thewtex/tmux-mem-cpu-load'
 #set -g @plugin 'tmux-plugins/tmux-resurrect'
 #set -g @plugin 'tmux-plugins/tmux-continuum'
 #set -g @continuum-restore 'on'
+
+
 
 
 # -- custom variables ----------------------------------------------------------
@@ -482,3 +485,6 @@ set -g pane-border-format "#T"
 bind -n C-PgUp switch-client -p
 bind -n C-PgDn switch-client -n
 
+set -g status-interval 2
+tmux_conf_theme_status_right="#[fg=green,bg=black]#(tmux-mem-cpu-load --colors -a 0 -g 0 -m 1 --interval 2)#[default]$tmux_conf_theme_status_right"
+# set -g status-left-length 60
