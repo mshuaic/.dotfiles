@@ -607,13 +607,18 @@ before packages are loaded."
   (global-set-key (kbd "C-z") 'undo-tree-undo)
   ;; Ctrl-Shift-z
   (global-set-key (kbd "") 'undo-tree-redo)
-  (global-set-key (kbd "C-S-z") 'undo-tree-redo)
+  (global-set-key (kbd "C-S-z") 'undo-tree-redo)  
   (global-set-key (kbd "[6z") 'undo-tree-redo)
 
 
   (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
   (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
   ;; Ctrl-Shift-a
+  ;; for windows terminal, add the following to setting.json
+  ;; {
+  ;;   "command": { "action": "sendInput", "input": "\u001b[6a" },
+  ;;   "keys": "ctrl+shift+a"
+  ;; },
   (global-set-key (kbd "") 'mark-whole-buffer)
   (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
   (global-set-key (kbd "[6a") 'mark-whole-buffer)
