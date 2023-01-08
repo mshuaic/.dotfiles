@@ -1,4 +1,4 @@
-77;30601;0c;; -*- mode: emacs-lisp; lexical-binding: t -*-
+;30601;0c;; -*- mode: emacs-lisp; lexical-binding: t -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -608,13 +608,16 @@ before packages are loaded."
   ;; Ctrl-Shift-z
   (global-set-key (kbd "") 'undo-tree-redo)
   (global-set-key (kbd "C-S-z") 'undo-tree-redo)
+  (global-set-key (kbd "[6z") 'undo-tree-redo)
+
+
   (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
   (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
   ;; Ctrl-Shift-a
   (global-set-key (kbd "") 'mark-whole-buffer)
   (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
-
-
+  (global-set-key (kbd "[6a") 'mark-whole-buffer)
+  
   (defun delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
 With argument ARG, do this that many times."
