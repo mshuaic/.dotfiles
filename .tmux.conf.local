@@ -461,6 +461,14 @@ set-option -g update-environment "SSH_AUTH_SOCK \
                                   SSH_CONNECTION \
                                   DISPLAY"
 
+tmux_conf_24b_colour=true
+# set -g default-terminal "xterm-256color" # colors!
+set -g default-terminal tmux-256color
+# set -g xterm-keys on
+# set -s extended-keys on
+# set -as terminal-features 'xterm*:extkeys'
+
+
 # for >= tmux3.3a, revisit later
 # C-S-A
 set -s user-keys[1] ""
@@ -475,8 +483,6 @@ unbind -n C-h
 bind -nr PgUp previous-window     # select next window
 bind -nr PgDn next-window     # select next window
 
-tmux_conf_24b_colour=true
-set -g default-terminal "tmux-256color" # colors!
 
 # unbind -n C-,
 set -g pane-border-status top
@@ -488,3 +494,5 @@ bind -n C-PgDn switch-client -n
 set -g status-interval 2
 tmux_conf_theme_status_right="#[fg=green,bg=black]#(tmux-mem-cpu-load --colors -a 0 -g 0 -m 1 --interval 2)#[default]$tmux_conf_theme_status_right"
 # set -g status-left-length 60
+
+set-hook -g session-closed 'run-shell "pkill -f \"emacs --daemon=#{hook_session_name}\""'

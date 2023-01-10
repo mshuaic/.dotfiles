@@ -91,7 +91,7 @@ This function should only modify configuration layer settings."
      (treemacs :variables
                treemacs-use-filewatch-mode t
                treemacs-use-follow-mode 'tag
-               treemacs-width 35
+               treemacs-width 30
                )
 
      )
