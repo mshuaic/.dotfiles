@@ -474,11 +474,11 @@ set -g default-terminal tmux-256color
 
 # for >= tmux3.3a, revisit later
 # C-S-A
-set -s user-keys[1] ""
-bind-key -n User1 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l ''; fi\""
+set -s user-keys[1] ""
+bind-key -n User1 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l ''; fi\""
 # C-S-Z
-set -s user-keys[2] ""
-bind-key -n User2 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l ''; fi\""
+set -s user-keys[2] ""
+bind-key -n User2 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l '[6z'; fi\""
 
 set -g mouse on
 unbind -n C-l
