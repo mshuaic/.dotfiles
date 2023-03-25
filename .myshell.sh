@@ -131,3 +131,4 @@ fi
 export GOBIN="$HOME/.local/bin"
 
 . /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh
+export PATH="/home/linuxbrew/.linuxbrew/opt/openjdk@17/bin:$PATH"
