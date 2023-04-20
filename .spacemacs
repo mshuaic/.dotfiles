@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp; lexical-binding: t -*-
+;30601;0c;; -*- mode: emacs-lisp; lexical-binding: t -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -32,8 +32,13 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(ruby
+   '(
+     ruby
+     systemd
+     sql
      csv
+     yaml
+     typescript     
      rust
      (solidity :variables
                solidity-flycheck-solc-checker-active t
@@ -46,13 +51,14 @@ This function should only modify configuration layer settings."
      html
      (python :variables
              python-lsp-server 'pyright
-             python-backend 'lsp
              python-formatter 'black
-             python-format-on-save t)
+             python-format-on-save t
+             importmagic-python-interpreter "python")
      (go :variables
          go-backend 'lsp
          go-tab-width 4
          go-format-before-save t)
+
      ;; prettier
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -89,7 +95,7 @@ This function should only modify configuration layer settings."
      (treemacs :variables
                treemacs-use-filewatch-mode t
                treemacs-use-follow-mode 'tag
-               treemacs-width 20
+               treemacs-width 30
                )
 
      )
@@ -597,7 +603,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-   
+
   (unbind-key (kbd "C-_") undo-tree-map)
   (unbind-key (kbd "C-/") undo-tree-map)
   (global-set-key (kbd "C-_") 'comment-line)
@@ -605,12 +611,22 @@ before packages are loaded."
   (global-set-key (kbd "C-z") 'undo-tree-undo)
   ;; Ctrl-Shift-z
   (global-set-key (kbd "") 'undo-tree-redo)
+  (global-set-key (kbd "C-S-z") 'undo-tree-redo)  
+  (global-set-key (kbd "[6z") 'undo-tree-redo)
+
+
   (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
   (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
   ;; Ctrl-Shift-a
+  ;; for windows terminal, add the following to setting.json
+  ;; {
+  ;;   "command": { "action": "sendInput", "input": "\u001b[6a" },
+  ;;   "keys": "ctrl+shift+a"
+  ;; },
   (global-set-key (kbd "") 'mark-whole-buffer)
-
-
+  (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
+  (global-set-key (kbd "[6a") 'mark-whole-buffer)
+  
   (defun delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
 With argument ARG, do this that many times."
@@ -670,7 +686,6 @@ This command does not push text to `kill-ring'."
   (global-set-key [remap previous-buffer] 'my-previous-buffer)
 
   (windmove-default-keybindings 'ctrl)
-  (xclip-mode 1)
 
   (with-eval-after-load 'treemacs
     ;; (setq treemacs-width 20)
@@ -681,7 +696,7 @@ This command does not push text to `kill-ring'."
   ;; lsp configuration
   (setq lsp-ui-doc-show-with-cursor t)
   (setq lsp-ui-doc-show-with-mouse nil)
-  ;; (setq focus-follows-mouse t) 
+  ;; (setq focus-follows-mouse t)
   (setq lsp-ui-peek-always-show t)
   (with-eval-after-load 'lsp-ui
     (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
@@ -697,6 +712,13 @@ This command does not push text to `kill-ring'."
      '((python . t)
        (shell . t)))
     )
+
+
+  ;; prevent mac from using pbpaste & pbcopy
+  ;; ssh -> mac mode has to use xclip
+  (setq xclip-method 'xclip)
+  (xclip-mode 1)
+
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -712,9 +734,12 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rbenv rake minitest helm-gtags ggtags enh-ruby-mode counsel-gtags counsel swiper ivy chruby bundler inf-ruby add-node-modules-path mermaid-mode ob-mermaid yasnippet-snippets yapfify xterm-color xclip ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vim-powerline vim-empty-lines-mode uuidgen use-package unfill undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired toml-mode toc-org terminal-here tagedit symon symbol-overlay string-edit sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc solidity-flycheck slim-mode shell-pop scss-mode sass-mode rust-mode ron-mode rjsx-mode restart-emacs rainbow-delimiters quickrun pytest pylookup pyenv-mode pydoc py-isort pug-mode prettier-js popwin poetry pippel pipenv pip-requirements pcre2el password-generator paradox ox-gfm overseer org-superstar org-rich-yank org-ref org-projectile org-present org-pomodoro org-mime org-download org-contrib org-cliplink open-junk-file npm-mode nose nodejs-repl nameless mwim mvn multi-term multi-line mmm-mode maven-test-mode material-theme markdown-toc macrostep lsp-ui lsp-python-ms lsp-pyright lsp-origami lsp-java lorem-ipsum livid-mode live-py-mode link-hint json-reformat json-navigator json-mode js2-refactor js-doc inspector info+ indent-guide importmagic impatient-mode hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-bibtex helm-ag groovy-mode groovy-imports google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gh-md fuzzy font-lock+ flyspell-popup flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-terminal-cursor-changer evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-ediff evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word cython-mode company-web company-go company-anaconda column-enforce-mode code-cells clean-aindent-mode centered-cursor-mode cargo blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
+   '(systemd journalctl-mode sql-indent sqlup-mode csv-mode yasnippet-snippets yapfify yaml-mode xterm-color xclip ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vim-powerline vi-tilde-fringe uuidgen use-package unfill undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired toml-mode toc-org terminal-here tagedit symon symbol-overlay string-edit sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc solidity-flycheck slim-mode shell-pop scss-mode sass-mode rust-mode ron-mode rjsx-mode restart-emacs rainbow-delimiters quickrun pytest pylookup pyenv-mode pydoc py-isort pug-mode prettier-js popwin poetry pippel pipenv pip-requirements pcre2el password-generator paradox ox-gfm overseer org-superstar org-rich-yank org-ref org-projectile org-present org-pomodoro org-mime org-download org-contrib org-cliplink open-junk-file npm-mode nose nodejs-repl nameless mwim mvn multi-term multi-line mmm-mode maven-test-mode material-theme markdown-toc macrostep lsp-ui lsp-python-ms lsp-pyright lsp-origami lsp-java lorem-ipsum livid-mode live-py-mode link-hint json-reformat json-navigator json-mode js2-refactor js-doc inspector info+ indent-guide importmagic impatient-mode hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-bibtex helm-ag groovy-mode groovy-imports google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gh-md fuzzy font-lock+ flyspell-popup flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-terminal-cursor-changer evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-ediff evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word cython-mode company-web company-go company-anaconda column-enforce-mode code-cells clean-aindent-mode centered-cursor-mode cargo blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
  '(safe-local-variable-values
-   '((eval add-hook 'after-save-hook 'org-gfm-export-to-markdown t t)
+   '((add-to-list 'bibtex-completion-notes-path "bib.org")
+     (bibtex-completion-library-path "./")
+     (bibtex-completion-bibliography "notes.bib")
+     (eval add-hook 'after-save-hook 'org-gfm-export-to-markdown t t)
      (eval add-hook 'after-save-hook 'org-html-export-to-html t t)
      (javascript-backend . tide)
      (javascript-backend . tern)

@@ -41,21 +41,26 @@ export ALTERNATE_EDITOR=""
 # only for WSL 
 if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]; then
 
-    # wsl2
-    if grep -q "microsoft" /proc/version &>/dev/null; then
-	# Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
-	    export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
-    else
-	# wsl1
-	    if [ "$(umask)" = "0000" ]; then
-	        umask 0022
-	    fi
-	    export DISPLAY=localhost:0.0
-    fi
+    # wsl2 
+    # if grep -q "microsoft" /proc/version &>/dev/null; then
+	  #     # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
+	  #     export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
+    # else
+	  #     # wsl1
+	  #     if [ "$(umask)" = "0000" ]; then
+	  #         umask 0022
+	  #     fi
+	  #     export DISPLAY=localhost:0.0
+    # fi
     alias matlab="matlab.exe -nodesktop -nosplash -r"
 
     export CDPATH=$CDPATH:.:~:~/.windir
 
+    ULIMIT=65536
+    if [[ "$(ulimit -n)" != $ULIMIT ]]; then
+        sudo prlimit --nofile=$ULIMIT:$ULIMIT --pid $$
+        exec zsh
+    fi
 fi
 
 
@@ -125,11 +130,10 @@ if [ -f $HOME/.aliases ]; then
     . $HOME/.aliases
 fi
 
-# export GOBIN="$HOME/.local/bin"
-
-
 [[ ":$PATH:" =~ ":/nvme/markma/bin:" ]] || PATH="/nvme/markma/bin:$PATH"
 
 export HOMEBREW_FORCE_BREWED_CURL=1
 export XDG_RUNTIME_DIR="/run/user/$UID"
 export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
+
+export PATH="$(brew --prefix openjdk@17)/bin:$PATH"

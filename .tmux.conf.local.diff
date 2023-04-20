@@ -1,4 +1,3 @@
-
 ##################################################################################
 #				custom configuration				 #
 ##################################################################################
@@ -19,13 +18,29 @@ bind-key -n C-Down run "$condition then tmux send-keys C-Down; else tmux select-
 # bind-key -n C-Space run "if [ $(tmux display -p -F '#{pane_current_command}') = \"emacs\" ]; then tmux send-keys C-Space; else tmux copy-mode; fi"
 bind-key -n Escape run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys C-g; else tmux send-keys Escape; fi\""
 # bind-key -n F9 run "if [ $(tmux display -p -F '#{pane_current_command}') = \"emacs\" ]; then tmux send-keys -l '\033[32;16~';fi"
-set -s user-keys[0] "[25~"
-bind-key -n User0 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l '[25~'; else tmux copy-mode; fi\"" #f13
+set -s user-keys[0] "[25~"
+bind-key -n User0 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l '[25~'; else tmux copy-mode; fi\"" #f13
 bind-key -T copy-mode User0 send -X cancel
 
 set-option -g update-environment "SSH_AUTH_SOCK \
                                   SSH_CONNECTION \
                                   DISPLAY"
+
+tmux_conf_24b_colour=true
+# set -g default-terminal "xterm-256color" # colors!
+set -g default-terminal tmux-256color
+# set -g xterm-keys on
+# set -s extended-keys on
+# set -as terminal-features 'xterm*:extkeys'
+
+
+# for >= tmux3.3a, revisit later
+# C-S-A
+set -s user-keys[1] ""
+bind-key -n User1 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l ''; fi\""
+# C-S-Z
+set -s user-keys[2] ""
+bind-key -n User2 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l ''; fi\""
 
 set -g mouse on
 unbind -n C-l
@@ -33,10 +48,16 @@ unbind -n C-h
 bind -nr PgUp previous-window     # select next window
 bind -nr PgDn next-window     # select next window
 
-tmux_conf_24b_colour=true
-set -g default-terminal "tmux-256color" # colors!
 
 # unbind -n C-,
 set -g pane-border-status top
 set -g pane-border-format "#T"
 
+bind -n C-PgUp switch-client -p
+bind -n C-PgDn switch-client -n
+
+set -g status-interval 2
+tmux_conf_theme_status_right="#[fg=green,bg=black]#(tmux-mem-cpu-load --colors -a 0 -g 0 -m 1 --interval 2)#[default]$tmux_conf_theme_status_right"
+# set -g status-left-length 60
+
+set-hook -g session-closed 'run-shell "pkill -f \"emacs --daemon=#{hook_session_name}\""'

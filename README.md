@@ -46,4 +46,19 @@ add a line in [**cmdline.txt**](https://elinux.org/RPi_cmdline.txt)
 	  ```bash
 	  touch ~/.Xauthority
 	  xauth generate $DISPLAY .
-	  ```
+	  ```	  
+
+## Issues 
+ - [Local sites running in WSL2 not accessible in browser](https://github.com/microsoft/WSL/issues/5298) 
+   - the windows docker edits the host file. it works well after reseting the host file. 
+### asdf with brew
+ - `echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.myshell.sh`
+ - failed to use asdf zsh plugin
+
+## Emacs
+The emacs daemon can be started automatically in a very simple manner.
+`export ALTERNATE_EDITOR=""` 
+
+## ulimit -n in WSL2:
+problem: https://askubuntu.com/a/1327539
+walkaround: https://github.com/microsoft/WSL/discussions/6226
