@@ -74,13 +74,13 @@ plugins=(
     virtualenv
     fzf
     # asdf
-    ssh
+    # ssh
     # tmuxinator
-    docker
-    x-copy-paste
+    # docker
+    # x-copy-paste
     # clipboard
     # emacs
-    ssh-agent
+    # ssh-agent
 )
 
 ######## begin ssh-agent config ###############
@@ -140,3 +140,4 @@ bindkey -r '^T'
 bindkey '^F' fzf-file-widget
 
 source ~/.myshell.sh
+

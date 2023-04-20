@@ -18,6 +18,8 @@ alias ximg='feh'
 alias killall='killall -u `whoami`'
 export UID=$UID
 export LSP_USE_PLISTS=true
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 
 # disable CTRL-D window close in terminator (terminal emulator)
@@ -32,9 +34,9 @@ else
     alias rm='mv -b -t /tmp/$USER'
 fi
 
+export EDITOR="emacs"
+export VISUAL="emacs"
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -t"
-export VISUAL="emacsclient -t"
 
 # only for WSL 
 if [[ "$(uname -r | sed -n 's/.*\( *microsoft *\).*/\L\1/pi')" == "microsoft" ]]; then
@@ -70,7 +72,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+#eval "$(pyenv virtualenv-init -)"
 
 export LIBGL_ALWAYS_INDIRECT=1
 
@@ -123,4 +125,11 @@ if [ -f $HOME/.aliases ]; then
     . $HOME/.aliases
 fi
 
-export GOBIN="$HOME/.local/bin"
+# export GOBIN="$HOME/.local/bin"
+
+
+[[ ":$PATH:" =~ ":/nvme/markma/bin:" ]] || PATH="/nvme/markma/bin:$PATH"
+
+export HOMEBREW_FORCE_BREWED_CURL=1
+export XDG_RUNTIME_DIR="/run/user/$UID"
+export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
