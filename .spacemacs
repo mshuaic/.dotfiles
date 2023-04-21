@@ -86,7 +86,9 @@ This function should only modify configuration layer settings."
              shell-default-position 'bottom)
      (spell-checking :variables
                      enable-flyspell-auto-completion t
-                     spell-checking-enable-by-default nil)
+                     ;; spell-checking-enable-by-default nil
+                     :enabled-for
+                     org)
      ;; syntax-checking
      ;; version-control
      (treemacs :variables
@@ -483,7 +485,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
-   dotspacemacs-enable-server nil
+   dotspacemacs-enable-server t
 
    ;; Set the emacs server socket location.
    ;; If nil, uses whatever the Emacs default is, otherwise a directory path
@@ -712,9 +714,8 @@ This command does not push text to `kill-ring'."
      'org-babel-load-languages
      '((python . t)
        (shell . t)))
-    ;; (setq org-confirm-babel-evaluate nil)
-    ;; (setq mouse-1-click-follows-link nil)
     )
+
 
   ;; prevent mac from using pbpaste & pbcopy
   ;; ssh -> mac mode has to use xclip
