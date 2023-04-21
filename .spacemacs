@@ -735,6 +735,7 @@ This command does not push text to `kill-ring'."
 
   (define-key evil-insert-state-map (kbd "C-<tab>") 'copilot-accept-completion-by-word)
   (define-key evil-insert-state-map (kbd "C-TAB") 'copilot-accept-completion-by-word)
+  (define-key evil-insert-state-map (kbd "[1;5I") 'copilot-accept-completion-by-word)
 
 
   ;; (setq copilot-enable-predicates nil)
