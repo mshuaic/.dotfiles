@@ -5,15 +5,6 @@
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
 
-# -- session creation ----------------------------------------------------------
-
-# prompt for session name when creating a new session, possible values are:
-#   - true
-#   - false (default)
-#   - disabled (do not modify new-session bindings)
-tmux_conf_new_session_prompt=false
-
-
 # -- windows & pane creation ---------------------------------------------------
 
 # new window retains current path, possible values are:
@@ -42,6 +33,16 @@ tmux_conf_new_pane_reconnect_ssh=false
 
 
 # -- display -------------------------------------------------------------------
+
+# RGB 24-bit colour support, possible values are:
+#   - true
+#   - false (default)
+#   - disabled (do not modify new-session bindings)
+tmux_conf_new_session_prompt=false
+
+
+# -- theming -------------------------------------------------------------------
+
 
 # RGB 24-bit colour support, possible values are:
 #   - true
@@ -371,7 +372,9 @@ tmux_conf_copy_to_os_clipboard=false
 # bind C-a send-prefix
 
 # if you don't want Oh my tmux! to alter a binding, use #!important
-# bind c new-window -c '#{pane_current_path}' #!important
+
+# bind v new-window -c #{pane_current_path} #!important
+
 
 # move status line to top
 #set -g status-position top
@@ -487,7 +490,8 @@ set -s user-keys[1] ""
 bind-key -n User1 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l ''; fi\""
 # C-S-Z
 set -s user-keys[2] ""
-bind-key -n User2 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l ''; fi\""
+bind-key -n User2 run "bash -c \"if [[ $(tmux display -p -F '#{pane_current_command}') == \"emacs*\" ]]; then tmux send-keys -l '[6z'; fi\""
+
 
 set -g mouse on
 unbind -n C-l
@@ -499,6 +503,7 @@ bind -nr PgDn next-window     # select next window
 # unbind -n C-,
 set -g pane-border-status top
 set -g pane-border-format "#T"
+
 
 bind -n C-PgUp switch-client -p
 bind -n C-PgDn switch-client -n

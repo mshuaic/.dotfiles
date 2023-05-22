@@ -76,11 +76,9 @@ pyenv install $(pyenv install --list | sed 's/^  //' | grep -v - | grep --invert
 #    chsh -s "$(which zsh)"
 #fi
 
-#TODO: refactoring this part later
 git config --global user.email "mshuaic@users.noreply.github.com" 
 git config --global user.name "Mark"
 git config --global submodule.recurse true
-git config --global core.excludesfile ~/.gitignore
 
 # trash auto empty
 if ! crontab -l | grep trash-empty >/dev/null; then
