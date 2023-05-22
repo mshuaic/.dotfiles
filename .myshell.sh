@@ -137,4 +137,4 @@ export XDG_RUNTIME_DIR="/run/user/$UID"
 export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
 
 [[ ":$PATH:" =~ ":$(brew --prefix openjdk@17):" ]] || PATH="$PATH:$(brew --prefix openjdk@17)"
-# export PATH="$(brew --prefix openjdk@17)/bin:$PATH"
+export PATH="$(brew --prefix openjdk@17)/bin:$PATH"

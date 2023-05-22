@@ -75,14 +75,14 @@ plugins=(
     git
     virtualenv
     fzf
-    # asdf
+    asdf
     # ssh
     # tmuxinator
     # docker
     # x-copy-paste
     # clipboard
     # emacs
-    # ssh-agent
+    ssh-agent
 )
 
 ######## begin ssh-agent config ###############
