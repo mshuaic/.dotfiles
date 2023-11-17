@@ -1,4 +1,4 @@
-;30601;0c;; -*- mode: emacs-lisp; lexical-binding: t -*-
+;; -*- mode: emacs-lisp; lexical-binding: t -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -32,12 +32,16 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(ruby
+   '(tabs
+     ruby
      systemd
      sql
      csv
      yaml
-     typescript
+     (typescript :variables
+                 typescript-fmt-tool 'prettier
+                 typescript-fmt-on-save t
+                 typescript-backend 'lsp)
      rust
      (solidity :variables
                solidity-flycheck-solc-checker-active t
@@ -58,7 +62,7 @@ This function should only modify configuration layer settings."
          go-tab-width 4
          go-format-before-save t)
 
-     ;; prettier
+     prettier
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -92,6 +96,7 @@ This function should only modify configuration layer settings."
      ;; syntax-checking
      ;; version-control
      (treemacs :variables
+               treemacs-indentation 1
                treemacs-use-filewatch-mode t
                treemacs-use-follow-mode 'tag
                treemacs-width 30
@@ -113,6 +118,8 @@ This function should only modify configuration layer settings."
                                                           :fetcher github
                                                           :repo "zerolfx/copilot.el"
                                                           :files ("*.el" "dist")))
+                                      (nerd-icons)
+                                      (treemacs-nerd-icons)
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -462,7 +469,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
-   dotspacemacs-folding-method 'evil
+   dotspacemacs-folding-method 'origami
 
    ;; If non-nil and `dotspacemacs-activate-smartparens-mode' is also non-nil,
    ;; `smartparens-strict-mode' will be enabled in programming modes.
@@ -695,6 +702,9 @@ This command does not push text to `kill-ring'."
     (treemacs-define-RET-action 'file-node-open   #'treemacs-visit-node-in-most-recently-used-window)
     (treemacs-define-RET-action 'file-node-closed #'treemacs-visit-node-in-most-recently-used-window)
     )
+  (use-package treemacs-nerd-icons
+    :config
+    (treemacs-load-theme "nerd-icons"))
 
   ;; lsp configuration
   (setq lsp-ui-doc-show-with-cursor t)
@@ -709,7 +719,8 @@ This command does not push text to `kill-ring'."
   (add-hook 'solidity-mode-hook #'company-mode)
 
   (with-eval-after-load 'org
-    (add-to-list 'org-emphasis-alist '("+" (:background "grey" :foreground "MidnightBlue" :strike-through t)))
+    ;; (add-to-list 'org-emphasis-alist '("+" (:background "grey" :foreground "MidnightBlue" :strike-through t)))
+    (add-to-list 'org-emphasis-alist '("+" (:strike-through t)))
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((python . t)
@@ -741,6 +752,18 @@ This command does not push text to `kill-ring'."
 
   ;; (setq copilot-enable-predicates nil)
   (setq copilot-enable-predicates '(copilot--buffer-changed))
+
+  (load "~/circom-mode/circom-mode.el")
+  (add-to-list 'auto-mode-alist '("\\.circom\\'" . circom-mode))
+
+  (spacemacs/set-leader-keys-for-major-mode 'solidity-mode  "==" 'prettier-js)
+  (spacemacs/declare-prefix-for-mode 'solidity-mode "=" "format")
+  (add-hook 'solidity-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'prettier-js nil 'make-it-local)))
+
+  (define-key origami-mode-map (kbd "M-=") 'origami-recursively-toggle-node)
+  (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable)
 
 )
 
