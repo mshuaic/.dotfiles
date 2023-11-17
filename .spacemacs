@@ -32,7 +32,10 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(tabs
+   '((tabs :variables
+           centaur-tabs-set-icons nil
+           ;; centaur-tabs-icon-type 'nerd-icons
+           )
      ruby
      systemd
      sql
@@ -764,7 +767,6 @@ This command does not push text to `kill-ring'."
 
   (define-key origami-mode-map (kbd "M-=") 'origami-recursively-toggle-node)
   (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable)
-
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
